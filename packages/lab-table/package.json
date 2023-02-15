@@ -1,0 +1,8 @@
+{
+  "name": "lab-table",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "Anvar Abdulsatarov",
+  "license": "MIT",
+  "private": true
+}

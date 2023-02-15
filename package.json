@@ -1,0 +1,20 @@
+{
+  "name": "lab-next",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "start": "turbo start",
+    "lint": "turbo lint",
+    "app-add": "yarn workspace lab-next-app add",
+    "app-remove": "yarn workspace lab-next-app remove"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "turbo": "^1.7.4"
+  }
+}
