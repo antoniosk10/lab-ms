@@ -1,0 +1,16 @@
+{
+  "name": "lab-api",
+  "version": "0.0.0",
+  "main": "src/index.ts",
+  "author": "Anvar Abdulsatarov",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@apollo/client": "^3.7.8",
+    "graphql": "^16.6.0"
+  },
+  "devDependencies": {
+    "typescript": "4.9.5"
+  }
+}
