@@ -5,14 +5,18 @@
 /.pnp
 .pnp.js
 .turbo
+/apps/lab-next-app/.next
 /apps/lab-next-app/.next/
+apps/lab-next-app/.next
+apps/lab-next-app/.next/
+
 # testing
 /coverage
 
 # next.js
 /.next/
 /out/
-
+/**/.next/
 # production
 /build
 
@@ -35,3 +39,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+

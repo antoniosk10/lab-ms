@@ -7,6 +7,8 @@
     "build": "turbo build",
     "start": "turbo start",
     "lint": "turbo lint",
+    "compile": "graphql-codegen --config ./config/codegen.ts",
+    "watch": "graphql-codegen -w --config ./config/codegen.ts",
     "app-add": "yarn workspace lab-next-app add",
     "app-remove": "yarn workspace lab-next-app remove"
   },

@@ -2,10 +2,10 @@ import React from 'react'
 
 type Props = Record<string, unknown>
 
-function hi(props: Props) {
+function WelcomeContainer(props: Props) {
   return (
     <>content</>
   )
 }
 
-export default hi
+export default WelcomeContainer
