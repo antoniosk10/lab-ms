@@ -3,10 +3,10 @@ import environment from './environment'
 
 const config: CodegenConfig = {
   // schema: 'https://spacex-production.up.railway.app/',
-  schema: 'https://swapi-graphql.netlify.app/.netlify/functions/index',
+  // schema: 'https://swapi-graphql.netlify.app/.netlify/functions/index',
+  schema: 'http://localhost:3000/api/graph-ql',
   documents: [
-    `./**/*.ts`,
-    `./**/*.tsx`,
+    `./**/src/**/*.graphql`,
   ],
   generates: {
     [`${environment.graphqlGenPath}/`]: {
@@ -14,6 +14,7 @@ const config: CodegenConfig = {
       plugins: [
         'typescript',
         'typescript-operations',
+        'typescript-graphql-request'
       ],
       presetConfig: {
         gqlTagName: 'gql'
