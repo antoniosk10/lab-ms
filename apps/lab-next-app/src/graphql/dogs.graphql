@@ -1,0 +1,13 @@
+query GetDogs {
+    dogs {
+        name
+        ageInWeeks
+        attributes {
+            key
+            value
+        }
+    }
+    hellos {
+        name
+    }
+}

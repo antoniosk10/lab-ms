@@ -1,26 +1,18 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
+import 'reflect-metadata'
 import { ApolloServer } from '@apollo/server'
 import { startServerAndCreateNextHandler } from '@as-integrations/next'
-import { gql } from 'graphql-tag'
 
+import { buildSchema } from 'type-graphql'
 
-const resolvers = {
-  Query: {
-    hello: () => 'world'
-  }
-}
+import { DogsResolver } from '@src/graphql/schema/dogs.resolver'
 
-
-const typeDefs = gql(/* GraphQL */ `
-  type Query {
-    hello: String
-  }
-`)
+const schema = await buildSchema({
+  resolvers: [DogsResolver]
+})
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers
+  schema
 })
 
 export const config = {

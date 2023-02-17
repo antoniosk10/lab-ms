@@ -1,0 +1,15 @@
+{
+  "name": "Nextjs schema",
+  "schemaPath": "./debug/graphql/schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "NextJS GraphQL endpoint": {
+        "url": "http://localhost:3000/api/graph-ql",
+        "headers": {
+          "user-agent": "JS GraphQL"
+        },
+        "introspect": true
+      }
+    }
+  }
+}
