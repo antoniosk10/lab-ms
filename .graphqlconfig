@@ -4,7 +4,7 @@
   "extensions": {
     "endpoints": {
       "NextJS GraphQL endpoint": {
-        "url": "http://localhost:3000/api/graph-ql",
+        "url": "http://localhost:8081",
         "headers": {
           "user-agent": "JS GraphQL"
         },

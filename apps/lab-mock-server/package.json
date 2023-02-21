@@ -7,8 +7,6 @@
   "private": true,
   "scripts": {
     "compile": "tsc",
-    "server:dev1": "yarn compile && nodemon ./dist/server.js",
-    "server:dev0": "nodemon --exec ts-node --transpile-only ./src/server.ts",
     "server:dev": "cross-env NODE_ENV=development ts-node-dev --experimental-modules --respawn --transpile-only -r tsconfig-paths/register ./src/server.ts"
   },
   "dependencies": {

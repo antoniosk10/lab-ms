@@ -1,6 +1,17 @@
-import { GET_DOGS } from '../queries'
 import { useQuery } from '@apollo/client'
+import { graphql } from '@gql-gen/gql'
+
+export const GET_BOOKS = graphql(/*GraphQL*/`
+  query GetBooks {
+    books {
+      name
+    }
+  }
+`)
+
+
 
 export const useDogList = () => {
-  return useQuery(GET_DOGS)
+
+  const {data} = useQuery(GET_BOOKS)
 }

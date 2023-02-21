@@ -12,7 +12,8 @@ const client = new ApolloClient({
 })
 */
 
-const client = initApolloClient('http://localhost:3000/api/graph-ql')
+// const client = initApolloClient('http://localhost:3000/api/graph-ql')
+const client = initApolloClient('http://localhost:8081')
 
 
 export default function App({ Component, pageProps }: LayoutAppProps) {
