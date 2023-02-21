@@ -1,10 +1,6 @@
-import { GET_LOCATIONS } from '../queries'
+import { GET_DOGS } from '../queries'
 import { useQuery } from '@apollo/client'
 
-export const useTest = () => {
-  return useQuery(GET_LOCATIONS, {
-    variables: {
-
-    }
-  })
+export const useDogList = () => {
+  return useQuery(GET_DOGS)
 }

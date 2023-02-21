@@ -6,11 +6,14 @@
     "dev": "turbo dev",
     "build": "turbo build",
     "start": "turbo start",
+    "server:dev": "turbo server:dev",
     "lint": "turbo lint",
     "compile": "graphql-codegen --config ./config/codegen.ts",
     "watch": "graphql-codegen -w --config ./config/codegen.ts",
-    "app-add": "yarn workspace lab-next-app add",
-    "app-remove": "yarn workspace lab-next-app remove"
+    "app:add": "yarn workspace lab-next-app add",
+    "app:remove": "yarn workspace lab-next-app remove",
+    "server:add": "yarn workspace lab-mock-server add",
+    "server:remove": "yarn workspace lab-mock-server remove"
   },
   "workspaces": [
     "apps/*",
@@ -19,6 +22,7 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^3.0.0",
     "@graphql-codegen/client-preset": "^2.0.0",
+    "@graphql-codegen/typescript": "^3.0.0",
     "@graphql-codegen/typescript-graphql-request": "^4.5.8",
     "@graphql-codegen/typescript-operations": "^3.0.0",
     "turbo": "^1.7.4"

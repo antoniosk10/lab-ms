@@ -1,6 +1,6 @@
 import { Query, Resolver } from 'type-graphql'
-import { Dog, Hello } from '@src/graphql/schema/dogs'
-import dogs from '../../mock-data/dogs.json'
+import { Dog, Hello } from '@src/graph-ql/schema/dogs'
+import dogs from '@src/mock-data/dogs.json'
 
 @Resolver()
 export class DogsResolver {

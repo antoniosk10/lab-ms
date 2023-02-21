@@ -5,6 +5,7 @@
       "outputs": [".next/**"]
     },
     "lint": {},
-    "dev": {}
+    "dev": {},
+    "server:dev": {}
   }
 }
