@@ -1,9 +1,5 @@
 /* eslint-disable */
-import { GraphQLResolveInfo } from "graphql";
 import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
-import { GraphQLClient } from "graphql-request";
-import * as Dom from "graphql-request/dist/types.dom";
-import gql from "graphql-tag";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -26,30 +22,125 @@ export type Scalars = {
 
 export type Book = {
   __typename?: "Book";
-  author?: Maybe<Scalars["String"]>;
-  name?: Maybe<Scalars["String"]>;
-  title?: Maybe<Scalars["String"]>;
+  author: Scalars["String"];
+  name: Scalars["String"];
+  title: Scalars["ID"];
+};
+
+export type Dog = {
+  __typename?: "Dog";
+  ageInWeeks: Scalars["Float"];
+  attributes: Array<DogAttribute>;
+  availableDate: Scalars["String"];
+  breed: Scalars["String"];
+  color: Scalars["String"];
+  description: Array<Scalars["String"]>;
+  fee: Scalars["Float"];
+  image: Scalars["String"];
+  name: Scalars["ID"];
+  sex: Scalars["String"];
+  weight: Scalars["Float"];
+};
+
+export type DogAttribute = {
+  __typename?: "DogAttribute";
+  key: Scalars["ID"];
+  value: Scalars["String"];
+};
+
+export type Hello = {
+  __typename?: "Hello";
+  name: Scalars["String"];
 };
 
 export type Query = {
   __typename?: "Query";
-  books?: Maybe<Array<Maybe<Book>>>;
+  book: Book;
+  books: Array<Book>;
+  dogs: Array<Dog>;
+  hellos: Array<Hello>;
 };
 
-export type GetBooksQueryVariables = Exact<{ [key: string]: never }>;
+export type QueryBookArgs = {
+  title: Scalars["String"];
+};
 
-export type GetBooksQuery = {
+export type GetBookDetailQueryVariables = Exact<{
+  title: Scalars["String"];
+}>;
+
+export type GetBookDetailQuery = {
   __typename?: "Query";
-  books?: Array<{ __typename?: "Book"; name?: string | null } | null> | null;
+  book: { __typename?: "Book"; title: string; author: string; name: string };
 };
 
-export const GetBooksDocument = {
+export type GetBookListQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetBookListQuery = {
+  __typename?: "Query";
+  books: Array<{ __typename?: "Book"; author: string; title: string }>;
+};
+
+export const GetBookDetailDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
       operation: "query",
-      name: { kind: "Name", value: "GetBooks" },
+      name: { kind: "Name", value: "GetBookDetail" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "title" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "book" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "title" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "title" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "title" } },
+                { kind: "Field", name: { kind: "Name", value: "author" } },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetBookDetailQuery, GetBookDetailQueryVariables>;
+export const GetBookListDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetBookList" },
       selectionSet: {
         kind: "SelectionSet",
         selections: [
@@ -59,7 +150,8 @@ export const GetBooksDocument = {
             selectionSet: {
               kind: "SelectionSet",
               selections: [
-                { kind: "Field", name: { kind: "Name", value: "name" } },
+                { kind: "Field", name: { kind: "Name", value: "author" } },
+                { kind: "Field", name: { kind: "Name", value: "title" } },
               ],
             },
           },
@@ -67,221 +159,4 @@ export const GetBooksDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<GetBooksQuery, GetBooksQueryVariables>;
-/** All built-in and custom scalars, mapped to their actual values */
-export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-};
-
-export type Book = {
-  __typename?: "Book";
-  author?: Maybe<Scalars["String"]>;
-  name?: Maybe<Scalars["String"]>;
-  title?: Maybe<Scalars["String"]>;
-};
-
-export type Query = {
-  __typename?: "Query";
-  books?: Maybe<Array<Maybe<Book>>>;
-};
-
-export type GetBooksQueryVariables = Exact<{ [key: string]: never }>;
-
-export type GetBooksQuery = {
-  __typename?: "Query";
-  books?: Array<{ __typename?: "Book"; name?: string | null } | null> | null;
-};
-
-export type ResolverTypeWrapper<T> = Promise<T> | T;
-
-export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
-  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
-};
-export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
-  | ResolverFn<TResult, TParent, TContext, TArgs>
-  | ResolverWithResolve<TResult, TParent, TContext, TArgs>;
-
-export type ResolverFn<TResult, TParent, TContext, TArgs> = (
-  parent: TParent,
-  args: TArgs,
-  context: TContext,
-  info: GraphQLResolveInfo
-) => Promise<TResult> | TResult;
-
-export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (
-  parent: TParent,
-  args: TArgs,
-  context: TContext,
-  info: GraphQLResolveInfo
-) => AsyncIterable<TResult> | Promise<AsyncIterable<TResult>>;
-
-export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
-  parent: TParent,
-  args: TArgs,
-  context: TContext,
-  info: GraphQLResolveInfo
-) => TResult | Promise<TResult>;
-
-export interface SubscriptionSubscriberObject<
-  TResult,
-  TKey extends string,
-  TParent,
-  TContext,
-  TArgs
-> {
-  subscribe: SubscriptionSubscribeFn<
-    { [key in TKey]: TResult },
-    TParent,
-    TContext,
-    TArgs
-  >;
-  resolve?: SubscriptionResolveFn<
-    TResult,
-    { [key in TKey]: TResult },
-    TContext,
-    TArgs
-  >;
-}
-
-export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
-  subscribe: SubscriptionSubscribeFn<any, TParent, TContext, TArgs>;
-  resolve: SubscriptionResolveFn<TResult, any, TContext, TArgs>;
-}
-
-export type SubscriptionObject<
-  TResult,
-  TKey extends string,
-  TParent,
-  TContext,
-  TArgs
-> =
-  | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
-  | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
-
-export type SubscriptionResolver<
-  TResult,
-  TKey extends string,
-  TParent = {},
-  TContext = {},
-  TArgs = {}
-> =
-  | ((
-      ...args: any[]
-    ) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
-  | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>;
-
-export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
-  parent: TParent,
-  context: TContext,
-  info: GraphQLResolveInfo
-) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
-
-export type IsTypeOfResolverFn<T = {}, TContext = {}> = (
-  obj: T,
-  context: TContext,
-  info: GraphQLResolveInfo
-) => boolean | Promise<boolean>;
-
-export type NextResolverFn<T> = () => Promise<T>;
-
-export type DirectiveResolverFn<
-  TResult = {},
-  TParent = {},
-  TContext = {},
-  TArgs = {}
-> = (
-  next: NextResolverFn<TResult>,
-  parent: TParent,
-  args: TArgs,
-  context: TContext,
-  info: GraphQLResolveInfo
-) => TResult | Promise<TResult>;
-
-/** Mapping between all available schema types and the resolvers types */
-export type ResolversTypes = {
-  Book: ResolverTypeWrapper<Book>;
-  String: ResolverTypeWrapper<Scalars["String"]>;
-  Query: ResolverTypeWrapper<{}>;
-  Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
-};
-
-/** Mapping between all available schema types and the resolvers parents */
-export type ResolversParentTypes = {
-  Book: Book;
-  String: Scalars["String"];
-  Query: {};
-  Boolean: Scalars["Boolean"];
-};
-
-export type BookResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes["Book"] = ResolversParentTypes["Book"]
-> = {
-  author?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  title?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type QueryResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes["Query"] = ResolversParentTypes["Query"]
-> = {
-  books?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes["Book"]>>>,
-    ParentType,
-    ContextType
-  >;
-};
-
-export type Resolvers<ContextType = any> = {
-  Book?: BookResolvers<ContextType>;
-  Query?: QueryResolvers<ContextType>;
-};
-
-export const GetBooksDocument = gql`
-  query GetBooks {
-    books {
-      name
-    }
-  }
-`;
-
-export type SdkFunctionWrapper = <T>(
-  action: (requestHeaders?: Record<string, string>) => Promise<T>,
-  operationName: string,
-  operationType?: string
-) => Promise<T>;
-
-const defaultWrapper: SdkFunctionWrapper = (
-  action,
-  _operationName,
-  _operationType
-) => action();
-
-export function getSdk(
-  client: GraphQLClient,
-  withWrapper: SdkFunctionWrapper = defaultWrapper
-) {
-  return {
-    GetBooks(
-      variables?: GetBooksQueryVariables,
-      requestHeaders?: Dom.RequestInit["headers"]
-    ): Promise<GetBooksQuery> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<GetBooksQuery>(GetBooksDocument, variables, {
-            ...requestHeaders,
-            ...wrappedRequestHeaders,
-          }),
-        "GetBooks",
-        "query"
-      );
-    },
-  };
-}
-export type Sdk = ReturnType<typeof getSdk>;
+} as unknown as DocumentNode<GetBookListQuery, GetBookListQueryVariables>;

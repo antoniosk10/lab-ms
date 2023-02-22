@@ -13,7 +13,10 @@ import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel-plugin for production.
  */
 const documents = {
-  "query GetBooks {\n  books {\n    name\n  }\n}": types.GetBooksDocument,
+  "query GetBookDetail($title: String!) {\n  book(title: $title) {\n    title\n    author\n    name\n  }\n}":
+    types.GetBookDetailDocument,
+  "query GetBookList {\n  books {\n    author\n    title\n  }\n}":
+    types.GetBookListDocument,
 };
 
 /**
@@ -34,8 +37,14 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: "query GetBooks {\n  books {\n    name\n  }\n}"
-): (typeof documents)["query GetBooks {\n  books {\n    name\n  }\n}"];
+  source: "query GetBookDetail($title: String!) {\n  book(title: $title) {\n    title\n    author\n    name\n  }\n}"
+): (typeof documents)["query GetBookDetail($title: String!) {\n  book(title: $title) {\n    title\n    author\n    name\n  }\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "query GetBookList {\n  books {\n    author\n    title\n  }\n}"
+): (typeof documents)["query GetBookList {\n  books {\n    author\n    title\n  }\n}"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

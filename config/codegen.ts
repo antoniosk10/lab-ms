@@ -10,18 +10,10 @@ const config: CodegenConfig = {
   documents: [
     `./**/src/**/*.graphql`,
   ],
-  require: [
-    "ts-node/register"
-  ],
   generates: {
     [`${environment.graphqlGenPath}/`]: {
       preset: 'client',
-      plugins: [
-        'typescript',
-        'typescript-operations',
-        'typescript-resolvers',
-        'typescript-graphql-request'
-      ]
+      plugins: []
     }
   },
   hooks: { afterAllFileWrite: ['prettier --write'] },

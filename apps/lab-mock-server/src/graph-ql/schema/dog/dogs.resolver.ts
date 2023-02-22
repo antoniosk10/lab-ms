@@ -1,5 +1,5 @@
 import { Query, Resolver } from 'type-graphql'
-import { Dog, Hello } from '@src/graph-ql/schema/dogs'
+import { Dog, Hello } from '@src/graph-ql/schema/dog/dogs'
 import dogs from '@src/mock-data/dogs.json'
 
 @Resolver()

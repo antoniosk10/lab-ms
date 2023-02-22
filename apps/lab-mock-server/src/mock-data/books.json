@@ -1,10 +1,12 @@
 [
 {
   "title": "The Awakening",
-  "author": "Kate Chopin"
+  "author": "Kate Chopin",
+  "name": "Hello"
 },
   {
     "title": "City of Glass",
-    "author": "Paul Auster"
+    "author": "Paul Auster",
+    "name": "Hi"
   }
 ]

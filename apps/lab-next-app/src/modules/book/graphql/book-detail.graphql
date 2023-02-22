@@ -1,0 +1,7 @@
+query GetBookDetail($title: String!) {
+  book(title: $title){
+    title
+    author
+    name
+  }
+}

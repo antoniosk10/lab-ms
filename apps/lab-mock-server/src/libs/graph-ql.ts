@@ -1,41 +1,21 @@
-import { ApolloServer } from '@apollo/server';
-import { startStandaloneServer } from '@apollo/server/standalone';
-import books from '../mock-data/books.json'
+import { ApolloServer } from '@apollo/server'
+import { startStandaloneServer } from '@apollo/server/standalone'
+import { DogsResolver } from '../graph-ql/schema/dog/dogs.resolver'
+import { buildSchema } from 'type-graphql'
+import { BookResolver } from '@src/graph-ql/schema/book/book.resolver'
 
+export const startGraphQLServer = async (port: number | string) => {
+  const schema = await buildSchema({
+    resolvers: [BookResolver, DogsResolver]
+  })
 
-const typeDefs = `#graphql
-  # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
-  
-  # This "Book" type defines the queryable fields for every book in our data source.
-  type Book {
-      title: String
-      author: String
-      name: String
-  }
-  
-  # The "Query" type is special: it lists all of the available queries that
-  # clients can execute, along with the return type for each. In this
-  # case, the "books" query returns an array of zero or more Books (defined above).
-  type Query {
-      books: [Book]
-  }
-`;
+  const server = new ApolloServer({
+    schema
+  })
 
-// Resolvers define how to fetch the types defined in your schema.
-// This resolver retrieves books from the "books" array above.
-const resolvers = {
-  Query: {
-    books: () => books
-  },
-};
-
-const server = new ApolloServer({
-  typeDefs,
-  resolvers
-})
-
-export const startGraphQLServer = async (port: number | string) => await startStandaloneServer(server, {
-  listen: {
-    port: typeof port === 'string' ? parseInt(port) : port
-  }
-})
+  await startStandaloneServer(server, {
+    listen: {
+      port: typeof port === 'string' ? parseInt(port) : port
+    }
+  })
+}

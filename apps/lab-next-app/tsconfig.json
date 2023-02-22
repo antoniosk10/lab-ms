@@ -22,7 +22,8 @@
     "paths": {
       "@/*": ["./*"],
       "@src/*": ["./src/*"],
-      "@gql-gen/*": ["./src/graphql-gen/*"]
+      "@gql-gen/*": ["./src/graphql-gen/*"],
+      "@pages/*": ["./src/modules/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

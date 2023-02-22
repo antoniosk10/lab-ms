@@ -1,13 +1,15 @@
 import { useQuery } from '@apollo/client'
 import { graphql } from '@gql-gen/gql'
 
-export const GET_BOOKS = graphql(/*GraphQL*/`
-  query GetBooks {
-    books {
-      name
-    }
+type A = Parameters<typeof graphql>[0]
+
+const argument: A = `query GetDogs {
+  dogs {
+    name
   }
-`)
+}`
+
+export const GET_BOOKS = graphql(argument)
 
 
 

@@ -1,0 +1,41 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+  query: Query
+}
+
+type Book {
+  author: String!
+  name: String!
+  title: ID!
+}
+
+type Dog {
+  ageInWeeks: Float!
+  attributes: [DogAttribute!]!
+  availableDate: String!
+  breed: String!
+  color: String!
+  description: [String!]!
+  fee: Float!
+  image: String!
+  name: ID!
+  sex: String!
+  weight: Float!
+}
+
+type DogAttribute {
+  key: ID!
+  value: String!
+}
+
+type Hello {
+  name: String!
+}
+
+type Query {
+  book(title: String!): Book!
+  books: [Book!]!
+  dogs: [Dog!]!
+  hellos: [Hello!]!
+}

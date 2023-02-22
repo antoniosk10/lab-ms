@@ -1,0 +1,6 @@
+query GetBookList {
+  books {
+    author
+    title
+  }
+}
