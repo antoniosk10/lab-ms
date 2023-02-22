@@ -1,8 +1,8 @@
 import React from 'react'
-import { GetBookListQuery } from '@gql-gen/graphql'
+import { BookListQuery } from '../../graphql/book-list.generated'
 
 type Props = {
-  books: GetBookListQuery['books']
+  books: BookListQuery['books']
 }
 
 function BookList({ books }: Props) {

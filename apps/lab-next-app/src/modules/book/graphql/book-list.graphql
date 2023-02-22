@@ -1,4 +1,4 @@
-query GetBookList {
+query BookList {
   books {
     author
     title

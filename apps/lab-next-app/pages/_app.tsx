@@ -1,26 +1,18 @@
 import type { AppProps } from 'next/app'
 import { LayoutPageType } from '@src/types'
-import { ApolloProvider, initApolloClient } from 'lab-api'
+import { ApolloProvider } from 'lab-api'
+import { apolloClient } from '@src/api/apollo-client'
 
 type LayoutAppProps = AppProps & {
   Component: LayoutPageType
 }
-/*
-const client = new ApolloClient({
-  uri: 'https://flyby-gateway.herokuapp.com/',
-  cache: new InMemoryCache()
-})
-*/
-
-// const client = initApolloClient('http://localhost:3000/api/graph-ql')
-const client = initApolloClient('http://localhost:8081')
 
 
 export default function App({ Component, pageProps }: LayoutAppProps) {
   const getLayout = Component.getLayout ?? ((page) => page)
 
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={apolloClient}>
       {getLayout(<Component {...pageProps} />)}
     </ApolloProvider>
   )

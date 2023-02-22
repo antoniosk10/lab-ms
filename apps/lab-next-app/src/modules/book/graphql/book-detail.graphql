@@ -1,4 +1,4 @@
-query GetBookDetail($title: String!) {
+query BookDetail($title: String!) {
   book(title: $title){
     title
     author
