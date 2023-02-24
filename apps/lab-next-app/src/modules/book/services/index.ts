@@ -5,11 +5,11 @@ export const useBookList = () => {
   return useBookListQuery()
 }
 
-export const useBookDetail = () => {
+export const useBookDetail = (title: string) => {
   return useBookDetailQuery ({
     ssr: true,
     variables: {
-      title: 'some name'
+      title
     }
   })
 }
