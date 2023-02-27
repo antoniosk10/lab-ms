@@ -1,0 +1,11 @@
+{
+  "name": "lab-field",
+  "version": "0.0.1",
+  "main": "src/index.ts",
+  "author": "Anvar Abdulsatarov",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@mui/material": "^5.11.10"
+  }
+}
