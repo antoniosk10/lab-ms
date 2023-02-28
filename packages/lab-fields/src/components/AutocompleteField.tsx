@@ -2,7 +2,7 @@ import * as React from 'react'
 import TextField from '@mui/material/TextField'
 import Autocomplete, { AutocompleteProps } from '@mui/material/Autocomplete'
 import CircularProgress from '@mui/material/CircularProgress'
-import { Field, FieldProps } from 'formik'
+import { Control, Controller } from 'react-hook-form'
 import { AutocompleteFreeSoloValueMapping } from '@mui/material'
 
 function sleep (delay = 0) {
@@ -24,6 +24,7 @@ export type AutocompleteFieldProps<
   api: string
   name: string
   label?: string
+  control: Control
   variant?: 'standard' | 'filled' | 'outlined'
   getOptionLabel?: (option: OptionType | AutocompleteFreeSoloValueMapping<false>) => string
   isOptionEqualToValue?: (option: OptionType, value: OptionType) => boolean
@@ -46,8 +47,7 @@ function AutocompleteField<
     api,
     name,
     label,
-    size = 'small',
-    variant = 'standard',
+    control,
     getOptionLabel = defaultGetOptionLabel,
     isOptionEqualToValue = defaultIsOptionEqualToValue,
     ...rest
@@ -89,8 +89,10 @@ function AutocompleteField<
   }, [open])
 
   return (
-    <Field name={name}>
-      {({ field, form }: FieldProps) => (
+    <Controller
+      name={name}
+      control={control}
+      render={({ field }) => (
         <Autocomplete
           sx={{ width: '100%' }}
           open={open}
@@ -101,7 +103,7 @@ function AutocompleteField<
             setOpen(false)
           }}
           value={field.value}
-          onChange={(e, value) => form.setFieldValue(field.name || api, value)}
+          onChange={(e, value) => field.onChange(value)}
           isOptionEqualToValue={isOptionEqualToValue}
           getOptionLabel={getOptionLabel}
           options={options}
@@ -111,8 +113,6 @@ function AutocompleteField<
               {...params}
               name={field.name}
               label={label}
-              size={size}
-              variant={variant}
               InputProps={{
                 ...params.InputProps,
                 endAdornment: (
@@ -127,7 +127,7 @@ function AutocompleteField<
           {...rest}
         />
       )}
-    </Field>
+    />
   )
 }
 

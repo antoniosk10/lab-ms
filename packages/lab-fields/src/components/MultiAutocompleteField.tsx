@@ -2,7 +2,7 @@ import * as React from 'react'
 import Autocomplete, { AutocompleteProps } from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 import { AutocompleteFreeSoloValueMapping } from '@mui/material'
-import { Field, FieldProps } from 'formik'
+import { Control, Controller } from 'react-hook-form'
 import CircularProgress from '@mui/material/CircularProgress'
 
 function sleep (delay = 0) {
@@ -23,6 +23,7 @@ export type MultiAutocompleteFieldProps<
   api: string
   name: string
   label?: string
+  control: Control
   variant?: 'standard' | 'filled' | 'outlined'
   getOptionLabel?: (option: OptionType | AutocompleteFreeSoloValueMapping<false>) => string
   isOptionEqualToValue?: (option: OptionType, value: OptionType) => boolean
@@ -44,8 +45,7 @@ function MultiAutocompleteField<
     api,
     name,
     label,
-    size = 'small',
-    variant = 'standard',
+    control,
     getOptionLabel = defaultGetOptionLabel,
     isOptionEqualToValue = defaultIsOptionEqualToValue,
     ...rest
@@ -87,8 +87,10 @@ function MultiAutocompleteField<
   }, [open])
 
   return (
-    <Field name={name}>
-      {({ field, form }: FieldProps) => (
+    <Controller
+      name={name}
+      control={control}
+      render={({ field }) => (
         <Autocomplete
           sx={{ width: '100%' }}
           multiple={true}
@@ -105,15 +107,13 @@ function MultiAutocompleteField<
           isOptionEqualToValue={isOptionEqualToValue}
           defaultValue={[] as OptionType[]}
           value={field.value || []}
-          onChange={(e, value) => form.setFieldValue(field.name || api, value)}
+          onChange={(e, value) => field.onChange(value)}
           loading={loading}
           renderInput={(params) => (
             <TextField
               {...params}
               name={field.name}
               label={label}
-              size={size}
-              variant={variant}
               InputProps={{
                 ...params.InputProps,
                 endAdornment: (
@@ -128,7 +128,7 @@ function MultiAutocompleteField<
           {...rest}
         />
       )}
-    </Field>
+    />
   )
 }
 

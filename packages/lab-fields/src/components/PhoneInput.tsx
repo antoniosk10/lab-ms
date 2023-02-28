@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import ReactPhoneInput, { PhoneInputProps } from 'react-phone-input-2'
 import { FormHelperText } from '@mui/material'
 import { styled } from '@mui/material/styles'

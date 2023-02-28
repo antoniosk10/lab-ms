@@ -1,6 +1,6 @@
-import React from 'react'
+import * as React from 'react'
 
-import MultiAutocompleteField, { MultiAutocompleteFieldProps } from '@src/components/Fields/Base/MultiAutocompleteField'
+import MultiAutocompleteField, { MultiAutocompleteFieldProps } from './MultiAutocompleteField'
 
 import { DefaultOptionType } from './AutocompleteField'
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import Box, { BoxProps } from '@mui/material/Box'
 
 import TimeField, { TimeFieldProps } from './TimeField'

@@ -1,25 +1,28 @@
-import React from 'react'
+import * as React from 'react'
 import Switch, { SwitchProps } from '@mui/material/Switch'
-import { Field, FieldProps } from 'formik'
+import { Control, Controller } from 'react-hook-form'
 import { FormControlLabel } from '@mui/material'
 
 type Props = {
   name: string
   label: React.ReactNode | string
+  control: Control
 } & SwitchProps
 
-function SwitchField ({ name, label }: Props) {
+function SwitchField ({ name, label, control }: Props) {
   return (
-    <Field name={name}>
-      {({ field }: FieldProps) => (
+    <Controller
+      name={name}
+      control={control}
+      render={({ field }) => (
         <FormControlLabel
           label={label}
           control={(
-            <Switch checked={field.checked} onChange={field.onChange} />
+            <Switch checked={field.value} onChange={field.onChange} />
           )}
         />
       )}
-    </Field>
+    />
   )
 }
 

@@ -1,33 +1,30 @@
 import MuiTextField, { TextFieldProps as MuiTextFieldProps } from '@mui/material/TextField'
-import { Field, FieldProps } from 'formik'
+import { Control, Controller } from 'react-hook-form'
 
 export type TextFieldProps = {
   name: string
+  control: Control
 } & MuiTextFieldProps
 
-const TextField = (props: TextFieldProps) => {
+function TextField(props: TextFieldProps) {
   const {
     name,
-    size = 'small',
-    variant = 'standard',
+    control,
     ...rest
   } = props
-
+  
   return (
-    <Field name={name}>
-      {({ field }: FieldProps) => (
+    <Controller
+      name={name}
+      control={control}
+      render={({ field }) => (
         <MuiTextField
           name={field.name}
-          value={field.value || ''}
-          size={size}
-          variant={variant}
           onChange={field.onChange}
-          fullWidth={true}
           {...rest}
         />
       )}
-    </Field>
-
+    />
   )
 }
 

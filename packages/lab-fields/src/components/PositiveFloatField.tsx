@@ -1,16 +1,19 @@
-import React from 'react'
-import { Field, FieldProps } from 'formik'
+import * as React from 'react'
+import { Controller, Control } from 'react-hook-form'
 
-import InputFormat, { InputFormatProps } from '@src/components/Fields/Base/InputFormat'
+import InputFormat, { InputFormatProps } from './InputFormat'
 
 export type PositiveFloatFieldProps = {
   name: string
+  control: Control
 } & Omit<InputFormatProps, 'value' | 'onChange'>
 
-function FloatField ({ name, ...props }: PositiveFloatFieldProps) {
+function FloatField ({ name, control, ...props }: PositiveFloatFieldProps) {
   return (
-    <Field name={name}>
-      {({ field }: FieldProps) => (
+    <Controller
+      name={name}
+      control={control}
+      render={({ field }) => (
         <InputFormat
           name={field.name}
           value={field.value}
@@ -19,7 +22,7 @@ function FloatField ({ name, ...props }: PositiveFloatFieldProps) {
           {...props}
         />
       )}
-    </Field>
+    />
   )
 }
 

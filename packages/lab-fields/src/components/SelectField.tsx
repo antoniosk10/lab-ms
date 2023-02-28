@@ -1,15 +1,16 @@
-import React from 'react'
+import * as React from 'react'
 import Select, { SelectProps } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import InputLabel from '@mui/material/InputLabel'
 import FormControl from '@mui/material/FormControl'
-import { Field, FieldProps } from 'formik'
+import { Control, Controller } from 'react-hook-form'
 
 export type OptionType = { value: string | number, name: string | number }
 
 export type SelectFieldProps = {
   name: string
   label: string
+  control: Control
   options: OptionType[]
 } & SelectProps
 
@@ -17,14 +18,17 @@ function SelectField (props: SelectFieldProps) {
   const {
     name,
     label,
+    control,
     options,
     size = 'small',
     ...rest
   } = props
 
   return (
-    <Field name={name}>
-      {({ field }: FieldProps) => (
+    <Controller
+      name={name}
+      control={control}
+      render={({ field }) => (
         <FormControl fullWidth={true} size={size}>
           <InputLabel>{label}</InputLabel>
           <Select
@@ -43,7 +47,7 @@ function SelectField (props: SelectFieldProps) {
           </Select>
         </FormControl>
       )}
-    </Field>
+    />
   )
 }
 

@@ -1,11 +1,11 @@
-import React from 'react'
+import * as React from 'react'
 import { NumericFormat, NumericFormatProps } from 'react-number-format'
 import TextField, { TextFieldProps } from '@mui/material/TextField'
 
 export type InputFormatProps = {
   value: string | number
   onChange: React.ChangeEventHandler
-} & Omit<NumericFormatProps, 'customInput'> & TextFieldProps
+} & Omit<NumericFormatProps, 'customInput'>
 
 function InputFormat ({ value, onChange, ...props }: InputFormatProps) {
   return (
