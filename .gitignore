@@ -40,6 +40,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+/**/node_modules/
+/**/.bin/
+/**/dist/
+
 /apps/lab-next-app/node_modules/
 /apps/lab-api/node_modules/
 /.bin/

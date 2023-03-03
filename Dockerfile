@@ -1,4 +1,4 @@
-FROM node:18-alpine AS base
+FROM node:16.19.0-alpine AS base
 
 FROM base AS deps
 
@@ -7,11 +7,14 @@ RUN apk update
 
 WORKDIR /app
 
-COPY package.json yarn.lock ./
+COPY package.json turbo.json ./
 COPY apps/lab-next-app/package.json ./apps/lab-next-app/
 COPY packages ./packages
 
-RUN yarn --frozen-lockfile
+RUN cat ./apps/lab-next-app/package.json
+
+RUN yarn cache clean && \
+    yarn
 
 
 
@@ -21,7 +24,10 @@ RUN apk add --no-cache libc6-compat
 
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/yarn.lock ./
+
 COPY . .
+COPY --from=deps /app/yarn.lock ./
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
@@ -34,8 +40,7 @@ RUN yarn build
 
 # Copy all files built for deployment
 COPY /apps/lab-next-app/.next ./.next
-
-#COPY /apps/lab-next-app/.next /.next
+RUN ls -la ./.next/standalone
 
 # Production image, copy all the files and run next
 FROM base AS runner
@@ -56,10 +61,10 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 
-#USER nextjs
+USER nextjs
 
 EXPOSE 3000
 
 ENV PORT 3000
 
-CMD ["node", "server.js"]
+CMD ["node", "./apps/lab-next-app/server.js"]

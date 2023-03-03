@@ -1,3 +1,5 @@
+// const path = require('path')
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -5,6 +7,9 @@ const nextConfig = {
   transpilePackages: [
       'lab-api'
   ],
+  // experimental: {
+  //   outputFileTracingRoot: path.join(__dirname, "../../")
+  // },
   webpack: (config, context) => {
     if(!config.experiments) {
       config.experiments = {}
