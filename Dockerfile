@@ -40,7 +40,7 @@ RUN yarn build
 
 # Copy all files built for deployment
 COPY /apps/lab-next-app/.next ./.next
-RUN ls -la ./.next/standalone
+RUN ls -la ./.next
 
 # Production image, copy all the files and run next
 FROM base AS runner
@@ -53,7 +53,7 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 # Uncomment if public folder exists
-#COPY --from=builder /app/.next/public ./public
+COPY --from=builder app/apps/lab-next-app ./public
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing

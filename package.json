@@ -4,7 +4,7 @@
   "private": true,
   "packageManager": "yarn@1.22.19",
   "scripts": {
-    "predev": "yarn compiyle",
+    "predev": "yarn compile",
     "dev": "turbo dev",
     "build": "turbo build",
     "start": "turbo start",
