@@ -4,7 +4,7 @@
   "extensions": {
     "endpoints": {
       "NextJS GraphQL endpoint": {
-        "url": "https://lab-ms.uz/v1/admin-user",
+        "url": "https://lab-ms.uz/v1/graphql",
         "headers": {
           "user-agent": "JS GraphQL"
         },
