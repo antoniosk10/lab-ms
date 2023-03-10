@@ -1,3 +1,3 @@
 import { initApolloClient } from 'lab-api'
 
-export const apolloClient = initApolloClient('http://localhost:8081')
+export const apolloClient = initApolloClient('https://lab-ms.uz')

@@ -3,7 +3,7 @@ import environment from './environment'
 
 const config: CodegenConfig = {
     overwrite: true,
-    schema: 'http://localhost:8081',
+    schema: 'https://lab-ms.uz/v1/admin-user',
     documents: [
       `./**/src/**/*.graphql`
     ],

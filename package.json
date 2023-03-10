@@ -5,6 +5,7 @@
   "packageManager": "yarn@1.22.19",
   "scripts": {
     "predev": "yarn compile",
+    "prestart": "yarn compile",
     "dev": "turbo dev",
     "build": "turbo build",
     "start": "turbo start",
