@@ -36,10 +36,11 @@ ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN yarn global add turbo
 RUN turbo --version
+RUN ls -la
 RUN yarn build
 
 # Copy all files built for deployment
-COPY /apps/lab-next-app/.next ./.next
+RUN cp apps/lab-next-app/.next ./.next -r
 RUN ls -la ./.next
 
 # Production image, copy all the files and run next
