@@ -1,3 +1,3 @@
 import { initApolloClient } from 'lab-api'
 
-export const apolloClient = initApolloClient('https://lab-ms.uz/v1/graphql')
+export const apolloClient = initApolloClient('https://lab-ms.uz/api/graphql')

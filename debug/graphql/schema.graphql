@@ -1,15 +1,23 @@
 # This file was generated based on ".graphqlconfig". Do not edit manually.
 
 schema {
-  query: AdminUserQueries
+  query: TodoQueries
+  mutation: TodoMutations
 }
 
-type AdminUser {
+type Todo {
   completed: Boolean
   id: Int
   title: String
 }
 
-type AdminUserQueries {
-  adminUser(id: Int): AdminUser
+type TodoMutations {
+  addTodo(title: String): Todo
+  deleteTodo(id: Int): Boolean
+  updateTodo(completed: Boolean, id: Int, title: String): Boolean
+}
+
+type TodoQueries {
+  todo(id: Int): Todo
+  todos: [Todo]
 }

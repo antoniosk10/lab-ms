@@ -1,6 +1,0 @@
-query BookList {
-  books {
-    author
-    title
-  }
-}

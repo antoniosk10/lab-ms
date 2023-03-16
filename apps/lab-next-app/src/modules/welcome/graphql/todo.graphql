@@ -1,0 +1,38 @@
+query Todo($id: Int!) {
+  todo(id: $id) {
+    id
+    title
+    completed
+  }
+}
+
+query TodoList {
+  todos {
+    id
+    title
+    completed
+  }
+}
+
+mutation AddTodo($title: String!) {
+  addTodo (title: $title) {
+    id
+    title
+  }
+}
+
+mutation UpdateTodo($id: Int!, $title: String!) {
+  updateTodo (id: $id, title: $title)
+}
+
+mutation CompleteTodo($id: Int!, $completed: Boolean!) {
+  updateTodo(id: $id, completed: $completed)
+}
+
+mutation FullUpdateTodo($id: Int!, $title: String!, $completed: Boolean) {
+  updateTodo(id: $id, title: $title, completed: $completed)
+}
+
+mutation RemoveTodo($id: Int!) {
+  deleteTodo(id: $id)
+}

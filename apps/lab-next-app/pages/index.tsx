@@ -1,5 +1,3 @@
-export default function Home() {
-  return (
-    <></>
-  )
-}
+import { welcomeContainers } from '@pages/welcome'
+
+export default welcomeContainers.detail
