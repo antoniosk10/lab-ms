@@ -43,7 +43,7 @@ function AppBar({ activeTab }: AppBarProps) {
   
   
   return (
-    <MuiAppBar position="static">
+    <MuiAppBar position="static" color="default">
       <Container maxWidth="xl">
         <Toolbar disableGutters={true} sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Link href={ROUTES.HOME}>

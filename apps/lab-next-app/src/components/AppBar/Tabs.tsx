@@ -24,8 +24,8 @@ function Tabs({ activeTab }: Props) {
   }
   
   return (
-    <MuiTabs value={activeTab} onChange={handleChange}>
-      <Tab label="My labs" value={TABS.MY_LABS}/>
+    <MuiTabs value={activeTab} textColor="secondary" indicatorColor="secondary" onChange={handleChange}>
+      <Tab label="My labs" value={TABS.MY_LABS} />
       <Tab label="People" value={TABS.PEOPLE}/>
       <Tab label="Schedule" value={TABS.SCHEDULE}/>
     </MuiTabs>
