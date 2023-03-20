@@ -8,7 +8,7 @@ type Props = {
 function LabLayout({ children }: Props) {
   return (
     <>
-      <AppBar/>
+      <AppBar activeTab={null}/>
       {children}
     </>
   )
