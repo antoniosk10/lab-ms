@@ -18,7 +18,7 @@ import * as ROUTES from '@src/constants/routes'
 const pages = ['Products', 'Pricing', 'Blog']
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
-type AppBarProps = {
+export type AppBarProps = {
   activeTab: ValueOfObject<typeof TABS> | null
 }
 
@@ -41,44 +41,38 @@ function AppBar({ activeTab }: AppBarProps) {
     setAnchorElUser(null)
   }
   
-
   
   return (
     <MuiAppBar position="static">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters={true} sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Link href={ROUTES.HOME}>
             <Image src="/images/logo/logo.png" alt="logo" width="90" height="40"/>
           </Link>
           
-          <Tabs activeTab={activeTab} />
-          
-          <Box display="none">
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon/>
-            </IconButton>
+          <Tabs activeTab={activeTab}/>
+          <Box display="flex" justifyContent="space-between" alignItems="center">
+            <Box mr={1}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon/>
+              </IconButton>
+            </Box>
             
-            {pages.map((page) => (
-              <MenuItem key={page} onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">{page}</Typography>
-              </MenuItem>
-            ))}
-          </Box>
-          
-          <Box sx={{ flexGrow: 0 }}>
-            <ProfilePopup
-              settings={settings}
-              anchorElUser={anchorElUser}
-              onMenuOpen={handleUserMenuOpen}
-              onMenuClose={handleUserMenuClose}
-            />
+            <Box sx={{ flexGrow: 0 }}>
+              <ProfilePopup
+                settings={settings}
+                anchorElUser={anchorElUser}
+                onMenuOpen={handleUserMenuOpen}
+                onMenuClose={handleUserMenuClose}
+              />
+            </Box>
           </Box>
         </Toolbar>
       </Container>

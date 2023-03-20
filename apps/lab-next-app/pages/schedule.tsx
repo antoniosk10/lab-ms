@@ -1,6 +1,6 @@
 import React from 'react'
-import AppBar from '@src/components/AppBar'
 import { TABS } from '@src/constants/tabs'
+import LabLayout from '@src/layouts/LabLayout'
 
 type Props = Record<string, unknown>
 
@@ -14,9 +14,8 @@ export default Schedule
 
 Schedule.getLayout = function getLayout(page: React.ReactNode) {
   return (
-    <>
-      <AppBar activeTab={TABS.SCHEDULE}/>
+    <LabLayout activeTab={TABS.SCHEDULE}>
       {page}
-    </>
+    </LabLayout>
   )
 }

@@ -1,15 +1,18 @@
 import React from 'react'
-import AppBar from '@src/components/AppBar'
+import AppBar, { AppBarProps } from '@src/components/AppBar'
+import Container from '@mui/material/Container'
 
 type Props = {
   children: React.ReactNode
-}
+} & AppBarProps
 
-function LabLayout({ children }: Props) {
+function LabLayout({ activeTab, children }: Props) {
   return (
     <>
-      <AppBar activeTab={null}/>
-      {children}
+      <AppBar activeTab={activeTab}/>
+      <Container maxWidth="xl">
+        {children}
+      </Container>
     </>
   )
 }

@@ -9,6 +9,7 @@ import {
   UpdateTodoMutationVariables
 } from '../graphql/todo.generated'
 import LabLayout from '@src/layouts/LabLayout'
+import { TABS } from '@src/constants/tabs'
 
 type Props = Record<string, unknown>
 
@@ -61,7 +62,7 @@ export default WelcomeDetailContainer
 
 WelcomeDetailContainer.getLayout = function getLayout(page: React.ReactNode) {
   return (
-    <LabLayout>
+    <LabLayout activeTab={null}>
       {page}
     </LabLayout>
   )

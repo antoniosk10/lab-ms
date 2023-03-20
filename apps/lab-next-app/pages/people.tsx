@@ -1,6 +1,7 @@
 import React from 'react'
 import AppBar from '@src/components/AppBar'
 import { TABS } from '@src/constants/tabs'
+import LabLayout from '@src/layouts/LabLayout'
 
 type Props = Record<string, unknown>
 
@@ -14,9 +15,8 @@ export default People
 
 People.getLayout = function getLayout(page: React.ReactNode) {
   return (
-    <>
-      <AppBar activeTab={TABS.PEOPLE}/>
+    <LabLayout activeTab={TABS.PEOPLE}>
       {page}
-    </>
+    </LabLayout>
   )
 }
