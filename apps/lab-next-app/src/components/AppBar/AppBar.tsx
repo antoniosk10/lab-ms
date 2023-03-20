@@ -12,14 +12,14 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Tabs from '@src/components/AppBar/Tabs'
 import { TABS } from '@src/constants/tabs'
-import { ValueOfObject } from '@src/utils/types'
+import { ValuesOfObject } from '@src/utils/types'
 import * as ROUTES from '@src/constants/routes'
 
 const pages = ['Products', 'Pricing', 'Blog']
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
 export type AppBarProps = {
-  activeTab: ValueOfObject<typeof TABS> | null
+  activeTab: ValuesOfObject<typeof TABS> | null
 }
 
 function AppBar({ activeTab }: AppBarProps) {

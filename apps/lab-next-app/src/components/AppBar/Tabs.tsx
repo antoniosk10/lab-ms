@@ -2,12 +2,12 @@ import React from 'react'
 import MuiTabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import { TABS } from '@src/constants/tabs'
-import { KeysOfObject, ValueOfObject } from '@src/utils/types'
+import { KeysOfObject, ValuesOfObject } from '@src/utils/types'
 import * as ROUTES from '@src/constants/routes'
 import { useRouter } from 'next/router'
 
 type Props = {
-  activeTab: ValueOfObject<typeof TABS> | null
+  activeTab: ValuesOfObject<typeof TABS> | null
 }
 
 function Tabs({ activeTab }: Props) {

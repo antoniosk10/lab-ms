@@ -1,2 +1,2 @@
 export type KeysOfObject<T> = keyof T
-export type ValueOfObject<T> = T[KeysOfObject<T>]
+export type ValuesOfObject<T> = T[KeysOfObject<T>]
