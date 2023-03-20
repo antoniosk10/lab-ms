@@ -10,6 +10,8 @@ import {
 import { Grid, List, ListItem, ListItemText } from '@mui/material'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
+import { useRouter } from 'next/router'
+import * as ROUTES from '@src/constants/routes'
 
 type Props = {
   list: TodoListQuery['todos']
@@ -24,9 +26,13 @@ function WelcomeDetail({ list, onTodoCreate, onTodoUpdate, onTodoComplete, onTod
   const [newTodoValue, setNewTodoValue] = useState('')
   const [updateTodoValue, setUpdateTodoValue] = useState('')
   const [editTodoId, setEditTodoId] = useState(0)
+  const router = useRouter()
   
   return (
     <Box>
+      <Box my={2}>
+        <button onClick={() => router.push(ROUTES.WELCOME_TEST)}>Welcome detail</button>
+      </Box>
       <Grid container={true} spacing={3}>
         <Grid item={true} xs={12}>
           <Typography>Todo list</Typography>

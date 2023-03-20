@@ -3,9 +3,12 @@ import WelcomeDetail from '@pages/welcome/components/WelcomeDetail'
 import { useTodoAdd, useTodoComplete, useTodoFullUpdate, useTodoList, useTodoRemove, useTodoUpdate } from '../services'
 import {
   AddTodoMutationVariables,
-  CompleteTodoMutationVariables, FullUpdateTodoMutationVariables, RemoveTodoMutationVariables,
+  CompleteTodoMutationVariables,
+  FullUpdateTodoMutationVariables,
+  RemoveTodoMutationVariables,
   UpdateTodoMutationVariables
 } from '../graphql/todo.generated'
+import LabLayout from '@src/layouts/LabLayout'
 
 type Props = Record<string, unknown>
 
@@ -37,7 +40,7 @@ function WelcomeDetailContainer(props: Props) {
     await todoList.refetch()
   }
   
-  const handleTodoRemove= async (variables: RemoveTodoMutationVariables) => {
+  const handleTodoRemove = async (variables: RemoveTodoMutationVariables) => {
     await removeTodo({ variables })
     await todoList.refetch()
   }
@@ -55,3 +58,11 @@ function WelcomeDetailContainer(props: Props) {
 }
 
 export default WelcomeDetailContainer
+
+WelcomeDetailContainer.getLayout = function getLayout(page: React.ReactNode) {
+  return (
+    <LabLayout>
+      {page}
+    </LabLayout>
+  )
+}
