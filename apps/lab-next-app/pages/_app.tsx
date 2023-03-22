@@ -9,7 +9,6 @@ type LayoutAppProps = AppProps & {
   Component: LayoutRolePageType
 }
 
-
 function App({
                Component,
                pageProps

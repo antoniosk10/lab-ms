@@ -2,16 +2,20 @@ import * as React from 'react'
 
 import AutocompleteField, { AutocompleteFieldProps, DefaultOptionType } from './AutocompleteField'
 
-export type SearchFieldProps<OptionType> = Record<string, unknown>
-  & AutocompleteFieldProps<OptionType, false, false>
+export type SearchFieldProps<OptionType extends  DefaultOptionType> =
+  AutocompleteFieldProps<OptionType, false, false>
+  & Record<string, unknown>
 
 export type SearchDefaultOptionType = DefaultOptionType
 
 function SearchField<
   OptionType extends DefaultOptionType,
-> (props: SearchFieldProps<OptionType>) {
+>({ getOptionLabel, ...props }: SearchFieldProps<OptionType>) {
   return (
-    <AutocompleteField {...props} />
+    <AutocompleteField
+      getOptionLabel={getOptionLabel}
+      {...props}
+    />
   )
 }
 

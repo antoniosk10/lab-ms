@@ -1,19 +1,18 @@
 import React from 'react'
-import { Controller } from 'react-hook-form'
 import { Checkbox, CheckboxProps, FormControlLabel } from '@mui/material'
-import FieldWrapper, { FormMethods } from './FieldWrapper'
-import { memoizeField } from '../utils/memoize-field'
+import { Control, Controller } from 'react-hook-form'
 
 type Props = {
   name: string
   label?: string
-} & FormMethods & CheckboxProps
+  control: Control
+} & CheckboxProps
 
-function CheckboxField({ name, label, formMethods, ...props }: Props) {
+function CheckboxField ({ name, label, control, ...props }: Props) {
   return (
     <Controller
       name={name}
-      control={formMethods.control}
+      control={control}
       render={({ field }) => (
         <FormControlLabel
           label={label}
@@ -28,6 +27,7 @@ function CheckboxField({ name, label, formMethods, ...props }: Props) {
       )}
     />
   )
+  
 }
 
-export default FieldWrapper(memoizeField(CheckboxField))
+export default CheckboxField

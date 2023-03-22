@@ -1,18 +1,19 @@
 import * as React from 'react'
-import { Controller, Control } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 
 import InputFormat, { InputFormatProps } from './InputFormat'
+import FieldWrapper, { FormMethods } from './FieldWrapper'
+import { memoizeField } from '../utils/memoize-field'
 
 export type PositiveFloatFieldProps = {
   name: string
-  control: Control
-} & Omit<InputFormatProps, 'value' | 'onChange'>
+} & FormMethods & Omit<InputFormatProps, 'value' | 'onChange'>
 
-function FloatField ({ name, control, ...props }: PositiveFloatFieldProps) {
+function FloatField({ name, formMethods, ...props }: PositiveFloatFieldProps) {
   return (
     <Controller
       name={name}
-      control={control}
+      control={formMethods.control}
       render={({ field }) => (
         <InputFormat
           name={field.name}
@@ -26,4 +27,4 @@ function FloatField ({ name, control, ...props }: PositiveFloatFieldProps) {
   )
 }
 
-export default FloatField
+export default FieldWrapper(memoizeField(FloatField))

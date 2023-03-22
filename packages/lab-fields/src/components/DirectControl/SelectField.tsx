@@ -4,22 +4,21 @@ import MenuItem from '@mui/material/MenuItem'
 import InputLabel from '@mui/material/InputLabel'
 import FormControl from '@mui/material/FormControl'
 import { Control, Controller } from 'react-hook-form'
-import FieldWrapper, { FormMethods } from './FieldWrapper'
-import { memoizeField } from '../utils/memoize-field'
 
 export type OptionType = { value: string | number, name: string | number }
 
 export type SelectFieldProps = {
   name: string
   label: string
+  control: Control
   options: OptionType[]
-} & FormMethods & SelectProps
+} & SelectProps
 
 function SelectField (props: SelectFieldProps) {
   const {
     name,
     label,
-    formMethods,
+    control,
     options,
     size = 'small',
     ...rest
@@ -28,7 +27,7 @@ function SelectField (props: SelectFieldProps) {
   return (
     <Controller
       name={name}
-      control={formMethods.control}
+      control={control}
       render={({ field }) => (
         <FormControl fullWidth={true} size={size}>
           <InputLabel>{label}</InputLabel>
@@ -52,4 +51,4 @@ function SelectField (props: SelectFieldProps) {
   )
 }
 
-export default FieldWrapper(memoizeField(SelectField))
+export default SelectField
