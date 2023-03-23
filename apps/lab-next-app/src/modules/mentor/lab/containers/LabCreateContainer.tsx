@@ -1,15 +1,65 @@
 import React from 'react'
-import { containers } from '@pages/mentor/lab'
 import { ROLES } from '@src/constants/roles'
 import LabLayout from '@src/layouts/LabLayout'
 import { TABS } from '@src/constants/tabs'
-import LabCreate from '@pages/mentor/lab/components/LabCreate'
+import LabCreate from '@modules/mentor/lab/components/LabCreate'
+import { ModuleResDto } from '@modules/mentor/lab/dto'
 
 type Props = Record<string, unknown>
 
+const modules: ModuleResDto[] = [
+  {
+    id: 1,
+    title: 'first module',
+    lessons: [
+      {
+        id: 1,
+        title: 'My lesson',
+        description: null,
+        accessible: true,
+        image: null,
+        file: null,
+        github: null
+      },
+      {
+        id: 2,
+        title: null,
+        description: null,
+        accessible: true,
+        image: null,
+        file: null,
+        github: null
+      },
+    ]
+  },
+  {
+    id: 2,
+    title: '',
+    lessons: [
+      {
+        id: 3,
+        title: null,
+        description: null,
+        accessible: true,
+        image: null,
+        file: null,
+        github: null
+      },
+      {
+        id: 4,
+        title: null,
+        description: null,
+        accessible: true,
+        image: null,
+        file: null,
+        github: null
+      },
+    ]
+  }
+]
 function LabCreateContainer(props: Props) {
   return (
-    <LabCreate />
+    <LabCreate modules={modules} />
   )
 }
 export default LabCreateContainer

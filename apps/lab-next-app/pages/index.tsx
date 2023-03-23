@@ -1,3 +1,3 @@
-import { welcomeContainers } from '@pages/welcome'
+import { welcomeContainers } from '@modules/welcome'
 
 export default welcomeContainers.detail

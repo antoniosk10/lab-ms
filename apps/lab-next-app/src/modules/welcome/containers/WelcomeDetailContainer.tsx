@@ -1,5 +1,5 @@
 import React from 'react'
-import WelcomeDetail from '@pages/welcome/components/WelcomeDetail'
+import WelcomeDetail from '@modules/welcome/components/WelcomeDetail'
 import { useTodoAdd, useTodoComplete, useTodoFullUpdate, useTodoList, useTodoRemove, useTodoUpdate } from '../services'
 import {
   AddTodoMutationVariables,

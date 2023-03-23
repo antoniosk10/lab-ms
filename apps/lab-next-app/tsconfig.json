@@ -23,7 +23,9 @@
       "@/*": ["./*"],
       "@src/*": ["./src/*"],
       "@gql-gen/*": ["./src/graphql-gen/*"],
-      "@pages/*": ["./src/modules/*"]
+      "@modules/*": ["./src/modules/*"],
+      "@mentor-components/*": ["./src/components/_mentor/*"],
+      "@student-components/*": ["./src/components/_student/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

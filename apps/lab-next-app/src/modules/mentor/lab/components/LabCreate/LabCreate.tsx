@@ -1,12 +1,17 @@
 import React from 'react'
 import PageContainer, { PageContent } from '@src/components/PageContainer'
 import { Grid } from '@mui/material'
-import BannerEdit from '@pages/mentor/lab/components/LabCreate/BannerEdit'
+import BannerEdit from '@modules/mentor/lab/components/LabCreate/BannerEdit'
 import { FormProvider, useForm } from 'react-hook-form'
+import LessonModules from '@modules/mentor/lab/components/LabCreate/LessonModules/LessonModules'
+import { ModuleResDto } from '@modules/mentor/lab/dto'
+import { emptyArray } from '@src/constants/empty'
 
-type Props = Record<string, unknown>
+type Props = {
+  modules: ModuleResDto[]
+}
 
-function LabCreate(props: Props) {
+function LabCreate({ modules = emptyArray }: Props) {
   const methods = useForm()
   
   return (
@@ -21,7 +26,7 @@ function LabCreate(props: Props) {
             <Grid item={true} xs={12}>
               <Grid container={true} spacing={3}>
                 <Grid item={true} xs={12} lg={3}>
-                  {/*  Modules */}
+                  <LessonModules modules={modules} />
                 </Grid>
                 
                 <Grid item={true} xs={12} lg={9}>
