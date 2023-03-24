@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
-import BannerTitle from '@modules/mentor/lab/components/LabCreate/BannerTitle'
+import BannerTitle from '@modules/mentor/lab/components/LabCreate/Banner/BannerTitle'
 import { useFormContext } from 'react-hook-form'
 import { Button } from '@mui/material'
 
@@ -22,7 +22,7 @@ const ButtonStyled = styled(Button)(({ theme }) => ({
 type Props = Record<string, unknown>
 
 
-function BannerEdit(props: Props) {
+function BannerForm(props: Props) {
   const [isEdit, setIsEdit] = useState(false)
   const { getValues } = useFormContext()
   
@@ -55,4 +55,4 @@ function BannerEdit(props: Props) {
   )
 }
 
-export default BannerEdit
+export default BannerForm

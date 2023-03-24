@@ -11,6 +11,7 @@ const modules: ModuleResDto[] = [
   {
     id: 1,
     title: 'first module',
+    isTemporary: false,
     lessons: [
       {
         id: 1,
@@ -19,7 +20,8 @@ const modules: ModuleResDto[] = [
         accessible: true,
         image: null,
         file: null,
-        github: null
+        github: null,
+        isTemporary: false
       },
       {
         id: 2,
@@ -28,13 +30,15 @@ const modules: ModuleResDto[] = [
         accessible: true,
         image: null,
         file: null,
-        github: null
-      },
+        github: null,
+        isTemporary: false
+      }
     ]
   },
   {
     id: 2,
     title: '',
+    isTemporary: false,
     lessons: [
       {
         id: 3,
@@ -43,7 +47,8 @@ const modules: ModuleResDto[] = [
         accessible: true,
         image: null,
         file: null,
-        github: null
+        github: null,
+        isTemporary: false
       },
       {
         id: 4,
@@ -52,16 +57,19 @@ const modules: ModuleResDto[] = [
         accessible: true,
         image: null,
         file: null,
-        github: null
-      },
+        github: null,
+        isTemporary: false
+      }
     ]
   }
 ]
+
 function LabCreateContainer(props: Props) {
   return (
-    <LabCreate modules={modules} />
+    <LabCreate modules={modules}/>
   )
 }
+
 export default LabCreateContainer
 
 LabCreateContainer.roles = [ROLES.ADMIN, ROLES.MENTOR]

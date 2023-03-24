@@ -5,20 +5,25 @@ import { Button, Card, CardActionArea, Stack } from '@mui/material'
 
 type Props = {
   modules: ModuleResDto[]
+  onModuleAdd: () => void
+  onLessonClick: (id: number) => void
 }
 
-function LessonModules({ modules }: Props) {
+function LessonModules({ modules, onModuleAdd, onLessonClick }: Props) {
   return (
     <Stack direction="column" spacing={2}>
       {modules.map((module, index) => (
-        <LessonModule key={module.id} altTitle={`Module ${index + 1}`} module={module} />
+        <LessonModule
+          key={module.id}
+          module={module}
+          altTitle={`Module ${index + 1}`}
+          onLessonClick={onLessonClick}
+        />
       ))}
       
       <Card>
-        <CardActionArea>
-          <Button>
-            + Add new module
-          </Button>
+        <CardActionArea onClick={onModuleAdd}>
+          + Add new module
         </CardActionArea>
       </Card>
     </Stack>

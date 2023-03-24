@@ -5,6 +5,7 @@ export type ModuleResDto = {
   id: number
   title: string
   lessons: LessonResDto[]
+  isTemporary: boolean
 }
 
 export type LessonResDto = {
@@ -15,4 +16,5 @@ export type LessonResDto = {
   github: string | null
   image: string | null
   file: string | null
+  isTemporary: boolean
 }
