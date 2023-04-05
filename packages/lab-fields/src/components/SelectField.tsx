@@ -3,8 +3,10 @@ import Select, { SelectProps } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import InputLabel from '@mui/material/InputLabel'
 import FormControl from '@mui/material/FormControl'
-import { Control, Controller } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
+
 import FieldWrapper, { FormMethods } from './FieldWrapper'
+
 import { memoizeField } from '../utils/memoize-field'
 
 export type OptionType = { value: string | number, name: string | number }

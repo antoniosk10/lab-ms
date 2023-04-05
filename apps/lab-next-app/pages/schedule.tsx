@@ -2,9 +2,7 @@ import React from 'react'
 import { TABS } from '@src/constants/tabs'
 import LabLayout from '@src/layouts/LabLayout'
 
-type Props = Record<string, unknown>
-
-function Schedule(props: Props) {
+function Schedule () {
   return (
     <>Schedule</>
   )
@@ -12,7 +10,7 @@ function Schedule(props: Props) {
 
 export default Schedule
 
-Schedule.getLayout = function getLayout(page: React.ReactNode) {
+Schedule.getLayout = function getLayout (page: React.ReactNode) {
   return (
     <LabLayout activeTab={TABS.SCHEDULE}>
       {page}

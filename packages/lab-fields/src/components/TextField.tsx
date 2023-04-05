@@ -1,22 +1,22 @@
 import React from 'react'
 import MuiTextField, { TextFieldProps as MuiTextFieldProps } from '@mui/material/TextField'
-import { Control, Controller } from 'react-hook-form'
-import { memoizeField } from '../utils/memoize-field'
+import { Controller } from 'react-hook-form'
+
 import FieldWrapper, { FormMethods } from './FieldWrapper'
+
+import { memoizeField } from '../utils/memoize-field'
 
 export type TextFieldProps = {
   name: string
-  control?: Control
 } & FormMethods & MuiTextFieldProps
 
-function TextField(props: TextFieldProps) {
+function TextField (props: TextFieldProps) {
   const {
     name,
-    control,
     formMethods,
     ...rest
   } = props
-  
+
   return (
     <Controller
       name={name}

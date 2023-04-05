@@ -1,5 +1,5 @@
 import type { AppProps } from 'next/app'
-import { LayoutPageType, LayoutRolePageType } from '@src/types'
+import { LayoutRolePageType } from '@src/types'
 import { ApolloProvider } from 'lab-api'
 import { apolloClient } from '@src/api/apollo-client'
 import { CssBaseline, ThemeProvider } from '@mui/material'
@@ -9,16 +9,16 @@ type LayoutAppProps = AppProps & {
   Component: LayoutRolePageType
 }
 
-function App({
-               Component,
-               pageProps
-             }: LayoutAppProps) {
+function App ({
+  Component,
+  pageProps
+}: LayoutAppProps) {
   const getLayout = Component.getLayout ?? ((page) => page)
-  const roles = Component.roles
-  
+  // const roles = Component.roles
+
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline/>
+      <CssBaseline />
       <ApolloProvider client={apolloClient}>
         {getLayout(<Component {...pageProps} />)}
       </ApolloProvider>

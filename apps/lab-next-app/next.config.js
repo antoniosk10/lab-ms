@@ -3,15 +3,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: "standalone",
+  output: 'standalone',
   transpilePackages: [
-      'lab-api'
+    'lab-api'
   ],
   // experimental: {
   //   outputFileTracingRoot: path.join(__dirname, "../../")
   // },
-  webpack: (config, context) => {
-    if(!config.experiments) {
+  webpack: (config) => {
+    if (!config.experiments) {
       config.experiments = {}
     }
 

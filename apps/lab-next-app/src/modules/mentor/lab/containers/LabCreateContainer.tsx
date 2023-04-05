@@ -5,8 +5,6 @@ import { TABS } from '@src/constants/tabs'
 import LabCreate from '@modules/mentor/lab/components/LabCreate'
 import { ModuleResDto } from '@modules/mentor/lab/dto'
 
-type Props = Record<string, unknown>
-
 const modules: ModuleResDto[] = [
   {
     id: 1,
@@ -64,9 +62,9 @@ const modules: ModuleResDto[] = [
   }
 ]
 
-function LabCreateContainer(props: Props) {
+function LabCreateContainer () {
   return (
-    <LabCreate modules={modules}/>
+    <LabCreate modules={modules} />
   )
 }
 
@@ -74,7 +72,7 @@ export default LabCreateContainer
 
 LabCreateContainer.roles = [ROLES.ADMIN, ROLES.MENTOR]
 
-LabCreateContainer.getLayout = function getLayout(page: React.ReactNode) {
+LabCreateContainer.getLayout = function getLayout (page: React.ReactNode) {
   return (
     <LabLayout activeTab={TABS.MY_LABS}>
       {page}

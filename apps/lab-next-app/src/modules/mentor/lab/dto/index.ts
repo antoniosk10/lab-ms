@@ -1,6 +1,5 @@
 // These are mock types. All types will come from graphql
 
-
 export type ModuleResDto = {
   id: number
   title: string

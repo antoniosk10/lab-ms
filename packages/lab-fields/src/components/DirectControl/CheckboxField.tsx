@@ -27,7 +27,6 @@ function CheckboxField ({ name, label, control, ...props }: Props) {
       )}
     />
   )
-  
 }
 
 export default CheckboxField

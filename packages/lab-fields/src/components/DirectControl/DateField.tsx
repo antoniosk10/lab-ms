@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { DesktopDatePicker, DesktopDatePickerProps, MobileDatePicker } from '@mui/x-date-pickers'
 import TextField, { TextFieldProps } from '@mui/material/TextField'
+import { Control, Controller } from 'react-hook-form'
 
 import { isMobile } from '../../utils/is-mobile'
-import { Control, Controller } from 'react-hook-form'
 
 export type DateFieldProps = {
   name: string
@@ -18,7 +18,7 @@ function DateField ({ name, fieldProps, inputFormat = 'dd.MM.yyyy', control, ...
     <Controller
       name={name}
       control={control}
-      render={({ field}) => (
+      render={({ field }) => (
         <DatePicker
           value={field.value}
           onChange={field.onChange}

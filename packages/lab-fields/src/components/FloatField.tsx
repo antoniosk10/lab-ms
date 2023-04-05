@@ -1,14 +1,14 @@
 import * as React from 'react'
+import { Controller } from 'react-hook-form'
 
 import InputFormat, { InputFormatProps } from './InputFormat'
-import { Controller, Control } from 'react-hook-form'
 import { FormMethods } from './FieldWrapper'
 
 export type FloatFieldProps = {
   name: string
 } & FormMethods & Omit<InputFormatProps, 'value' | 'onChange'>
 
-function FloatField({ name, formMethods, ...props }: FloatFieldProps) {
+function FloatField ({ name, formMethods, ...props }: FloatFieldProps) {
   return (
     <Controller
       name={name}

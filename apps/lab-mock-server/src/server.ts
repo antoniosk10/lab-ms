@@ -1,5 +1,6 @@
-import "reflect-metadata"
-import express, {Express, Request, Response } from 'express'
+import 'reflect-metadata'
+import express, { Express, Request, Response } from 'express'
+
 import { startGraphQLServer } from './libs/graph-ql'
 
 const app: Express = express()
@@ -15,6 +16,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 (async () => {
+  // eslint-disable-next-line no-console
   console.log(`Starting at port ${port}`)
   await startGraphQLServer(port)
 })()

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Controller, Control } from 'react-hook-form'
+import { Control, Controller } from 'react-hook-form'
 
 import PhoneInput, { ReactPhoneInputProps } from './PhoneInput'
 
@@ -13,7 +13,7 @@ function PhoneField ({ name = 'phone', control, ...props }: Props) {
     <Controller
       name={name}
       control={control}
-      render={({ field , fieldState}) => (
+      render={({ field, fieldState }) => (
         <PhoneInput
           label="Номер телефона"
           value={field.value}

@@ -5,12 +5,12 @@ import dogs from '@src/mock-data/dogs.json'
 @Resolver()
 export class DogsResolver {
   @Query(() => [Dog])
-  dogs(): Dog[] {
+  dogs (): Dog[] {
     return dogs
   }
 
   @Query(() => [Hello])
-  hellos(): Hello[] {
+  hellos (): Hello[] {
     return [{ name: 'hello' }, { name: 'hi' }]
   }
 }

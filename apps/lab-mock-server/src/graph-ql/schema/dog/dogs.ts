@@ -1,53 +1,52 @@
-import { ObjectType, Field, ID } from 'type-graphql'
+import { Field, ID, ObjectType } from 'type-graphql'
 
 @ObjectType()
 export class DogAttribute {
   @Field(() => ID)
-  key: string
+    key: string
 
   @Field(() => String)
-  value: string
+    value: string
 }
 
 @ObjectType()
 export class Dog {
   @Field(() => ID)
-  name: string
+    name: string
 
   @Field(() => [DogAttribute])
-  attributes: DogAttribute[]
+    attributes: DogAttribute[]
 
   @Field(() => [String])
-  description: string[]
+    description: string[]
 
   @Field(() => String)
-  image: string
+    image: string
 
   @Field(() => Number)
-  ageInWeeks: number
+    ageInWeeks: number
 
   @Field(() => String)
-  sex: string
+    sex: string
 
   @Field(() => String)
-  breed: string
+    breed: string
 
   @Field(() => String)
-  color: string
+    color: string
 
   @Field(() => Number)
-  fee: number
+    fee: number
 
   @Field(() => String)
-  availableDate: string
+    availableDate: string
 
   @Field(() => Number)
-  weight: number
+    weight: number
 }
 
 @ObjectType()
 export class Hello {
   @Field(() => String)
-  name: string
+    name: string
 }
-

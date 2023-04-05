@@ -6,7 +6,7 @@ type Props = {
   onClick: () => void
 }
 
-function LessonContentPlaceholder({ onClick }: Props) {
+function LessonContentPlaceholder ({ onClick }: Props) {
   return (
     <Card>
       <CardActionArea onClick={onClick}>

@@ -7,13 +7,13 @@ export type TextFieldProps = {
   control?: Control
 } & MuiTextFieldProps
 
-function TextField(props: TextFieldProps) {
+function TextField (props: TextFieldProps) {
   const {
     name,
     control,
     ...rest
   } = props
-  
+
   return (
     <Controller
       name={name}

@@ -5,7 +5,7 @@ type Props = {
   title: React.ReactNode | string
 }
 
-function PageTitle({ title }: Props) {
+function PageTitle ({ title }: Props) {
   return (
     <Box>{title}</Box>
   )

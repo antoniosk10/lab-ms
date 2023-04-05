@@ -3,13 +3,14 @@ import { Controller } from 'react-hook-form'
 
 import PhoneInput, { ReactPhoneInputProps } from './PhoneInput'
 import FieldWrapper, { FormMethods } from './FieldWrapper'
+
 import { memoizeField } from '../utils/memoize-field'
 
 type Props = {
   name?: string
 } & FormMethods & Partial<ReactPhoneInputProps>
 
-function PhoneField({ name = 'phone', formMethods, ...props }: Props) {
+function PhoneField ({ name = 'phone', formMethods, ...props }: Props) {
   return (
     <Controller
       name={name}

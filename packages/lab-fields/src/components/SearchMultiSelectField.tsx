@@ -1,7 +1,6 @@
 import * as React from 'react'
 
 import MultiAutocompleteField, { MultiAutocompleteFieldProps } from './MultiAutocompleteField'
-
 import { DefaultOptionType } from './AutocompleteField'
 
 export type SearchMultiSelectFieldProps<OptionType, DisableClearable extends boolean> = Record<string, unknown>

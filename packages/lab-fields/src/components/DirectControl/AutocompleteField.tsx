@@ -34,7 +34,7 @@ export type AutocompleteFieldProps<
 >
 
 const defaultGetOptionLabel =
-  <T extends DefaultOptionType> (option: T | AutocompleteFreeSoloValueMapping<false>) => (option as T).title
+  <T extends DefaultOptionType>(option: T | AutocompleteFreeSoloValueMapping<false>) => (option as T).title
 
 const defaultIsOptionEqualToValue = <T extends DefaultOptionType>(option: T, value: T) => option.id === value.id
 
@@ -84,9 +84,11 @@ function AutocompleteField<
 
   React.useEffect(() => {
     if (!open) {
+      // need to make api request here
+      Promise.resolve(api)
       setOptions([])
     }
-  }, [open])
+  }, [api, open])
 
   return (
     <Controller
@@ -120,7 +122,7 @@ function AutocompleteField<
                     {loading ? <CircularProgress color="inherit" size={20} /> : null}
                     {params.InputProps.endAdornment}
                   </React.Fragment>
-                ),
+                )
               }}
             />
           )}

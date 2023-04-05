@@ -1,19 +1,20 @@
 import * as React from 'react'
 import { DesktopDatePicker, DesktopDatePickerProps, MobileDatePicker } from '@mui/x-date-pickers'
 import TextField, { TextFieldProps } from '@mui/material/TextField'
+import { Controller } from 'react-hook-form'
+
+import { FormMethods } from './FieldWrapper'
 
 import { isMobile } from '../utils/is-mobile'
-import { Control, Controller } from 'react-hook-form'
-import { FormMethods } from './FieldWrapper'
 
 export type DateFieldProps = {
   name: string
   fieldProps?: TextFieldProps
 } & FormMethods & Partial<DesktopDatePickerProps<Date, Date>>
 
-function DateField({ name, fieldProps, inputFormat = 'dd.MM.yyyy', formMethods, ...props }: DateFieldProps) {
+function DateField ({ name, fieldProps, inputFormat = 'dd.MM.yyyy', formMethods, ...props }: DateFieldProps) {
   const DatePicker = isMobile ? MobileDatePicker : DesktopDatePicker
-  
+
   return (
     <Controller
       name={name}

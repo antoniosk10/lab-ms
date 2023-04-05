@@ -9,7 +9,7 @@ type Props = {
   onLessonAdd: () => void
 }
 
-function Lessons({ lessons, onLessonClick, onLessonAdd }: Props) {
+function Lessons ({ lessons, onLessonClick, onLessonAdd }: Props) {
   return (
     <Stack direction="column" spacing={2}>
       {lessons.map((lesson, index) => (
@@ -20,11 +20,11 @@ function Lessons({ lessons, onLessonClick, onLessonAdd }: Props) {
           onLessonClick={() => onLessonClick(lesson.id)}
         />
       ))}
-      
+
       <Button onClick={onLessonAdd}>
         + Add new lesson
       </Button>
-    
+
     </Stack>
   )
 }

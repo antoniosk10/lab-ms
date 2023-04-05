@@ -13,12 +13,12 @@ type Props = {
   onMenuClose: () => void
 }
 
-function ProfilePopup({ settings, anchorElUser, onMenuOpen, onMenuClose }: Props) {
+function ProfilePopup ({ settings, anchorElUser, onMenuOpen, onMenuClose }: Props) {
   return (
     <>
       <Tooltip title="Open settings">
         <IconButton onClick={onMenuOpen} sx={{ p: 0 }}>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
+          <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
         </IconButton>
       </Tooltip>
       <Menu
@@ -29,7 +29,7 @@ function ProfilePopup({ settings, anchorElUser, onMenuOpen, onMenuClose }: Props
           vertical: 'top',
           horizontal: 'right'
         }}
-        keepMounted
+        keepMounted={true}
         transformOrigin={{
           vertical: 'top',
           horizontal: 'right'
@@ -44,7 +44,7 @@ function ProfilePopup({ settings, anchorElUser, onMenuOpen, onMenuClose }: Props
         ))}
       </Menu>
     </>
-    
+
   )
 }
 

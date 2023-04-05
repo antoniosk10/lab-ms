@@ -5,7 +5,7 @@ type Props = {
   children: React.ReactNode | string
 }
 
-function PageContent({ children }: Props) {
+function PageContent ({ children }: Props) {
   return (
     <Box>{children}</Box>
   )

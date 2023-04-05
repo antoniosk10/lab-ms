@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Controller, Control } from 'react-hook-form'
+import { Control, Controller } from 'react-hook-form'
 
 import InputFormat, { InputFormatProps } from './InputFormat'
 

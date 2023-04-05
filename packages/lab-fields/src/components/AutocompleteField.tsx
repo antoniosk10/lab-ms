@@ -4,9 +4,10 @@ import Autocomplete, { AutocompleteProps } from '@mui/material/Autocomplete'
 import CircularProgress from '@mui/material/CircularProgress'
 import { Controller } from 'react-hook-form'
 import { AutocompleteFreeSoloValueMapping } from '@mui/material'
+
 import FieldWrapper, { FormMethods } from './FieldWrapper'
 
-function sleep(delay = 0) {
+function sleep (delay = 0) {
   return new Promise((resolve) => {
     setTimeout(resolve, delay)
   })
@@ -31,7 +32,7 @@ export type AutocompleteFieldProps<OptionType, Multiple extends boolean, Disable
   'getOptionLabel' | 'isOptionEqualToValue' | 'options' | 'renderInput'
 >
 
-function defaultGetOptionLabel<T extends DefaultOptionType>(option: T | AutocompleteFreeSoloValueMapping<false>) {
+function defaultGetOptionLabel<T extends DefaultOptionType> (option: T | AutocompleteFreeSoloValueMapping<false>) {
   return option.title
 }
 
@@ -41,7 +42,7 @@ function AutocompleteField<
   OptionType extends DefaultOptionType,
   Multiple extends boolean = false,
   DisableClearable extends boolean = false,
->(props: AutocompleteFieldProps<OptionType, Multiple, DisableClearable>) {
+> (props: AutocompleteFieldProps<OptionType, Multiple, DisableClearable>) {
   const {
     api,
     name,
@@ -51,42 +52,44 @@ function AutocompleteField<
     isOptionEqualToValue = defaultIsOptionEqualToValue,
     ...rest
   } = props
-  
+
   const [open, setOpen] = React.useState(false)
   const [options, setOptions] = React.useState<readonly OptionType[]>([])
   const loading = open && options.length === 0
-  
+
   React.useEffect(() => {
     let active = true
-    
+
     if (!loading) {
       return undefined
     }
-    
+
     (async () => {
       await sleep(1e3)
-      
+
       if (active) {
         const topFilms = [
           { id: 1, title: 'The Shawshank Redemption' },
           { id: 2, title: 'The Godfather' }
         ] as OptionType[]
-        
+
+        // make api request
+        Promise.resolve(api)
         setOptions([...topFilms])
       }
     })()
-    
+
     return () => {
       active = false
     }
-  }, [loading])
-  
+  }, [api, loading])
+
   React.useEffect(() => {
     if (!open) {
       setOptions([])
     }
   }, [open])
-  
+
   return (
     <Controller
       name={name}
@@ -116,7 +119,7 @@ function AutocompleteField<
                 ...params.InputProps,
                 endAdornment: (
                   <React.Fragment>
-                    {loading ? <CircularProgress color="inherit" size={20}/> : null}
+                    {loading ? <CircularProgress color="inherit" size={20} /> : null}
                     {params.InputProps.endAdornment}
                   </React.Fragment>
                 )

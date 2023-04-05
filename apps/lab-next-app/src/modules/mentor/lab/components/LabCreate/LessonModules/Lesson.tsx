@@ -8,7 +8,7 @@ type Props = {
   onLessonClick: () => void
 }
 
-function Lesson({ lesson, altTitle, onLessonClick }: Props) {
+function Lesson ({ lesson, altTitle, onLessonClick }: Props) {
   return (
     <Button fullWidth={true} color="primary" onClick={onLessonClick}>
       {lesson.title || altTitle}

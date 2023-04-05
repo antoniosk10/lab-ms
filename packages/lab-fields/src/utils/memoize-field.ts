@@ -1,4 +1,5 @@
 import { FunctionComponent, memo } from 'react'
+
 import { FormMethods } from '../components/FieldWrapper'
 
 type Props = FormMethods
@@ -10,6 +11,6 @@ export const memoizeField = <T extends Props>(
   const defaultCondition = (prevProps: T, nextProps: T) => (
     prevProps.formMethods.formState.isDirty === nextProps.formMethods.formState.isDirty
   )
-  
+
   return memo(Component, condition || defaultCondition)
 }

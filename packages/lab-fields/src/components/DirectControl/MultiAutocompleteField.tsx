@@ -71,6 +71,8 @@ function MultiAutocompleteField<
           { id: 2, title: 'The Godfather' }
         ] as OptionType[]
 
+        // make api request
+        Promise.resolve(api)
         setOptions([...topFilms])
       }
     })()
@@ -78,7 +80,7 @@ function MultiAutocompleteField<
     return () => {
       active = false
     }
-  }, [loading])
+  }, [api, loading])
 
   React.useEffect(() => {
     if (!open) {

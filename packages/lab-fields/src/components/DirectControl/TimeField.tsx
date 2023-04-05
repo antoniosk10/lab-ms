@@ -1,10 +1,9 @@
 import * as React from 'react'
 import { DesktopTimePicker, DesktopTimePickerProps, MobileTimePicker } from '@mui/x-date-pickers'
-
 import TextField, { TextFieldProps } from '@mui/material/TextField'
+import { Control, Controller } from 'react-hook-form'
 
 import { isMobile } from '../../utils/is-mobile'
-import { Control, Controller } from 'react-hook-form'
 
 export type TimeFieldProps = {
   name: string
@@ -12,9 +11,9 @@ export type TimeFieldProps = {
   fieldProps?: TextFieldProps
 } & Partial<DesktopTimePickerProps<Date, Date>>
 
-function TimeField({ name, fieldProps, control, ...props }: TimeFieldProps) {
+function TimeField ({ name, fieldProps, control, ...props }: TimeFieldProps) {
   const TimePicker = isMobile ? MobileTimePicker : DesktopTimePicker
-  
+
   return (
     <Controller
       name={name}

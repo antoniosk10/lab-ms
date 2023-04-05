@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material'
+
 import { components } from './light/components'
 
 export const theme = createTheme({

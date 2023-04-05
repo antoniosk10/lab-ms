@@ -1,9 +1,11 @@
 import {
   useAddTodoMutation,
-  useTodoQuery,
+  useCompleteTodoMutation,
+  useFullUpdateTodoMutation,
+  useRemoveTodoMutation,
   useTodoListQuery,
-  useUpdateTodoMutation,
-  useCompleteTodoMutation, useFullUpdateTodoMutation, useRemoveTodoMutation
+  useTodoQuery,
+  useUpdateTodoMutation
 } from '../graphql/todo.generated'
 
 export const useTodoDetail = (id: number) => {

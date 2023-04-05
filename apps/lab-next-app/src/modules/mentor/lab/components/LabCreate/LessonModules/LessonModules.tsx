@@ -1,7 +1,8 @@
 import React from 'react'
-import { LessonResDto, ModuleResDto } from '../../../dto'
 import LessonModule from '@modules/mentor/lab/components/LabCreate/LessonModules/LessonModule'
-import { Button, Card, CardActionArea, Stack } from '@mui/material'
+import { Card, CardActionArea, Stack } from '@mui/material'
+
+import { ModuleResDto } from '../../../dto'
 
 type Props = {
   modules: ModuleResDto[]
@@ -9,7 +10,7 @@ type Props = {
   onLessonClick: (id: number) => void
 }
 
-function LessonModules({ modules, onModuleAdd, onLessonClick }: Props) {
+function LessonModules ({ modules, onModuleAdd, onLessonClick }: Props) {
   return (
     <Stack direction="column" spacing={2}>
       {modules.map((module, index) => (
@@ -20,7 +21,7 @@ function LessonModules({ modules, onModuleAdd, onLessonClick }: Props) {
           onLessonClick={onLessonClick}
         />
       ))}
-      
+
       <Card>
         <CardActionArea onClick={onModuleAdd}>
           + Add new module

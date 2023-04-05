@@ -6,10 +6,10 @@ type Props = {
   children: React.ReactNode
 } & AppBarProps
 
-function LabLayout({ activeTab, children }: Props) {
+function LabLayout ({ activeTab, children }: Props) {
   return (
     <>
-      <AppBar activeTab={activeTab}/>
+      <AppBar activeTab={activeTab} />
       <Container maxWidth="xl">
         {children}
       </Container>

@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react'
-import { LessonResDto, ModuleResDto } from '../../../dto'
 import { Card, CardContent, Divider } from '@mui/material'
 import Lessons from '@modules/mentor/lab/components/LabCreate/LessonModules/Lessons'
 import { useFormContext } from 'react-hook-form'
+
+import { LessonResDto, ModuleResDto } from '../../../dto'
 
 type Props = {
   altTitle: string
@@ -20,26 +21,26 @@ const emptyLesson: Omit<LessonResDto, 'id'> = {
   isTemporary: false
 }
 
-function LessonModule({ module, altTitle, onLessonClick }: Props) {
+function LessonModule ({ module, altTitle, onLessonClick }: Props) {
   const { setValue, getValues } = useFormContext()
   const moduleId = module.id
-  
+
   const handleLessonAdd = useCallback(() => {
     const moduleKey = `modules[${moduleId}]`
     const formModule: ModuleResDto = getValues(moduleKey)
     const newModule = { ...formModule, lessons: [...formModule.lessons, emptyLesson] }
-    
+
     setValue(moduleKey, newModule)
   }, [getValues, setValue, moduleId])
-  
+
   return (
     <Card>
       <CardContent>
         {module.title || altTitle}
       </CardContent>
-      
-      <Divider/>
-      
+
+      <Divider />
+
       <CardContent>
         <Lessons
           lessons={module.lessons}
@@ -47,7 +48,7 @@ function LessonModule({ module, altTitle, onLessonClick }: Props) {
           onLessonAdd={handleLessonAdd}
         />
       </CardContent>
-    
+
     </Card>
   )
 }

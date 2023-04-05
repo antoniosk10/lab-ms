@@ -14,22 +14,18 @@ const BannerStyled = styled(Box)(({ theme }) => ({
   alignItems: 'flex-end'
 }))
 
-const ButtonStyled = styled(Button)(({ theme }) => ({
-  background: 'white',
-  
-}))
+const ButtonStyled = styled(Button)({
+  background: 'white'
+})
 
-type Props = Record<string, unknown>
-
-
-function BannerForm(props: Props) {
+function BannerForm () {
   const [isEdit, setIsEdit] = useState(false)
   const { getValues } = useFormContext()
-  
+
   const handleTitleChange = () => {
     setIsEdit(false)
   }
-  
+
   return (
     <BannerStyled>
       <Box

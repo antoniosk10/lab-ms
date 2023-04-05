@@ -9,14 +9,14 @@ type Props = {
   onTitleAccept: () => void
 }
 
-function BannerTitle(props: Props) {
+function BannerTitle (props: Props) {
   const {
     title = '<LAB NAME>',
     isEdit,
     onTextClick,
     onTitleAccept
   } = props
-  
+
   const handleEnter = (event: KeyboardEvent) => {
     if (event.key === 'Enter') {
       onTitleAccept()
@@ -26,7 +26,7 @@ function BannerTitle(props: Props) {
   return (
     <>
       {isEdit
-        ? <TextField autoFocus={true} name="title" onKeyPress={handleEnter}/>
+        ? <TextField autoFocus={true} name="title" onKeyPress={handleEnter} />
         : <Typography onClick={onTextClick}>{title}</Typography>
       }
     </>

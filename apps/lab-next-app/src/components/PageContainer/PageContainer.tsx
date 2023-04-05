@@ -5,7 +5,7 @@ type Props = {
   children: React.ReactNode
 }
 
-function PageContainer({ children }: Props) {
+function PageContainer ({ children }: Props) {
   return (
     <Box my={3}>
       {children}

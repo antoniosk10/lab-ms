@@ -7,7 +7,7 @@ export type InputFormatProps = {
   onChange: React.ChangeEventHandler
 } & Omit<NumericFormatProps, 'customInput' | 'color' | 'size'>
 
-function InputFormat({ value, onChange, ...props }: InputFormatProps) {
+function InputFormat ({ value, onChange, ...props }: InputFormatProps) {
   return (
     <NumericFormat
       value={value || ''}
