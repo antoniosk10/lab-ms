@@ -18,7 +18,8 @@
     "app:remove": "yarn workspace lab-next-app remove",
     "server:add": "yarn workspace lab-mock-server add",
     "server:remove": "yarn workspace lab-mock-server remove",
-    "lint": "yarn run eslint . --ext .js,.jsx,.ts,.tsx --cache"
+    "lint": "yarn run eslint . --ext .js,.jsx,.ts,.tsx --cache",
+    "prepare": "husky install"
   },
   "workspaces": [
     "apps/*",
@@ -50,6 +51,7 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.4.0",
+    "husky": "^8.0.0",
     "nodemon": "^2.0.20",
     "standard": "^17.0.0",
     "ts-node": "^10.9.1",
