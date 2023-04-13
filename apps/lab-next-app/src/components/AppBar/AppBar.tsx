@@ -12,6 +12,7 @@ import Tabs from '@src/components/AppBar/Tabs'
 import { TABS } from '@src/constants/tabs'
 import { ValuesOfObject } from '@src/utils/types'
 import * as ROUTES from '@src/constants/routes'
+import Grid from '@mui/material/Grid'
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
@@ -32,38 +33,41 @@ function AppBar ({ activeTab }: AppBarProps) {
 
   return (
     <MuiAppBar position="static" color="default">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters={true} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Link href={ROUTES.HOME}>
-            <Image src="/images/logo/logo.png" alt="logo" width="90" height="40" />
-          </Link>
+      <Grid item={true}>
 
-          <Tabs activeTab={activeTab} />
-          <Box display="flex" justifyContent="space-between" alignItems="center">
-            <Box mr={1}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={() => {}}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-            </Box>
+        <Container maxWidth="xl">
+          <Toolbar disableGutters={true} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Link href={ROUTES.HOME}>
+              <Image src="/images/logo/logo.png" alt="logo" width="90" height="40" />
+            </Link>
 
-            <Box sx={{ flexGrow: 0 }}>
-              <ProfilePopup
-                settings={settings}
-                anchorElUser={anchorElUser}
-                onMenuOpen={handleUserMenuOpen}
-                onMenuClose={handleUserMenuClose}
-              />
+            <Tabs activeTab={activeTab} />
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+              <Box mr={1}>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={() => {}}
+                  color="inherit"
+                >
+                  <MenuIcon />
+                </IconButton>
+              </Box>
+
+              <Box sx={{ flexGrow: 0 }}>
+                <ProfilePopup
+                  settings={settings}
+                  anchorElUser={anchorElUser}
+                  onMenuOpen={handleUserMenuOpen}
+                  onMenuClose={handleUserMenuClose}
+                />
+              </Box>
             </Box>
-          </Box>
-        </Toolbar>
-      </Container>
+          </Toolbar>
+        </Container>
+      </Grid>
     </MuiAppBar>
   )
 }

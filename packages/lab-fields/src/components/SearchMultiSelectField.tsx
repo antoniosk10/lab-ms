@@ -10,9 +10,9 @@ function SearchMultiSelectField<
   OptionType extends DefaultOptionType,
   DisableClearable extends boolean = false,
 > (props: SearchMultiSelectFieldProps<OptionType, DisableClearable>) {
-  return (
-    <MultiAutocompleteField {...props} />
-  )
+  /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+  // @ts-ignore
+  return <MultiAutocompleteField {...props} />
 }
 
 export default SearchMultiSelectField

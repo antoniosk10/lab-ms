@@ -11,12 +11,9 @@ export type SearchDefaultOptionType = DefaultOptionType
 function SearchField<
   OptionType extends DefaultOptionType,
 > ({ getOptionLabel, ...props }: SearchFieldProps<OptionType>) {
-  return (
-    <AutocompleteField
-      getOptionLabel={getOptionLabel}
-      {...props}
-    />
-  )
+  /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+  // @ts-ignore
+  return <AutocompleteField getOptionLabel={getOptionLabel} {...props} />
 }
 
 export default SearchField

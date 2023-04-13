@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField'
 export type InputFormatProps = {
   value: string | number
   onChange: React.ChangeEventHandler
-} & Omit<NumericFormatProps, 'customInput'>
+} & Omit<NumericFormatProps, 'customInput' | 'color' | 'size'>
 
 function InputFormat ({ value, onChange, ...props }: InputFormatProps) {
   return (

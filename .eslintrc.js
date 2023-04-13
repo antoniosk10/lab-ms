@@ -70,7 +70,8 @@ module.exports = {
     "plugin:react-hooks/recommended",
     "plugin:import/recommended",
     "plugin:import/errors",
-    "plugin:import/warnings"
+    "plugin:import/warnings",
+    "plugin:@next/next/recommended"
   ],
   "settings": {
     "import/parsers": {
