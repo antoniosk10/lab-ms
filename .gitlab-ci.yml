@@ -22,6 +22,7 @@ build_image_prod:
     - make push-image TAG=$CI_PIPELINE_IID PROJECT_NAME=$CI_PROJECT_NAMESPACE
   only:
     - master
+    - merge_requests
 
 deploy_to_prod:
   stage: deploy
@@ -35,3 +36,4 @@ deploy_to_prod:
     - rm -rf ~/.kube
   only:
     - master
+    - merge_requests
