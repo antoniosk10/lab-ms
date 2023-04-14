@@ -18,7 +18,7 @@ stages:
 build_image_prod:
   stage: build
   rules:
-    - if: $CI_MERGE_REQUEST_APPROVED == true
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_PIPELINE_SOURCE == "push"
   script:
     - make build-image TAG=$CI_PIPELINE_IID PROJECT_NAME=$CI_PROJECT_NAMESPACE
