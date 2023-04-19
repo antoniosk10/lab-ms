@@ -18,7 +18,7 @@ function ProfilePopup ({ settings, anchorElUser, onMenuOpen, onMenuClose }: Prop
     <>
       <Tooltip title="Open settings">
         <IconButton onClick={onMenuOpen} sx={{ p: 0 }}>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+          <Avatar alt="Remy Sharp" src="/images/avatar/2.jpg" />
         </IconButton>
       </Tooltip>
       <Menu
