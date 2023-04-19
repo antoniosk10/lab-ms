@@ -1,14 +1,21 @@
-import React, { useCallback } from 'react'
-import { Card, CardContent, Divider } from '@mui/material'
-import Lessons from '@modules/mentor/lab/components/LabCreate/LessonModules/Lessons'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import MenuIcon from '@mui/icons-material/Menu'
+import { Accordion, AccordionDetails, AccordionSummary, Stack, Typography } from '@mui/material'
+import { useCallback, useMemo, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
+
+import Lessons from './Lessons'
 
 import { LessonResDto, ModuleResDto } from '../../../dto'
 
+import BasicMenu from '@/src/components/common/BasicMenu'
+
 type Props = {
-  altTitle: string
-  module: ModuleResDto
-  onLessonClick: (id: number) => void
+  altTitle: string;
+  module: ModuleResDto;
+  onLessonClick: (id: number) => void;
+  onModuleAdd: (duplicate?:ModuleResDto) => void
+  onModuleDelete: (id:number) => void
 }
 
 const emptyLesson: Omit<LessonResDto, 'id'> = {
@@ -18,38 +25,71 @@ const emptyLesson: Omit<LessonResDto, 'id'> = {
   accessible: null,
   description: null,
   title: null,
-  isTemporary: false
+  isTemporary: false,
 }
 
-function LessonModule ({ module, altTitle, onLessonClick }: Props) {
+function LessonModule ({ module, altTitle, onLessonClick, onModuleAdd, onModuleDelete }: Props) {
   const { setValue, getValues } = useFormContext()
+  const [expand, setExpand] = useState(false)
   const moduleId = module.id
+
+  const options = useMemo(() => [
+    {
+      name:'Rename',
+      action:() => {}
+    },
+    {
+      name:'Duplicate',
+      action: () => {
+        const duplicate = getValues(`modules[${moduleId}]`)
+        onModuleAdd(duplicate)
+      }
+    },
+    {
+      name:'Visible',
+      action:() => {}
+    },
+    {
+      name:'Delete',
+      action:() => { onModuleDelete(moduleId) }
+    }
+  ], [getValues, moduleId, onModuleAdd, onModuleDelete])
 
   const handleLessonAdd = useCallback(() => {
     const moduleKey = `modules[${moduleId}]`
     const formModule: ModuleResDto = getValues(moduleKey)
-    const newModule = { ...formModule, lessons: [...formModule.lessons, emptyLesson] }
+
+    const newModule = {
+      ...formModule,
+      lessons: [...formModule.lessons, emptyLesson],
+    }
 
     setValue(moduleKey, newModule)
   }, [getValues, setValue, moduleId])
 
+  const toggleAccordion = useCallback(() => {
+    setExpand((prev) => !prev)
+  }, [])
+
   return (
-    <Card>
-      <CardContent>
-        {module.title || altTitle}
-      </CardContent>
+    <Accordion expanded={expand}>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon onClick={toggleAccordion} />}
+        aria-controls={altTitle}
+        id={`${moduleId}`}
 
-      <Divider />
+      >
+        <Stack sx={{ width:'100%' }} direction="row" spacing={2} alignItems="center" justifyContent="space-between">
+          <MenuIcon />
+          <Typography>{module.title || altTitle}</Typography>
+          <BasicMenu options={options} />
+        </Stack>
 
-      <CardContent>
-        <Lessons
-          lessons={module.lessons}
-          onLessonClick={onLessonClick}
-          onLessonAdd={handleLessonAdd}
-        />
-      </CardContent>
-
-    </Card>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Lessons onLessonClick={onLessonClick} onLessonAdd={handleLessonAdd} lessons={module.lessons} />
+      </AccordionDetails>
+    </Accordion>
   )
 }
 
