@@ -1,10 +1,10 @@
-import React from 'react'
-import Tooltip from '@mui/material/Tooltip'
-import IconButton from '@mui/material/IconButton'
 import Avatar from '@mui/material/Avatar'
+import IconButton from '@mui/material/IconButton'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
+import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
+import React from 'react'
 
 type Props = {
   anchorElUser: null | HTMLElement
@@ -18,7 +18,7 @@ function ProfilePopup ({ settings, anchorElUser, onMenuOpen, onMenuClose }: Prop
     <>
       <Tooltip title="Open settings">
         <IconButton onClick={onMenuOpen} sx={{ p: 0 }}>
-          <Avatar alt="Remy Sharp" src="/images/avatar/2.jpg" />
+          <Avatar alt="Remy Sharp" src="/1.jpg" />
         </IconButton>
       </Tooltip>
       <Menu

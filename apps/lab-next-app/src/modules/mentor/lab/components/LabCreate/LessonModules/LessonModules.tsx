@@ -1,16 +1,19 @@
-import React from 'react'
 import LessonModule from '@modules/mentor/lab/components/LabCreate/LessonModules/LessonModule'
-import { Card, CardActionArea, Stack } from '@mui/material'
+import { Button, Stack } from '@mui/material'
+import { useFormContext } from 'react-hook-form'
 
 import { ModuleResDto } from '../../../dto'
 
 type Props = {
-  modules: ModuleResDto[]
-  onModuleAdd: () => void
+  onModuleAdd: (dublicate?:ModuleResDto) => void
   onLessonClick: (id: number) => void
+  onModuleDelete: (id:number) => void
 }
 
-function LessonModules ({ modules, onModuleAdd, onLessonClick }: Props) {
+function LessonModules ({ onModuleAdd, onLessonClick, onModuleDelete }: Props) {
+  const { watch } = useFormContext()
+  const modules:ModuleResDto[] = watch('modules')
+
   return (
     <Stack direction="column" spacing={2}>
       {modules.map((module, index) => (
@@ -19,14 +22,15 @@ function LessonModules ({ modules, onModuleAdd, onLessonClick }: Props) {
           module={module}
           altTitle={`Module ${index + 1}`}
           onLessonClick={onLessonClick}
+          onModuleAdd={onModuleAdd}
+          onModuleDelete={onModuleDelete}
         />
       ))}
 
-      <Card>
-        <CardActionArea onClick={onModuleAdd}>
-          + Add new module
-        </CardActionArea>
-      </Card>
+      <Button variant="outlined" onClick={() => onModuleAdd()}>
+        + add new module
+      </Button>
+
     </Stack>
   )
 }

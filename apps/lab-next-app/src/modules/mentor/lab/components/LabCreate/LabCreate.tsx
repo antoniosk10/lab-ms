@@ -1,18 +1,16 @@
-import React from 'react'
-import PageContainer, { PageContent } from '@src/components/PageContainer'
-import { Grid } from '@mui/material'
 import BannerForm from '@modules/mentor/lab/components/LabCreate/Banner'
-import { FormProvider, useForm } from 'react-hook-form'
+import LessonContent from '@modules/mentor/lab/components/LabCreate/LessonContent/LessonContent'
 import LessonModules from '@modules/mentor/lab/components/LabCreate/LessonModules/LessonModules'
 import { ModuleResDto } from '@modules/mentor/lab/dto'
-import LessonContent from '@modules/mentor/lab/components/LabCreate/LessonContent/LessonContent'
+import { Grid } from '@mui/material'
+import PageContainer, { PageContent } from '@src/components/PageContainer'
+import { FormProvider, useForm } from 'react-hook-form'
 
 type Props = {
   modules: ModuleResDto[]
 }
 
-const emptyModule: ModuleResDto = {
-  id: 0,
+const emptyModule: Omit<ModuleResDto, 'id'> = {
   title: '',
   lessons: [],
   isTemporary: true
@@ -28,10 +26,17 @@ function LabCreate ({ modules }: Props) {
     defaultValues: { selectedLessonId: modules[0].lessons[0].id || 0 }
   })
 
-  const handleModuleAdd = () => {
+  const handleModuleAdd = (duplicate?:ModuleResDto) => {
     const modules = modulesForm.getValues('modules')
-    const newModules = [...modules, emptyModule]
+    const newModule = duplicate || emptyModule
+    const newModules = [...modules, { ...newModule, id:modules.length + 1 }]
     modulesForm.setValue('modules', newModules)
+  }
+
+  const handleModuleDelete = (id:number) => {
+    const modules = modulesForm.getValues('modules')
+    const updatedModules = modules.filter((el) => el.id !== id)
+    modulesForm.setValue('modules', updatedModules)
   }
 
   const handleLessonClick = (id: number) => {
@@ -53,8 +58,8 @@ function LabCreate ({ modules }: Props) {
               <Grid item={true} xs={12} lg={3}>
                 <FormProvider {...modulesForm}>
                   <LessonModules
-                    modules={modules}
                     onModuleAdd={handleModuleAdd}
+                    onModuleDelete={handleModuleDelete}
                     onLessonClick={handleLessonClick}
                   />
                 </FormProvider>
