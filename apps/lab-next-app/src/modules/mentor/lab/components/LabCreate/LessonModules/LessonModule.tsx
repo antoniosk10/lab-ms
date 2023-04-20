@@ -1,95 +1,96 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import MenuIcon from '@mui/icons-material/Menu'
-import { Accordion, AccordionDetails, AccordionSummary, Stack, Typography } from '@mui/material'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
 
 import Lessons from './Lessons'
 
 import { LessonResDto, ModuleResDto } from '../../../dto'
 
-import BasicMenu from '@/src/components/common/BasicMenu'
+import AccordionPanel from '@/src/components/AccordionPanel'
+import DraggableItem from '@/src/components/DraggableItem'
 
 type Props = {
-  altTitle: string;
-  module: ModuleResDto;
-  onLessonClick: (id: number) => void;
-  onModuleAdd: (duplicate?:ModuleResDto) => void
-  onModuleDelete: (id:number) => void
+  altTitle: string
+  module: ModuleResDto
+  onLessonClick: (lesson: LessonResDto) => void
+  onModuleAdd: (duplicate?: ModuleResDto) => void
+  onLessonAdd: (moduleId: number) => void
+  onLessonDuplicate: (moduleId: number, duplicate: LessonResDto) => void
+  onModuleDelete: (id: number) => void
+  onLessonDelete: (moduleId: number, lessonId: number) => void
+  selectedLesson: LessonResDto | null
 }
 
-const emptyLesson: Omit<LessonResDto, 'id'> = {
-  image: null,
-  github: null,
-  file: null,
-  accessible: null,
-  description: null,
-  title: null,
-  isTemporary: false,
-}
+function LessonModule({
+  module,
+  altTitle,
+  onLessonClick,
+  onModuleAdd,
+  onLessonAdd,
+  onModuleDelete,
+  onLessonDelete,
+  selectedLesson,
+  onLessonDuplicate,
+}: Props) {
+  const { getValues } = useFormContext()
 
-function LessonModule ({ module, altTitle, onLessonClick, onModuleAdd, onModuleDelete }: Props) {
-  const { setValue, getValues } = useFormContext()
-  const [expand, setExpand] = useState(false)
   const moduleId = module.id
 
-  const options = useMemo(() => [
-    {
-      name:'Rename',
-      action:() => {}
-    },
-    {
-      name:'Duplicate',
-      action: () => {
-        const duplicate = getValues(`modules[${moduleId}]`)
-        onModuleAdd(duplicate)
-      }
-    },
-    {
-      name:'Visible',
-      action:() => {}
-    },
-    {
-      name:'Delete',
-      action:() => { onModuleDelete(moduleId) }
-    }
-  ], [getValues, moduleId, onModuleAdd, onModuleDelete])
+  const options = useMemo(
+    () => [
+      {
+        name: 'Rename',
+        action: () => {},
+      },
+      {
+        name: 'Duplicate',
+        action: () => {
+          onModuleAdd(module)
+        },
+      },
+      {
+        name: 'Visible',
+        action: () => {},
+      },
+      {
+        name: 'Delete',
+        action: () => {
+          onModuleDelete(moduleId)
+        },
+      },
+    ],
+    [getValues, moduleId, onModuleAdd, onModuleDelete]
+  )
 
   const handleLessonAdd = useCallback(() => {
-    const moduleKey = `modules[${moduleId}]`
-    const formModule: ModuleResDto = getValues(moduleKey)
+    onLessonAdd(moduleId)
+  }, [])
 
-    const newModule = {
-      ...formModule,
-      lessons: [...formModule.lessons, emptyLesson],
-    }
+  const handleLessonDuplicate = useCallback((duplicate: LessonResDto) => {
+    onLessonDuplicate(moduleId, duplicate)
+  }, [])
 
-    setValue(moduleKey, newModule)
-  }, [getValues, setValue, moduleId])
-
-  const toggleAccordion = useCallback(() => {
-    setExpand((prev) => !prev)
+  const handleLessonDelete = useCallback((lessonId: number) => {
+    onLessonDelete(moduleId, lessonId)
   }, [])
 
   return (
-    <Accordion expanded={expand}>
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon onClick={toggleAccordion} />}
-        aria-controls={altTitle}
-        id={`${moduleId}`}
-
-      >
-        <Stack sx={{ width:'100%' }} direction="row" spacing={2} alignItems="center" justifyContent="space-between">
-          <MenuIcon />
-          <Typography>{module.title || altTitle}</Typography>
-          <BasicMenu options={options} />
-        </Stack>
-
-      </AccordionSummary>
-      <AccordionDetails>
-        <Lessons onLessonClick={onLessonClick} onLessonAdd={handleLessonAdd} lessons={module.lessons} />
-      </AccordionDetails>
-    </Accordion>
+    <AccordionPanel
+      SummaryComponent={
+        <DraggableItem title={module.title || altTitle} options={options} />
+      }
+      DetailsComponent={
+        <Lessons
+          onLessonClick={onLessonClick}
+          onLessonAdd={handleLessonAdd}
+          onLessonDuplicate={handleLessonDuplicate}
+          onLessonDelete={handleLessonDelete}
+          lessons={module.lessons}
+          selectedLesson={selectedLesson}
+        />
+      }
+      ExpandIcon={ExpandMoreIcon}
+    />
   )
 }
 

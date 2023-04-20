@@ -1,47 +1,41 @@
 import BannerForm from '@modules/mentor/lab/components/LabCreate/Banner'
-import LessonContent from '@modules/mentor/lab/components/LabCreate/LessonContent/LessonContent'
 import LessonModules from '@modules/mentor/lab/components/LabCreate/LessonModules/LessonModules'
-import { ModuleResDto } from '@modules/mentor/lab/dto'
-import { Grid } from '@mui/material'
+import { LessonResDto, ModuleResDto } from '@modules/mentor/lab/dto'
+import { Box, Grid, Typography } from '@mui/material'
 import PageContainer, { PageContent } from '@src/components/PageContainer'
+import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
+
+import LessonContent from '@/src/modules/mentor/lab/components/LabCreate/LessonContent/LessonContent'
 
 type Props = {
   modules: ModuleResDto[]
 }
 
-const emptyModule: Omit<ModuleResDto, 'id'> = {
-  title: '',
-  lessons: [],
-  isTemporary: true
-}
+function LabCreate({ modules }: Props) {
+  const [isLessonEdit, setIsLessonEdit] = useState(false)
 
-function LabCreate ({ modules }: Props) {
   const bannerForm = useForm()
   const modulesForm = useForm<{ modules: ModuleResDto[] }>({
-    defaultValues: { modules }
+    defaultValues: { modules },
   })
 
-  const lessonForm = useForm<{ selectedLessonId: number }>({
-    defaultValues: { selectedLessonId: modules[0].lessons[0].id || 0 }
+  const lessonForm = useForm<{ selectedLesson: LessonResDto | null }>({
+    defaultValues: { selectedLesson: null },
   })
 
-  const handleModuleAdd = (duplicate?:ModuleResDto) => {
-    const modules = modulesForm.getValues('modules')
-    const newModule = duplicate || emptyModule
-    const newModules = [...modules, { ...newModule, id:modules.length + 1 }]
-    modulesForm.setValue('modules', newModules)
+  const selectedLesson = lessonForm.watch('selectedLesson')
+
+  const handleLessonClick = (lesson: LessonResDto) => {
+    setIsLessonEdit(false)
+    lessonForm.setValue('selectedLesson', { ...lesson })
   }
 
-  const handleModuleDelete = (id:number) => {
-    const modules = modulesForm.getValues('modules')
-    const updatedModules = modules.filter((el) => el.id !== id)
-    modulesForm.setValue('modules', updatedModules)
+  const handleEditLesson = () => {
+    setIsLessonEdit(true)
   }
 
-  const handleLessonClick = (id: number) => {
-    lessonForm.setValue('selectedLessonId', id)
-  }
+  const handlePublishLesson = () => {}
 
   return (
     <PageContainer>
@@ -58,17 +52,27 @@ function LabCreate ({ modules }: Props) {
               <Grid item={true} xs={12} lg={3}>
                 <FormProvider {...modulesForm}>
                   <LessonModules
-                    onModuleAdd={handleModuleAdd}
-                    onModuleDelete={handleModuleDelete}
                     onLessonClick={handleLessonClick}
+                    selectedLesson={selectedLesson}
+                    setEditLesson={handleEditLesson}
                   />
                 </FormProvider>
               </Grid>
-
               <Grid item={true} xs={12} lg={9}>
-                <FormProvider {...lessonForm}>
-                  <LessonContent lesson={{ id: 1 }} />
-                </FormProvider>
+                {selectedLesson ? (
+                  <FormProvider {...lessonForm}>
+                    <LessonContent
+                      lesson={selectedLesson}
+                      onEdit={handleEditLesson}
+                      isEdit={isLessonEdit}
+                      onPublish={handlePublishLesson}
+                    />
+                  </FormProvider>
+                ) : (
+                  <Box>
+                    <Typography align="center">No Content</Typography>
+                  </Box>
+                )}
               </Grid>
             </Grid>
           </Grid>

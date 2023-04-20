@@ -1,9 +1,9 @@
-import React from 'react'
-import { ROLES } from '@src/constants/roles'
-import LabLayout from '@src/layouts/LabLayout'
-import { TABS } from '@src/constants/tabs'
 import LabCreate from '@modules/mentor/lab/components/LabCreate'
 import { ModuleResDto } from '@modules/mentor/lab/dto'
+import { ROLES } from '@src/constants/roles'
+import { TABS } from '@src/constants/tabs'
+import LabLayout from '@src/layouts/LabLayout'
+import React from 'react'
 
 const modules: ModuleResDto[] = [
   {
@@ -14,11 +14,12 @@ const modules: ModuleResDto[] = [
       {
         id: 1,
         title: 'My lesson',
-        description: null,
+        description: 'sadasd',
         accessible: true,
         image: null,
-        file: null,
-        github: null,
+        file: '<file_name.docx>',
+        github: '<Github_url_name>',
+        youtube:'<youtube_url_name>',
         isTemporary: false
       },
       {
@@ -29,6 +30,7 @@ const modules: ModuleResDto[] = [
         image: null,
         file: null,
         github: null,
+        youtube:'<youtube_url_name>',
         isTemporary: false
       }
     ]
@@ -46,6 +48,7 @@ const modules: ModuleResDto[] = [
         image: null,
         file: null,
         github: null,
+        youtube:'<youtube_url_name>',
         isTemporary: false
       },
       {
@@ -56,6 +59,7 @@ const modules: ModuleResDto[] = [
         image: null,
         file: null,
         github: null,
+        youtube:'<youtube_url_name>',
         isTemporary: false
       }
     ]

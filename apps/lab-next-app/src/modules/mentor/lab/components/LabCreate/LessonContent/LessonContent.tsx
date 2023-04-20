@@ -1,26 +1,23 @@
-import React, { useState } from 'react'
 import { LessonResDto } from '@modules/mentor/lab/dto'
-import LessonContentForm from '@modules/mentor/lab/components/LabCreate/LessonContent/LessonContentForm'
 
+import LessonContentForm from './LessonContentForm'
 import LessonContentPlaceholder from './LessonContentPlaceholder'
 
 type Props = {
-  lesson: Partial<LessonResDto>
+  lesson: LessonResDto
+  isEdit: boolean
+  onEdit: () => void
+  onPublish: () => void
 }
 
-function LessonContent ({ lesson }: Props) {
-  const [isEdit, setIsEdit] = useState(false)
-
-  const handlePlaceholderClick = () => {
-    setIsEdit(true)
-  }
-
+function LessonContent({ lesson, onPublish, isEdit, onEdit }: Props) {
   return (
     <>
-      {isEdit || lesson.id
-        ? <LessonContentForm />
-        : <LessonContentPlaceholder onClick={handlePlaceholderClick} />
-      }
+      {isEdit ? (
+        <LessonContentForm lesson={lesson} onPublish={onPublish} />
+      ) : (
+        <LessonContentPlaceholder lesson={lesson} onEdit={onEdit} />
+      )}
     </>
   )
 }

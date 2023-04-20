@@ -1,51 +1,59 @@
-import * as Types from '@gql-gen/graphql'
-import * as Apollo from '@apollo/client'
-import { gql } from '@apollo/client'
+import * as Types from '@gql-gen/graphql';
 
-const defaultOptions = {} as const
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
+const defaultOptions = {} as const;
 export type TodoQueryVariables = Types.Exact<{
   id: Types.Scalars['Int'];
-}>
+}>;
 
-export type TodoQuery = { __typename?: 'TodoQueries', todo?: { __typename?: 'Todo', id?: number | null, title?: string | null, completed?: boolean | null } | null }
 
-export type TodoListQueryVariables = Types.Exact<{ [key: string]: never; }>
+export type TodoQuery = { __typename?: 'TodoQueries', todo?: { __typename?: 'Todo', id?: number | null, title?: string | null, completed?: boolean | null } | null };
 
-export type TodoListQuery = { __typename?: 'TodoQueries', todos?: Array<{ __typename?: 'Todo', id?: number | null, title?: string | null, completed?: boolean | null } | null> | null }
+export type TodoListQueryVariables = Types.Exact<{ [key: string]: never; }>;
+
+
+export type TodoListQuery = { __typename?: 'TodoQueries', todos?: Array<{ __typename?: 'Todo', id?: number | null, title?: string | null, completed?: boolean | null } | null> | null };
 
 export type AddTodoMutationVariables = Types.Exact<{
   title: Types.Scalars['String'];
-}>
+}>;
 
-export type AddTodoMutation = { __typename?: 'TodoMutations', addTodo?: { __typename?: 'Todo', id?: number | null, title?: string | null } | null }
+
+export type AddTodoMutation = { __typename?: 'TodoMutations', addTodo?: { __typename?: 'Todo', id?: number | null, title?: string | null } | null };
 
 export type UpdateTodoMutationVariables = Types.Exact<{
   id: Types.Scalars['Int'];
   title: Types.Scalars['String'];
-}>
+}>;
 
-export type UpdateTodoMutation = { __typename?: 'TodoMutations', updateTodo?: boolean | null }
+
+export type UpdateTodoMutation = { __typename?: 'TodoMutations', updateTodo?: boolean | null };
 
 export type CompleteTodoMutationVariables = Types.Exact<{
   id: Types.Scalars['Int'];
   completed: Types.Scalars['Boolean'];
-}>
+}>;
 
-export type CompleteTodoMutation = { __typename?: 'TodoMutations', updateTodo?: boolean | null }
+
+export type CompleteTodoMutation = { __typename?: 'TodoMutations', updateTodo?: boolean | null };
 
 export type FullUpdateTodoMutationVariables = Types.Exact<{
   id: Types.Scalars['Int'];
   title: Types.Scalars['String'];
   completed?: Types.InputMaybe<Types.Scalars['Boolean']>;
-}>
+}>;
 
-export type FullUpdateTodoMutation = { __typename?: 'TodoMutations', updateTodo?: boolean | null }
+
+export type FullUpdateTodoMutation = { __typename?: 'TodoMutations', updateTodo?: boolean | null };
 
 export type RemoveTodoMutationVariables = Types.Exact<{
   id: Types.Scalars['Int'];
-}>
+}>;
 
-export type RemoveTodoMutation = { __typename?: 'TodoMutations', deleteTodo?: boolean | null }
+
+export type RemoveTodoMutation = { __typename?: 'TodoMutations', deleteTodo?: boolean | null };
+
 
 export const TodoDocument = gql`
     query Todo($id: Int!) {
@@ -55,7 +63,7 @@ export const TodoDocument = gql`
     completed
   }
 }
-    `
+    `;
 
 /**
  * __useTodoQuery__
@@ -73,17 +81,17 @@ export const TodoDocument = gql`
  *   },
  * });
  */
-export function useTodoQuery (baseOptions: Apollo.QueryHookOptions<TodoQuery, TodoQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<TodoQuery, TodoQueryVariables>(TodoDocument, options)
-}
-export function useTodoLazyQuery (baseOptions?: Apollo.LazyQueryHookOptions<TodoQuery, TodoQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<TodoQuery, TodoQueryVariables>(TodoDocument, options)
-}
-export type TodoQueryHookResult = ReturnType<typeof useTodoQuery>
-export type TodoLazyQueryHookResult = ReturnType<typeof useTodoLazyQuery>
-export type TodoQueryResult = Apollo.QueryResult<TodoQuery, TodoQueryVariables>
+export function useTodoQuery(baseOptions: Apollo.QueryHookOptions<TodoQuery, TodoQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TodoQuery, TodoQueryVariables>(TodoDocument, options);
+      }
+export function useTodoLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TodoQuery, TodoQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TodoQuery, TodoQueryVariables>(TodoDocument, options);
+        }
+export type TodoQueryHookResult = ReturnType<typeof useTodoQuery>;
+export type TodoLazyQueryHookResult = ReturnType<typeof useTodoLazyQuery>;
+export type TodoQueryResult = Apollo.QueryResult<TodoQuery, TodoQueryVariables>;
 export const TodoListDocument = gql`
     query TodoList {
   todos {
@@ -92,7 +100,7 @@ export const TodoListDocument = gql`
     completed
   }
 }
-    `
+    `;
 
 /**
  * __useTodoListQuery__
@@ -109,17 +117,17 @@ export const TodoListDocument = gql`
  *   },
  * });
  */
-export function useTodoListQuery (baseOptions?: Apollo.QueryHookOptions<TodoListQuery, TodoListQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<TodoListQuery, TodoListQueryVariables>(TodoListDocument, options)
-}
-export function useTodoListLazyQuery (baseOptions?: Apollo.LazyQueryHookOptions<TodoListQuery, TodoListQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<TodoListQuery, TodoListQueryVariables>(TodoListDocument, options)
-}
-export type TodoListQueryHookResult = ReturnType<typeof useTodoListQuery>
-export type TodoListLazyQueryHookResult = ReturnType<typeof useTodoListLazyQuery>
-export type TodoListQueryResult = Apollo.QueryResult<TodoListQuery, TodoListQueryVariables>
+export function useTodoListQuery(baseOptions?: Apollo.QueryHookOptions<TodoListQuery, TodoListQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TodoListQuery, TodoListQueryVariables>(TodoListDocument, options);
+      }
+export function useTodoListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TodoListQuery, TodoListQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TodoListQuery, TodoListQueryVariables>(TodoListDocument, options);
+        }
+export type TodoListQueryHookResult = ReturnType<typeof useTodoListQuery>;
+export type TodoListLazyQueryHookResult = ReturnType<typeof useTodoListLazyQuery>;
+export type TodoListQueryResult = Apollo.QueryResult<TodoListQuery, TodoListQueryVariables>;
 export const AddTodoDocument = gql`
     mutation AddTodo($title: String!) {
   addTodo(title: $title) {
@@ -127,8 +135,8 @@ export const AddTodoDocument = gql`
     title
   }
 }
-    `
-export type AddTodoMutationFn = Apollo.MutationFunction<AddTodoMutation, AddTodoMutationVariables>
+    `;
+export type AddTodoMutationFn = Apollo.MutationFunction<AddTodoMutation, AddTodoMutationVariables>;
 
 /**
  * __useAddTodoMutation__
@@ -147,19 +155,19 @@ export type AddTodoMutationFn = Apollo.MutationFunction<AddTodoMutation, AddTodo
  *   },
  * });
  */
-export function useAddTodoMutation (baseOptions?: Apollo.MutationHookOptions<AddTodoMutation, AddTodoMutationVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<AddTodoMutation, AddTodoMutationVariables>(AddTodoDocument, options)
-}
-export type AddTodoMutationHookResult = ReturnType<typeof useAddTodoMutation>
-export type AddTodoMutationResult = Apollo.MutationResult<AddTodoMutation>
-export type AddTodoMutationOptions = Apollo.BaseMutationOptions<AddTodoMutation, AddTodoMutationVariables>
+export function useAddTodoMutation(baseOptions?: Apollo.MutationHookOptions<AddTodoMutation, AddTodoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddTodoMutation, AddTodoMutationVariables>(AddTodoDocument, options);
+      }
+export type AddTodoMutationHookResult = ReturnType<typeof useAddTodoMutation>;
+export type AddTodoMutationResult = Apollo.MutationResult<AddTodoMutation>;
+export type AddTodoMutationOptions = Apollo.BaseMutationOptions<AddTodoMutation, AddTodoMutationVariables>;
 export const UpdateTodoDocument = gql`
     mutation UpdateTodo($id: Int!, $title: String!) {
   updateTodo(id: $id, title: $title)
 }
-    `
-export type UpdateTodoMutationFn = Apollo.MutationFunction<UpdateTodoMutation, UpdateTodoMutationVariables>
+    `;
+export type UpdateTodoMutationFn = Apollo.MutationFunction<UpdateTodoMutation, UpdateTodoMutationVariables>;
 
 /**
  * __useUpdateTodoMutation__
@@ -179,19 +187,19 @@ export type UpdateTodoMutationFn = Apollo.MutationFunction<UpdateTodoMutation, U
  *   },
  * });
  */
-export function useUpdateTodoMutation (baseOptions?: Apollo.MutationHookOptions<UpdateTodoMutation, UpdateTodoMutationVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<UpdateTodoMutation, UpdateTodoMutationVariables>(UpdateTodoDocument, options)
-}
-export type UpdateTodoMutationHookResult = ReturnType<typeof useUpdateTodoMutation>
-export type UpdateTodoMutationResult = Apollo.MutationResult<UpdateTodoMutation>
-export type UpdateTodoMutationOptions = Apollo.BaseMutationOptions<UpdateTodoMutation, UpdateTodoMutationVariables>
+export function useUpdateTodoMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTodoMutation, UpdateTodoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateTodoMutation, UpdateTodoMutationVariables>(UpdateTodoDocument, options);
+      }
+export type UpdateTodoMutationHookResult = ReturnType<typeof useUpdateTodoMutation>;
+export type UpdateTodoMutationResult = Apollo.MutationResult<UpdateTodoMutation>;
+export type UpdateTodoMutationOptions = Apollo.BaseMutationOptions<UpdateTodoMutation, UpdateTodoMutationVariables>;
 export const CompleteTodoDocument = gql`
     mutation CompleteTodo($id: Int!, $completed: Boolean!) {
   updateTodo(id: $id, completed: $completed)
 }
-    `
-export type CompleteTodoMutationFn = Apollo.MutationFunction<CompleteTodoMutation, CompleteTodoMutationVariables>
+    `;
+export type CompleteTodoMutationFn = Apollo.MutationFunction<CompleteTodoMutation, CompleteTodoMutationVariables>;
 
 /**
  * __useCompleteTodoMutation__
@@ -211,19 +219,19 @@ export type CompleteTodoMutationFn = Apollo.MutationFunction<CompleteTodoMutatio
  *   },
  * });
  */
-export function useCompleteTodoMutation (baseOptions?: Apollo.MutationHookOptions<CompleteTodoMutation, CompleteTodoMutationVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<CompleteTodoMutation, CompleteTodoMutationVariables>(CompleteTodoDocument, options)
-}
-export type CompleteTodoMutationHookResult = ReturnType<typeof useCompleteTodoMutation>
-export type CompleteTodoMutationResult = Apollo.MutationResult<CompleteTodoMutation>
-export type CompleteTodoMutationOptions = Apollo.BaseMutationOptions<CompleteTodoMutation, CompleteTodoMutationVariables>
+export function useCompleteTodoMutation(baseOptions?: Apollo.MutationHookOptions<CompleteTodoMutation, CompleteTodoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CompleteTodoMutation, CompleteTodoMutationVariables>(CompleteTodoDocument, options);
+      }
+export type CompleteTodoMutationHookResult = ReturnType<typeof useCompleteTodoMutation>;
+export type CompleteTodoMutationResult = Apollo.MutationResult<CompleteTodoMutation>;
+export type CompleteTodoMutationOptions = Apollo.BaseMutationOptions<CompleteTodoMutation, CompleteTodoMutationVariables>;
 export const FullUpdateTodoDocument = gql`
     mutation FullUpdateTodo($id: Int!, $title: String!, $completed: Boolean) {
   updateTodo(id: $id, title: $title, completed: $completed)
 }
-    `
-export type FullUpdateTodoMutationFn = Apollo.MutationFunction<FullUpdateTodoMutation, FullUpdateTodoMutationVariables>
+    `;
+export type FullUpdateTodoMutationFn = Apollo.MutationFunction<FullUpdateTodoMutation, FullUpdateTodoMutationVariables>;
 
 /**
  * __useFullUpdateTodoMutation__
@@ -244,19 +252,19 @@ export type FullUpdateTodoMutationFn = Apollo.MutationFunction<FullUpdateTodoMut
  *   },
  * });
  */
-export function useFullUpdateTodoMutation (baseOptions?: Apollo.MutationHookOptions<FullUpdateTodoMutation, FullUpdateTodoMutationVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<FullUpdateTodoMutation, FullUpdateTodoMutationVariables>(FullUpdateTodoDocument, options)
-}
-export type FullUpdateTodoMutationHookResult = ReturnType<typeof useFullUpdateTodoMutation>
-export type FullUpdateTodoMutationResult = Apollo.MutationResult<FullUpdateTodoMutation>
-export type FullUpdateTodoMutationOptions = Apollo.BaseMutationOptions<FullUpdateTodoMutation, FullUpdateTodoMutationVariables>
+export function useFullUpdateTodoMutation(baseOptions?: Apollo.MutationHookOptions<FullUpdateTodoMutation, FullUpdateTodoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<FullUpdateTodoMutation, FullUpdateTodoMutationVariables>(FullUpdateTodoDocument, options);
+      }
+export type FullUpdateTodoMutationHookResult = ReturnType<typeof useFullUpdateTodoMutation>;
+export type FullUpdateTodoMutationResult = Apollo.MutationResult<FullUpdateTodoMutation>;
+export type FullUpdateTodoMutationOptions = Apollo.BaseMutationOptions<FullUpdateTodoMutation, FullUpdateTodoMutationVariables>;
 export const RemoveTodoDocument = gql`
     mutation RemoveTodo($id: Int!) {
   deleteTodo(id: $id)
 }
-    `
-export type RemoveTodoMutationFn = Apollo.MutationFunction<RemoveTodoMutation, RemoveTodoMutationVariables>
+    `;
+export type RemoveTodoMutationFn = Apollo.MutationFunction<RemoveTodoMutation, RemoveTodoMutationVariables>;
 
 /**
  * __useRemoveTodoMutation__
@@ -275,10 +283,10 @@ export type RemoveTodoMutationFn = Apollo.MutationFunction<RemoveTodoMutation, R
  *   },
  * });
  */
-export function useRemoveTodoMutation (baseOptions?: Apollo.MutationHookOptions<RemoveTodoMutation, RemoveTodoMutationVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<RemoveTodoMutation, RemoveTodoMutationVariables>(RemoveTodoDocument, options)
-}
-export type RemoveTodoMutationHookResult = ReturnType<typeof useRemoveTodoMutation>
-export type RemoveTodoMutationResult = Apollo.MutationResult<RemoveTodoMutation>
-export type RemoveTodoMutationOptions = Apollo.BaseMutationOptions<RemoveTodoMutation, RemoveTodoMutationVariables>
+export function useRemoveTodoMutation(baseOptions?: Apollo.MutationHookOptions<RemoveTodoMutation, RemoveTodoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveTodoMutation, RemoveTodoMutationVariables>(RemoveTodoDocument, options);
+      }
+export type RemoveTodoMutationHookResult = ReturnType<typeof useRemoveTodoMutation>;
+export type RemoveTodoMutationResult = Apollo.MutationResult<RemoveTodoMutation>;
+export type RemoveTodoMutationOptions = Apollo.BaseMutationOptions<RemoveTodoMutation, RemoveTodoMutationVariables>;
