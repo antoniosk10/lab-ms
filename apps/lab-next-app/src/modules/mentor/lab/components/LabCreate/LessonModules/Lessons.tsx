@@ -1,15 +1,24 @@
-import React from 'react'
+import Lesson from '@modules/mentor/lab/components/LabCreate/LessonModules/Lesson'
 import { LessonResDto } from '@modules/mentor/lab/dto'
 import { Button, Stack } from '@mui/material'
-import Lesson from '@modules/mentor/lab/components/LabCreate/LessonModules/Lesson'
 
 type Props = {
   lessons: LessonResDto[]
-  onLessonClick: (id: number) => void
+  onLessonClick: (lesson: LessonResDto) => void
   onLessonAdd: () => void
+  onLessonDuplicate: (duplicate: LessonResDto) => void
+  onLessonDelete: (lessonId: number) => void
+  selectedLesson: LessonResDto | null
 }
 
-function Lessons ({ lessons, onLessonClick, onLessonAdd }: Props) {
+function Lessons({
+  lessons,
+  onLessonClick,
+  onLessonAdd,
+  selectedLesson,
+  onLessonDelete,
+  onLessonDuplicate,
+}: Props) {
   return (
     <Stack direction="column" spacing={2}>
       {lessons.map((lesson, index) => (
@@ -17,14 +26,14 @@ function Lessons ({ lessons, onLessonClick, onLessonAdd }: Props) {
           key={lesson.id}
           lesson={lesson}
           altTitle={`Lesson ${index + 1}`}
-          onLessonClick={() => onLessonClick(lesson.id)}
+          onLessonClick={() => onLessonClick(lesson)}
+          selectedLesson={selectedLesson}
+          onLessonDelete={onLessonDelete}
+          onLessonDuplicate={onLessonDuplicate}
         />
       ))}
 
-      <Button onClick={onLessonAdd}>
-        + Add new lesson
-      </Button>
-
+      <Button onClick={() => onLessonAdd()}>+ Add new lesson</Button>
     </Stack>
   )
 }

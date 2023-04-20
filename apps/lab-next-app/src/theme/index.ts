@@ -5,11 +5,11 @@ import { components } from './light/components'
 export const theme = createTheme({
   palette: {
     primary: {
-      main: '#2196F3'
+      main: '#2196F3',
     },
     secondary: {
-      main: '#FF9900'
-    }
+      main: '#FF9900',
+    },
   },
-  components
+  components,
 })

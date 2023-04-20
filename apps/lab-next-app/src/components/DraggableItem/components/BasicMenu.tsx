@@ -5,13 +5,10 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import * as React from 'react'
 
-type Option = {
-  name:string,
-  action:() => void,
- }
+import { MenuOption } from '@/src/types'
 
 type Props = {
- options:Option[],
+ options:MenuOption[],
  verticalDots?:boolean
 }
 
@@ -20,15 +17,17 @@ export default function BasicMenu ({ options, verticalDots = false }:Props) {
   const open = Boolean(anchorEl)
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation()
     setAnchorEl(event.currentTarget)
   }
-  const handleClose = () => {
+  const handleClose = (event: React.MouseEvent<HTMLLIElement>) => {
+    event.stopPropagation()
     setAnchorEl(null)
   }
 
-  const handleOptionClick = (action: Option['action']) => {
+  const handleOptionClick = (event: React.MouseEvent<HTMLLIElement>, action: MenuOption['action']) => {
     action()
-    handleClose()
+    handleClose(event)
   }
 
   return (
@@ -50,7 +49,10 @@ export default function BasicMenu ({ options, verticalDots = false }:Props) {
         onClose={handleClose}
       >
         {options.map((option) => {
-          return <MenuItem key={option.name} onClick={() => handleOptionClick(option.action)}>{option.name}</MenuItem>
+          return <MenuItem
+            key={option.name}
+            onClick={(e) => handleOptionClick(e, option.action)}
+          >{option.name}</MenuItem>
         })}
       </Menu>
     </>

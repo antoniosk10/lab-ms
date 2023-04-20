@@ -13,6 +13,7 @@ export type LessonResDto = {
   description: string | null
   accessible: boolean | null
   github: string | null
+  youtube: string | null
   image: string | null
   file: string | null
   isTemporary: boolean
