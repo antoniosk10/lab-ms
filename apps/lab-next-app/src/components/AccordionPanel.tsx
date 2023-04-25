@@ -15,6 +15,7 @@ type Props = {
   DetailsComponent: JSX.Element
   ExpandIcon?: SvgIconComponent
   ExpandButton?: boolean
+  isExpanded?: boolean
 }
 
 function AccordionPanel({
@@ -22,8 +23,9 @@ function AccordionPanel({
   DetailsComponent,
   ExpandIcon,
   ExpandButton,
+  isExpanded = false,
 }: Props) {
-  const [expand, setExpand] = useState(false)
+  const [expand, setExpand] = useState(isExpanded)
 
   const toggleAccordion = useCallback(() => {
     setExpand((prev) => !prev)

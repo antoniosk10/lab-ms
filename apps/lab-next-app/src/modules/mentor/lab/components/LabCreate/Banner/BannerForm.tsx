@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
-import { styled } from '@mui/material/styles'
-import Box from '@mui/material/Box'
 import BannerTitle from '@modules/mentor/lab/components/LabCreate/Banner/BannerTitle'
+import Box from '@mui/material/Box'
+import { styled } from '@mui/material/styles'
+import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { Button } from '@mui/material'
 
 const BannerStyled = styled(Box)(({ theme }) => ({
   background: theme.palette.secondary.main,
@@ -11,14 +10,10 @@ const BannerStyled = styled(Box)(({ theme }) => ({
   height: '250px',
   borderRadius: '10px',
   display: 'flex',
-  alignItems: 'flex-end'
+  alignItems: 'flex-end',
 }))
 
-const ButtonStyled = styled(Button)({
-  background: 'white'
-})
-
-function BannerForm () {
+function BannerForm() {
   const [isEdit, setIsEdit] = useState(false)
   const { getValues } = useFormContext()
 
@@ -34,7 +29,7 @@ function BannerForm () {
           justifyContent: 'space-between',
           alignItems: 'center',
           width: '100%',
-          padding: '24px'
+          padding: '24px',
         }}
       >
         <BannerTitle
@@ -43,9 +38,6 @@ function BannerForm () {
           onTextClick={() => setIsEdit(true)}
           onTitleAccept={handleTitleChange}
         />
-        <ButtonStyled color="secondary" onClick={() => {}}>
-          Customize
-        </ButtonStyled>
       </Box>
     </BannerStyled>
   )

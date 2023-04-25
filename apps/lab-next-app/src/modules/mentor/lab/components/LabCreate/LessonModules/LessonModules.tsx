@@ -2,6 +2,7 @@ import LessonModule from '@modules/mentor/lab/components/LabCreate/LessonModules
 import { Button, Stack } from '@mui/material'
 import { useCallback } from 'react'
 import { useFormContext } from 'react-hook-form'
+import { v4 as uuidv4 } from 'uuid'
 
 import { LessonResDto, ModuleResDto } from '../../../dto'
 
@@ -36,43 +37,47 @@ function LessonModules({
   const { getValues, setValue, watch } = useFormContext()
   const modules: ModuleResDto[] = watch('modules')
 
-  const handleModuleAdd = (duplicate?: ModuleResDto) => {
-    const newModule = duplicate || emptyModule
-    const newModules = [...modules, { ...newModule, id: Date.now() }]
+  const handleModuleAdd = () => {
+    const newModules = [...modules, { ...emptyModule, id: uuidv4() }]
     setValue('modules', newModules)
   }
 
-  const handleModuleDelete = (id: number) => {
+  const handleModuleDuplicate = (duplicate: ModuleResDto) => {
+    const newModules = [...modules, { ...duplicate, id: uuidv4() }]
+    setValue('modules', newModules)
+  }
+
+  const handleModuleDelete = (id: string) => {
     const updatedModules = modules.filter((el) => el.id !== id)
     setValue('modules', updatedModules)
   }
 
   const getLessonsByModuleId = useCallback(
-    (moduleId: number): LessonResDto[] => {
-      const moduleKey = moduleId - 1
-      const modules = getValues('modules')
-      const currentModule = modules[moduleKey]
-      const currentLessons = currentModule.lessons
+    (moduleId: string): LessonResDto[] => {
+      const modules: ModuleResDto[] = getValues('modules')
+      const currentModule = modules.find((el) => el.id === moduleId)
+      const currentLessons = currentModule ? currentModule.lessons : []
       return currentLessons
     },
     []
   )
 
   const updateLessonsList = useCallback(
-    (moduleId: number, updatedLessons: LessonResDto[]) => {
-      const moduleKey = moduleId - 1
-      const modules = getValues('modules')
-      const currentModule = modules[moduleKey]
-      const newModules = [...modules]
-      newModules[moduleKey] = { ...currentModule, lessons: updatedLessons }
+    (moduleId: string, updatedLessons: LessonResDto[]) => {
+      const modules: ModuleResDto[] = getValues('modules')
+      const newModules: ModuleResDto[] = modules.map((module) => {
+        if (module.id === moduleId)
+          return { ...module, lessons: updatedLessons }
+        return module
+      })
 
       setValue('modules', newModules)
     },
     []
   )
 
-  const addNewLesson = useCallback((moduleId: number, lesson: LessonResDto) => {
-    const newLesson = { ...lesson, id: Date.now() }
+  const addNewLesson = useCallback((moduleId: string, lesson: LessonResDto) => {
+    const newLesson = { ...lesson, id: uuidv4() }
     const currentLessons = getLessonsByModuleId(moduleId)
 
     updateLessonsList(moduleId, [...currentLessons, newLesson])
@@ -80,20 +85,20 @@ function LessonModules({
     setEditLesson()
   }, [])
 
-  const handleLessonAdd = useCallback((moduleId: number) => {
-    const newLesson = { ...emptyLesson, id: Date.now() }
+  const handleLessonAdd = useCallback((moduleId: string) => {
+    const newLesson = { ...emptyLesson, id: uuidv4() }
     addNewLesson(moduleId, newLesson)
   }, [])
 
   const handleDuplicateLesson = useCallback(
-    (moduleId: number, duplicate: LessonResDto) => {
+    (moduleId: string, duplicate: LessonResDto) => {
       addNewLesson(moduleId, duplicate)
     },
     []
   )
 
   const handleLessonDelete = useCallback(
-    (moduleId: number, lessonId: number) => {
+    (moduleId: string, lessonId: string) => {
       const currentLessons = getLessonsByModuleId(moduleId)
       const updatedLessons = currentLessons.filter((el) => el.id !== lessonId)
 
@@ -110,12 +115,13 @@ function LessonModules({
           module={module}
           altTitle={`Module ${index + 1}`}
           onLessonClick={onLessonClick}
-          onModuleAdd={handleModuleAdd}
+          onModuleDuplicate={handleModuleDuplicate}
           onModuleDelete={handleModuleDelete}
           onLessonAdd={handleLessonAdd}
           onLessonDuplicate={handleDuplicateLesson}
           onLessonDelete={handleLessonDelete}
           selectedLesson={selectedLesson}
+          isExpanded={index === 0}
         />
       ))}
 
