@@ -1,6 +1,5 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { useCallback, useMemo } from 'react'
-import { useFormContext } from 'react-hook-form'
 
 import Lessons from './Lessons'
 
@@ -12,28 +11,28 @@ import DraggableItem from '@/src/components/DraggableItem'
 type Props = {
   altTitle: string
   module: ModuleResDto
+  onModuleDuplicate: (duplicate: ModuleResDto) => void
+  onModuleDelete: (id: string) => void
   onLessonClick: (lesson: LessonResDto) => void
-  onModuleAdd: (duplicate?: ModuleResDto) => void
-  onLessonAdd: (moduleId: number) => void
-  onLessonDuplicate: (moduleId: number, duplicate: LessonResDto) => void
-  onModuleDelete: (id: number) => void
-  onLessonDelete: (moduleId: number, lessonId: number) => void
+  onLessonAdd: (moduleId: string) => void
+  onLessonDuplicate: (moduleId: string, duplicate: LessonResDto) => void
+  onLessonDelete: (moduleId: string, lessonId: string) => void
   selectedLesson: LessonResDto | null
+  isExpanded: boolean
 }
 
 function LessonModule({
   module,
   altTitle,
-  onLessonClick,
-  onModuleAdd,
-  onLessonAdd,
   onModuleDelete,
+  onModuleDuplicate,
+  onLessonClick,
+  onLessonAdd,
   onLessonDelete,
   selectedLesson,
   onLessonDuplicate,
+  isExpanded,
 }: Props) {
-  const { getValues } = useFormContext()
-
   const moduleId = module.id
 
   const options = useMemo(
@@ -45,7 +44,7 @@ function LessonModule({
       {
         name: 'Duplicate',
         action: () => {
-          onModuleAdd(module)
+          onModuleDuplicate(module)
         },
       },
       {
@@ -59,7 +58,7 @@ function LessonModule({
         },
       },
     ],
-    [getValues, moduleId, onModuleAdd, onModuleDelete]
+    [onModuleDuplicate, module, onModuleDelete, moduleId]
   )
 
   const handleLessonAdd = useCallback(() => {
@@ -70,7 +69,7 @@ function LessonModule({
     onLessonDuplicate(moduleId, duplicate)
   }, [])
 
-  const handleLessonDelete = useCallback((lessonId: number) => {
+  const handleLessonDelete = useCallback((lessonId: string) => {
     onLessonDelete(moduleId, lessonId)
   }, [])
 
@@ -90,6 +89,7 @@ function LessonModule({
         />
       }
       ExpandIcon={ExpandMoreIcon}
+      isExpanded={isExpanded}
     />
   )
 }

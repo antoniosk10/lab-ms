@@ -7,7 +7,7 @@ type Props = {
   onLessonClick: (lesson: LessonResDto) => void
   onLessonAdd: () => void
   onLessonDuplicate: (duplicate: LessonResDto) => void
-  onLessonDelete: (lessonId: number) => void
+  onLessonDelete: (lessonId: string) => void
   selectedLesson: LessonResDto | null
 }
 

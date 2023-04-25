@@ -20,20 +20,22 @@
     "@types/node": "18.13.0",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.10",
+    "@types/uuid": "^9.0.1",
     "class-validator": "^0.14.0",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
     "lab-api": "*",
-    "lab-table": "*",
     "lab-fields": "*",
+    "lab-table": "*",
     "next": "13.2.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.2",
     "reflect-metadata": "^0.1.13",
     "sharp": "^0.31.3",
-    "typescript": "4.9.5"
+    "typescript": "4.9.5",
+    "uuid": "^9.0.0"
   }
 }
