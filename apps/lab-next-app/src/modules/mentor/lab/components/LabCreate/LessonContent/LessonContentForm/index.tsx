@@ -9,10 +9,12 @@ import { MenuOption } from '@/src/types'
 
 type Props = {
   onPublish: () => void
-  lesson: LessonResDto | undefined
+  lesson: LessonResDto
 }
 
 function LessonContentForm({ onPublish, lesson }: Props) {
+  const { title, description } = lesson
+
   const options: MenuOption[] = [
     {
       name: 'Save as draft',
@@ -27,9 +29,9 @@ function LessonContentForm({ onPublish, lesson }: Props) {
   return (
     <Card>
       <Stack spacing={2} p={2}>
-        <TextField placeholder="Lesson <NAME>" value={lesson?.title} />
+        <TextField placeholder="Lesson <NAME>" value={title || ''} />
         <TextField
-          value={lesson?.description}
+          value={description || ''}
           multiline={true}
           placeholder="Announcement, instructions, reminder, notes, etc..."
           rows={5}
