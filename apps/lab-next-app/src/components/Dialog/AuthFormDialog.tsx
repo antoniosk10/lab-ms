@@ -10,11 +10,12 @@ type Props = {
   onSubmit: (data: Record<string, string>) => void
 }
 
+const defaultValues = {
+  email: '',
+  password: '',
+}
+
 export function AuthFormDialog({ isOpen, onClose, onSubmit }: Props) {
-  const defaultValues = {
-    email: '',
-    password: '',
-  }
   const form = useForm({
     defaultValues,
   })
@@ -34,18 +35,9 @@ export function AuthFormDialog({ isOpen, onClose, onSubmit }: Props) {
           onSubmit={handleSubmit(onSubmit)}
           sx={{ mt: 1, p: 2 }}
         >
+          <TextField required={true} id="email" label="Email" name="email" />
           <TextField
-            margin="normal"
             required={true}
-            fullWidth={true}
-            id="email"
-            label="Email"
-            name="email"
-          />
-          <TextField
-            margin="normal"
-            required={true}
-            fullWidth={true}
             id="password"
             label="Password"
             name="password"

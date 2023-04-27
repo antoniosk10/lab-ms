@@ -15,14 +15,14 @@ function App({ Component, pageProps }: LayoutAppProps) {
   const getLayout = Component.getLayout ?? ((page) => page)
 
   return (
-    <UserProvider>
-      <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      <UserProvider>
         <CssBaseline />
         <ApolloProvider client={apolloClient}>
           {getLayout(<Component {...pageProps} />)}
         </ApolloProvider>
-      </ThemeProvider>
-    </UserProvider>
+      </UserProvider>
+    </ThemeProvider>
   )
 }
 
