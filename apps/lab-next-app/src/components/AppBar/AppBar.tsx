@@ -1,4 +1,5 @@
 import MenuIcon from '@mui/icons-material/Menu'
+import { Button, Stack } from '@mui/material'
 import MuiAppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
@@ -13,6 +14,12 @@ import { ValuesOfObject } from '@src/utils/types'
 import Image from 'next/image'
 import Link from 'next/link'
 import * as React from 'react'
+import { useState } from 'react'
+
+import { AuthFormDialog } from '../Dialog/AuthFormDialog'
+import { RegistrationFormDialog } from '../Dialog/RegistrationFormDialog'
+
+import { useUser } from '@/src/context/userContext'
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
@@ -20,8 +27,14 @@ export type AppBarProps = {
   activeTab: ValuesOfObject<typeof TABS> | null
 }
 
-function AppBar ({ activeTab }: AppBarProps) {
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
+function AppBar({ activeTab }: AppBarProps) {
+  const [isAuthDialogOpen, setAuthDialogOpen] = useState(false)
+  const [isRegistrationDialogOpen, setRegistrationDialogOpen] = useState(false)
+
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
+    null
+  )
+  const user = useUser()
 
   const handleUserMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget)
@@ -31,43 +44,92 @@ function AppBar ({ activeTab }: AppBarProps) {
     setAnchorElUser(null)
   }
 
+  const handleAuthDialogClose = () => {
+    setAuthDialogOpen(false)
+  }
+
+  const handleAuthDialogOpen = () => {
+    setAuthDialogOpen(true)
+  }
+
+  const handleAuthFormSubmit = (data: Record<string, string>) => {}
+
+  const handleRegistrationDialogClose = () => {
+    setRegistrationDialogOpen(false)
+  }
+
+  const handleRegistrationDialogOpen = () => {
+    setRegistrationDialogOpen(true)
+  }
+
+  const handleRegistrationFormSubmit = (data: Record<string, string>) => {}
+
   return (
     <MuiAppBar position="static" color="default">
       <Grid item={true}>
-
         <Container maxWidth="xl">
-          <Toolbar disableGutters={true} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Toolbar
+            disableGutters={true}
+            sx={{ display: 'flex', justifyContent: 'space-between' }}
+          >
             <Link href={ROUTES.HOME}>
-              <Image src="/images/logo/logo.png" alt="logo" width="90" height="40" />
+              <Image
+                src="/images/logo/logo.png"
+                alt="logo"
+                width="90"
+                height="40"
+              />
             </Link>
 
             <Tabs activeTab={activeTab} />
-            <Box display="flex" justifyContent="space-between" alignItems="center">
-              <Box mr={1}>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={() => {}}
-                  color="inherit"
-                >
-                  <MenuIcon />
-                </IconButton>
-              </Box>
+            {user ? (
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Box mr={1}>
+                  <IconButton
+                    size="large"
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    onClick={() => {}}
+                    color="inherit"
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                </Box>
 
-              <Box sx={{ flexGrow: 0 }}>
-                <ProfilePopup
-                  settings={settings}
-                  anchorElUser={anchorElUser}
-                  onMenuOpen={handleUserMenuOpen}
-                  onMenuClose={handleUserMenuClose}
-                />
+                <Box sx={{ flexGrow: 0 }}>
+                  <ProfilePopup
+                    settings={settings}
+                    anchorElUser={anchorElUser}
+                    onMenuOpen={handleUserMenuOpen}
+                    onMenuClose={handleUserMenuClose}
+                  />
+                </Box>
               </Box>
-            </Box>
+            ) : (
+              <Stack direction="row">
+                <Button onClick={handleRegistrationDialogOpen}>Sign Up</Button>
+                <Button onClick={handleAuthDialogOpen}>Sign In</Button>
+              </Stack>
+            )}
           </Toolbar>
         </Container>
       </Grid>
+
+      <AuthFormDialog
+        isOpen={isAuthDialogOpen}
+        onClose={handleAuthDialogClose}
+        onSubmit={handleAuthFormSubmit}
+      />
+      <RegistrationFormDialog
+        isOpen={isRegistrationDialogOpen}
+        onClose={handleRegistrationDialogClose}
+        onSubmit={handleRegistrationFormSubmit}
+      />
     </MuiAppBar>
   )
 }
