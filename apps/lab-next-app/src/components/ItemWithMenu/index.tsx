@@ -1,7 +1,7 @@
 import MenuIcon from '@mui/icons-material/Menu'
 import { Stack, Typography } from '@mui/material'
 
-import BasicMenu from '@/src/components/DraggableItem/components/BasicMenu'
+import BasicMenu from '@/src/components/ItemWithMenu/components/BasicMenu'
 import { MenuOption } from '@/src/types'
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
   title: string
 }
 
-function DraggableItem({ verticalDots, options, title }: Props) {
+export function ItemWithMenu({ verticalDots, options, title }: Props) {
   return (
     <Stack
       sx={{ width: '100%' }}
@@ -25,5 +25,3 @@ function DraggableItem({ verticalDots, options, title }: Props) {
     </Stack>
   )
 }
-
-export default DraggableItem
