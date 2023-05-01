@@ -1,16 +1,16 @@
 import { LessonResDto } from '@modules/mentor/lab/dto'
 
-import LessonContentForm from './LessonContentForm'
+import LessonContentForm, { LessonFields } from './LessonContentForm'
 import LessonContentPlaceholder from './LessonContentPlaceholder'
 
 type Props = {
   lesson: LessonResDto
   isEdit: boolean
   onEdit: () => void
-  onPublish: () => void
+  onPublish: (lessonId: string, data: LessonFields) => void
 }
 
-function LessonContent({ lesson, onPublish, isEdit, onEdit }: Props) {
+export function LessonContent({ lesson, onPublish, isEdit, onEdit }: Props) {
   return (
     <>
       {isEdit ? (
@@ -21,5 +21,3 @@ function LessonContent({ lesson, onPublish, isEdit, onEdit }: Props) {
     </>
   )
 }
-
-export default LessonContent

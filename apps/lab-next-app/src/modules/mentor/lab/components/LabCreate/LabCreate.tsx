@@ -3,13 +3,27 @@ import LessonModules from '@modules/mentor/lab/components/LabCreate/LessonModule
 import { LessonResDto, ModuleResDto } from '@modules/mentor/lab/dto'
 import { Box, Grid, Typography } from '@mui/material'
 import PageContainer, { PageContent } from '@src/components/PageContainer'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
+import { v4 as uuidv4 } from 'uuid'
 
-import LessonContent from '@/src/modules/mentor/lab/components/LabCreate/LessonContent/LessonContent'
+import { LessonFields } from './LessonContent/LessonContentForm'
+
+import { LessonContent } from '@/src/modules/mentor/lab/components/LabCreate/LessonContent/LessonContent'
 
 type Props = {
   modules: ModuleResDto[]
+}
+
+const emptyLesson: Omit<LessonResDto, 'id'> = {
+  image: null,
+  github: null,
+  youtube: null,
+  file: null,
+  accessible: null,
+  description: null,
+  title: null,
+  isTemporary: false,
 }
 
 function LabCreate({ modules }: Props) {
@@ -26,16 +40,104 @@ function LabCreate({ modules }: Props) {
 
   const selectedLesson = lessonForm.watch('selectedLesson')
 
-  const handleLessonClick = (lesson: LessonResDto) => {
-    setIsLessonEdit(false)
-    lessonForm.setValue('selectedLesson', { ...lesson })
-  }
+  const getLessonsByModuleId = useCallback(
+    (moduleId: string): LessonResDto[] => {
+      const modules: ModuleResDto[] = modulesForm.getValues('modules')
+      const currentModule = modules.find((el) => el.id === moduleId)
+      const currentLessons = (currentModule as ModuleResDto).lessons
+      return currentLessons
+    },
+    [modulesForm]
+  )
+  const getModuleByLessonId = useCallback(
+    (lessonId: string): ModuleResDto => {
+      const modules = modulesForm.getValues('modules')
+      return modules.find((module) =>
+        module.lessons.find((lesson) => lesson.id === lessonId)
+      ) as ModuleResDto
+    },
+    [modulesForm]
+  )
 
-  const handleEditLesson = () => {
+  const updateLessonsList = useCallback(
+    (moduleId: string, updatedLessons: LessonResDto[]) => {
+      const modules: ModuleResDto[] = modulesForm.getValues('modules')
+      const newModules: ModuleResDto[] = modules.map((module) => {
+        if (module.id === moduleId)
+          return { ...module, lessons: updatedLessons }
+        return module
+      })
+
+      modulesForm.setValue('modules', newModules)
+    },
+    [modulesForm]
+  )
+
+  const handleLessonClick = useCallback(
+    (lesson: LessonResDto) => {
+      setIsLessonEdit(false)
+      lessonForm.setValue('selectedLesson', { ...lesson })
+    },
+    [lessonForm]
+  )
+
+  const handleEditLesson = useCallback(() => {
     setIsLessonEdit(true)
-  }
+  }, [])
 
-  const handlePublishLesson = () => {}
+  const addNewLesson = useCallback(
+    (moduleId: string, lesson: LessonResDto) => {
+      const newLesson = { ...lesson, id: uuidv4() }
+      const currentLessons = getLessonsByModuleId(moduleId)
+
+      updateLessonsList(moduleId, [...currentLessons, newLesson])
+      handleLessonClick(newLesson)
+      handleEditLesson()
+    },
+    [
+      getLessonsByModuleId,
+      handleEditLesson,
+      handleLessonClick,
+      updateLessonsList,
+    ]
+  )
+
+  const handleLessonAdd = useCallback(
+    (moduleId: string) => {
+      const newLesson = { ...emptyLesson, id: uuidv4() }
+      addNewLesson(moduleId, newLesson)
+    },
+    [addNewLesson]
+  )
+
+  const handleDuplicateLesson = useCallback(
+    (moduleId: string, duplicate: LessonResDto) => {
+      addNewLesson(moduleId, duplicate)
+    },
+    [addNewLesson]
+  )
+
+  const handleLessonDelete = useCallback(
+    (moduleId: string, lessonId: string) => {
+      const currentLessons = getLessonsByModuleId(moduleId)
+      const updatedLessons = currentLessons.filter((el) => el.id !== lessonId)
+
+      updateLessonsList(moduleId, updatedLessons)
+    },
+    [getLessonsByModuleId, updateLessonsList]
+  )
+
+  const handlePublishLesson = useCallback(
+    (lessonId: string, data: LessonFields) => {
+      const { id } = getModuleByLessonId(lessonId)
+      const currentLessons = getLessonsByModuleId(id)
+      const updatedLessons = currentLessons.map((lesson) =>
+        lesson.id === lessonId ? { ...lesson, ...data } : lesson
+      )
+      updateLessonsList(id, updatedLessons)
+    },
+    [getLessonsByModuleId, getModuleByLessonId, updateLessonsList]
+  )
 
   return (
     <PageContainer>
@@ -54,7 +156,11 @@ function LabCreate({ modules }: Props) {
                   <LessonModules
                     onLessonClick={handleLessonClick}
                     selectedLesson={selectedLesson}
-                    setEditLesson={handleEditLesson}
+                    onLessonAdd={handleLessonAdd}
+                    onLessonDuplicate={handleDuplicateLesson}
+                    onLessonDelete={handleLessonDelete}
+                    updateLessonsList={updateLessonsList}
+                    getLessonsByModuleId={getLessonsByModuleId}
                   />
                 </FormProvider>
               </Grid>

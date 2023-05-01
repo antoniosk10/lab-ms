@@ -13,7 +13,11 @@ import { reorderDraggableList } from '@/src/utils/utils'
 type Props = {
   onLessonClick: (lesson: LessonResDto) => void
   selectedLesson: LessonResDto | null
-  setEditLesson: () => void
+  onLessonAdd: (moduleId: string) => void
+  onLessonDuplicate: (moduleId: string, duplicate: LessonResDto) => void
+  onLessonDelete: (moduleId: string, lessonId: string) => void
+  updateLessonsList: (moduleId: string, updatedLessons: LessonResDto[]) => void
+  getLessonsByModuleId: (moduleId: string) => LessonResDto[]
 }
 
 const emptyModule: Omit<ModuleResDto, 'id'> = {
@@ -22,93 +26,37 @@ const emptyModule: Omit<ModuleResDto, 'id'> = {
   isTemporary: true,
 }
 
-const emptyLesson: Omit<LessonResDto, 'id'> = {
-  image: null,
-  github: null,
-  youtube: null,
-  file: null,
-  accessible: null,
-  description: null,
-  title: null,
-  isTemporary: false,
-}
-
 function LessonModules({
+  onLessonAdd,
+  onLessonDuplicate,
+  onLessonDelete,
   onLessonClick,
   selectedLesson,
-  setEditLesson,
+  updateLessonsList,
+  getLessonsByModuleId,
 }: Props) {
-  const { getValues, setValue, watch } = useFormContext()
+  const { setValue, watch } = useFormContext()
   const modules: ModuleResDto[] = watch('modules')
 
   const handleModuleAdd = useCallback(() => {
     const newModules = [...modules, { ...emptyModule, id: uuidv4() }]
     setValue('modules', newModules)
-  }, [])
+  }, [modules, setValue])
 
-  const handleModuleDuplicate = useCallback((duplicate: ModuleResDto) => {
-    const newModules = [...modules, { ...duplicate, id: uuidv4() }]
-    setValue('modules', newModules)
-  }, [])
-
-  const handleModuleDelete = useCallback((id: string) => {
-    const updatedModules = modules.filter((el) => el.id !== id)
-    setValue('modules', updatedModules)
-  }, [])
-
-  const getLessonsByModuleId = useCallback(
-    (moduleId: string): LessonResDto[] => {
-      const modules: ModuleResDto[] = getValues('modules')
-      const currentModule = modules.find((el) => el.id === moduleId)
-      const currentLessons = currentModule ? currentModule.lessons : []
-      return currentLessons
-    },
-    []
-  )
-
-  const updateLessonsList = useCallback(
-    (moduleId: string, updatedLessons: LessonResDto[]) => {
-      const modules: ModuleResDto[] = getValues('modules')
-      const newModules: ModuleResDto[] = modules.map((module) => {
-        if (module.id === moduleId)
-          return { ...module, lessons: updatedLessons }
-        return module
-      })
-
+  const handleModuleDuplicate = useCallback(
+    (duplicate: ModuleResDto) => {
+      const newModules = [...modules, { ...duplicate, id: uuidv4() }]
       setValue('modules', newModules)
     },
-    []
+    [modules, setValue]
   )
 
-  const addNewLesson = useCallback((moduleId: string, lesson: LessonResDto) => {
-    const newLesson = { ...lesson, id: uuidv4() }
-    const currentLessons = getLessonsByModuleId(moduleId)
-
-    updateLessonsList(moduleId, [...currentLessons, newLesson])
-    onLessonClick(newLesson)
-    setEditLesson()
-  }, [])
-
-  const handleLessonAdd = useCallback((moduleId: string) => {
-    const newLesson = { ...emptyLesson, id: uuidv4() }
-    addNewLesson(moduleId, newLesson)
-  }, [])
-
-  const handleDuplicateLesson = useCallback(
-    (moduleId: string, duplicate: LessonResDto) => {
-      addNewLesson(moduleId, duplicate)
+  const handleModuleDelete = useCallback(
+    (id: string) => {
+      const updatedModules = modules.filter((el) => el.id !== id)
+      setValue('modules', updatedModules)
     },
-    []
-  )
-
-  const handleLessonDelete = useCallback(
-    (moduleId: string, lessonId: string) => {
-      const currentLessons = getLessonsByModuleId(moduleId)
-      const updatedLessons = currentLessons.filter((el) => el.id !== lessonId)
-
-      updateLessonsList(moduleId, updatedLessons)
-    },
-    []
+    [modules, setValue]
   )
 
   const handleModuleDragEnd = useCallback(
@@ -123,7 +71,7 @@ function LessonModules({
 
       setValue('modules', reorderedModules)
     },
-    []
+    [modules, setValue]
   )
 
   const handleLessonDragEnd = useCallback(
@@ -139,7 +87,7 @@ function LessonModules({
 
       updateLessonsList(moduleId, reorderedLessons)
     },
-    []
+    [getLessonsByModuleId, updateLessonsList]
   )
 
   return (
@@ -153,15 +101,16 @@ function LessonModules({
             onLessonClick={onLessonClick}
             onModuleDuplicate={handleModuleDuplicate}
             onModuleDelete={handleModuleDelete}
-            onLessonAdd={handleLessonAdd}
-            onLessonDuplicate={handleDuplicateLesson}
-            onLessonDelete={handleLessonDelete}
+            onLessonAdd={onLessonAdd}
+            onLessonDuplicate={onLessonDuplicate}
+            onLessonDelete={onLessonDelete}
             onLessonDragEnd={handleLessonDragEnd}
             selectedLesson={selectedLesson}
             isExpanded={index === 0}
           />
         ))}
       </DraggableList>
+
       <Button variant="outlined" onClick={() => handleModuleAdd()}>
         + add new module
       </Button>
