@@ -2,7 +2,7 @@ import { LessonResDto } from '@modules/mentor/lab/dto'
 import { Container } from '@mui/material'
 import { useMemo } from 'react'
 
-import DraggableItem from '@/src/components/DraggableItem'
+import { ItemWithMenu } from '@/src/components/ItemWithMenu'
 import { theme } from '@/src/theme'
 
 type Props = {
@@ -26,6 +26,7 @@ function Lesson({
 
   const style = useMemo(
     () => ({
+      marginBottom: '10px',
       backgroundColor: isEdit
         ? theme.palette.primary.main
         : theme.palette.common.white,
@@ -58,7 +59,7 @@ function Lesson({
 
   return (
     <Container onClick={() => onLessonClick()} sx={style}>
-      <DraggableItem title={altTitle} options={options} verticalDots={true} />
+      <ItemWithMenu title={altTitle} options={options} verticalDots={true} />
     </Container>
   )
 }
