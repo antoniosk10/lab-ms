@@ -1,17 +1,24 @@
-import React from 'react'
 import WelcomeDetail from '@modules/welcome/components/WelcomeDetail'
 import LabLayout from '@src/layouts/LabLayout'
+import React from 'react'
 
-import { useTodoAdd, useTodoComplete, useTodoFullUpdate, useTodoList, useTodoRemove, useTodoUpdate } from '../services'
 import {
   AddTodoMutationVariables,
   CompleteTodoMutationVariables,
   FullUpdateTodoMutationVariables,
   RemoveTodoMutationVariables,
-  UpdateTodoMutationVariables
+  UpdateTodoMutationVariables,
 } from '../graphql/todo.generated'
+import {
+  useTodoAdd,
+  useTodoComplete,
+  useTodoFullUpdate,
+  useTodoList,
+  useTodoRemove,
+  useTodoUpdate,
+} from '../services'
 
-function WelcomeDetailContainer () {
+function WelcomeDetailContainer() {
   const todoList = useTodoList()
   const [addTodo] = useTodoAdd()
   const [updateTodo] = useTodoUpdate()
@@ -29,12 +36,16 @@ function WelcomeDetailContainer () {
     await todoList.refetch()
   }
 
-  const handleTodoComplete = async (variables: CompleteTodoMutationVariables) => {
+  const handleTodoComplete = async (
+    variables: CompleteTodoMutationVariables
+  ) => {
     await completeTodo({ variables })
     await todoList.refetch()
   }
 
-  const handleTodoFullUpdate = async (variables: FullUpdateTodoMutationVariables) => {
+  const handleTodoFullUpdate = async (
+    variables: FullUpdateTodoMutationVariables
+  ) => {
     await fullUpdateTodo({ variables })
     await todoList.refetch()
   }
@@ -58,10 +69,6 @@ function WelcomeDetailContainer () {
 
 export default WelcomeDetailContainer
 
-WelcomeDetailContainer.getLayout = function getLayout (page: React.ReactNode) {
-  return (
-    <LabLayout activeTab={null}>
-      {page}
-    </LabLayout>
-  )
+WelcomeDetailContainer.getLayout = function getLayout(page: React.ReactNode) {
+  return <LabLayout activeTab={false}>{page}</LabLayout>
 }
