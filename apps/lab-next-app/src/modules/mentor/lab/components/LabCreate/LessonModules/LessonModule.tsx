@@ -7,6 +7,7 @@ import Lessons from './Lessons'
 import { LessonResDto, ModuleResDto } from '../../../dto'
 
 import AccordionPanel from '@/src/components/AccordionPanel'
+import { DragHandleProps } from '@/src/components/DraggableList/DraggableListItem'
 import { ItemWithMenu } from '@/src/components/ItemWithMenu'
 
 type Props = {
@@ -21,6 +22,7 @@ type Props = {
   onLessonDragEnd: (moduleId: string, props: DropResult) => void
   selectedLesson: LessonResDto | null
   isExpanded: boolean
+  dragHandleProps: DragHandleProps
 }
 
 function LessonModule({
@@ -35,6 +37,7 @@ function LessonModule({
   onLessonDuplicate,
   onLessonDragEnd,
   isExpanded,
+  dragHandleProps,
 }: Props) {
   const moduleId = module.id
 
@@ -66,24 +69,37 @@ function LessonModule({
 
   const handleLessonAdd = useCallback(() => {
     onLessonAdd(moduleId)
-  }, [])
+  }, [moduleId, onLessonAdd])
 
-  const handleLessonDuplicate = useCallback((duplicate: LessonResDto) => {
-    onLessonDuplicate(moduleId, duplicate)
-  }, [])
+  const handleLessonDuplicate = useCallback(
+    (duplicate: LessonResDto) => {
+      onLessonDuplicate(moduleId, duplicate)
+    },
+    [moduleId, onLessonDuplicate]
+  )
 
-  const handleLessonDelete = useCallback((lessonId: string) => {
-    onLessonDelete(moduleId, lessonId)
-  }, [])
+  const handleLessonDelete = useCallback(
+    (lessonId: string) => {
+      onLessonDelete(moduleId, lessonId)
+    },
+    [moduleId, onLessonDelete]
+  )
 
-  const handleLessonDragEnd = useCallback((dropResult: DropResult) => {
-    onLessonDragEnd(moduleId, dropResult)
-  }, [])
+  const handleLessonDragEnd = useCallback(
+    (dropResult: DropResult) => {
+      onLessonDragEnd(moduleId, dropResult)
+    },
+    [moduleId, onLessonDragEnd]
+  )
 
   return (
     <AccordionPanel
       SummaryComponent={
-        <ItemWithMenu title={module.title || altTitle} options={options} />
+        <ItemWithMenu
+          title={module.title || altTitle}
+          options={options}
+          dragHandleProps={dragHandleProps}
+        />
       }
       DetailsComponent={
         <Lessons

@@ -1,6 +1,6 @@
 import LessonModule from '@modules/mentor/lab/components/LabCreate/LessonModules/LessonModule'
 import { Button, Stack } from '@mui/material'
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import { DropResult } from 'react-beautiful-dnd'
 import { useFormContext } from 'react-hook-form'
 import { v4 as uuidv4 } from 'uuid'
@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { LessonResDto, ModuleResDto } from '../../../dto'
 
 import DraggableList from '@/src/components/DraggableList'
+import { DragHandleProps } from '@/src/components/DraggableList/DraggableListItem'
 import { reorderDraggableList } from '@/src/utils/utils'
 
 type Props = {
@@ -90,14 +91,14 @@ function LessonModules({
     [getLessonsByModuleId, updateLessonsList]
   )
 
-  return (
-    <Stack>
-      <DraggableList onDragEnd={handleModuleDragEnd} id="droppable-modules">
-        {modules.map((module, index) => (
+  const draggableData = useMemo(
+    () =>
+      modules.map((module, index) => ({
+        key: module.id,
+        renderComponent: (dragHandleProps: DragHandleProps) => (
           <LessonModule
-            key={module.id}
             module={module}
-            altTitle={`Module ${index + 1}`}
+            altTitle={`Module ${module.id}`}
             onLessonClick={onLessonClick}
             onModuleDuplicate={handleModuleDuplicate}
             onModuleDelete={handleModuleDelete}
@@ -107,9 +108,30 @@ function LessonModules({
             onLessonDragEnd={handleLessonDragEnd}
             selectedLesson={selectedLesson}
             isExpanded={index === 0}
+            dragHandleProps={dragHandleProps}
           />
-        ))}
-      </DraggableList>
+        ),
+      })),
+    [
+      handleLessonDragEnd,
+      handleModuleDelete,
+      handleModuleDuplicate,
+      modules,
+      onLessonAdd,
+      onLessonClick,
+      onLessonDelete,
+      onLessonDuplicate,
+      selectedLesson,
+    ]
+  )
+
+  return (
+    <Stack>
+      <DraggableList
+        onDragEnd={handleModuleDragEnd}
+        id="droppable-modules"
+        data={draggableData}
+      />
 
       <Button variant="outlined" onClick={() => handleModuleAdd()}>
         + add new module

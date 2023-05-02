@@ -1,5 +1,6 @@
 import MenuIcon from '@mui/icons-material/Menu'
-import { Stack, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
+import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd'
 
 import BasicMenu from '@/src/components/ItemWithMenu/components/BasicMenu'
 import { MenuOption } from '@/src/types'
@@ -8,9 +9,15 @@ type Props = {
   verticalDots?: boolean
   options: MenuOption[]
   title: string
+  dragHandleProps: DraggableProvidedDragHandleProps | null | undefined
 }
 
-export function ItemWithMenu({ verticalDots, options, title }: Props) {
+export function ItemWithMenu({
+  verticalDots,
+  options,
+  title,
+  dragHandleProps,
+}: Props) {
   return (
     <Stack
       sx={{ width: '100%' }}
@@ -19,7 +26,10 @@ export function ItemWithMenu({ verticalDots, options, title }: Props) {
       alignItems="center"
       justifyContent="space-between"
     >
-      <MenuIcon />
+      <Box {...dragHandleProps}>
+        <MenuIcon />
+      </Box>
+
       <Typography>{title}</Typography>
       <BasicMenu options={options} verticalDots={verticalDots} />
     </Stack>

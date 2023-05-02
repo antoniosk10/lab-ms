@@ -1,26 +1,30 @@
 import { Box } from '@mui/material'
-import { PropsWithChildren } from 'react'
-import { Draggable } from 'react-beautiful-dnd'
+import {
+  Draggable,
+  DraggableProvidedDragHandleProps,
+} from 'react-beautiful-dnd'
 
 export type DraggableListItemProps = {
   itemId: string
   index: number
+  renderItem: (dragHandleProps: DragHandleProps) => JSX.Element
 }
 
+export type DragHandleProps =
+  | DraggableProvidedDragHandleProps
+  | null
+  | undefined
+
 const DraggableListItem = ({
-  children,
   itemId,
   index,
-}: PropsWithChildren<DraggableListItemProps>) => {
+  renderItem,
+}: DraggableListItemProps) => {
   return (
     <Draggable draggableId={itemId} index={index}>
       {(provided) => (
-        <Box
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-        >
-          {children}
+        <Box ref={provided.innerRef} {...provided.draggableProps}>
+          {renderItem(provided.dragHandleProps)}
         </Box>
       )}
     </Draggable>
