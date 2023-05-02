@@ -24,7 +24,7 @@ import { useUser } from '@/src/context/userContext'
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
 export type AppBarProps = {
-  activeTab: ValuesOfObject<typeof TABS> | null
+  activeTab: ValuesOfObject<typeof TABS> | false
 }
 
 function AppBar({ activeTab }: AppBarProps) {
