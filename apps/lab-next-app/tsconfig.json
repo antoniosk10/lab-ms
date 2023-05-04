@@ -9,7 +9,7 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "types": ["node"],
+    "types": ["node", "jest", "@testing-library/jest-dom"],
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -25,9 +25,10 @@
       "@gql-gen/*": ["./src/graphql-gen/*"],
       "@modules/*": ["./src/modules/*"],
       "@mentor-components/*": ["./src/components/_mentor/*"],
-      "@student-components/*": ["./src/components/_student/*"]
+      "@student-components/*": ["./src/components/_student/*"],
+      "@packages/*": ["./../../packages/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "./jest-setup.ts"],
   "exclude": ["node_modules", "./src/graphql-gen"]
 }

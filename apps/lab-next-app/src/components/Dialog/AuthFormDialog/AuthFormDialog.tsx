@@ -1,8 +1,8 @@
-import TextField from '@/../../packages/lab-fields/src/components/TextField'
 import { Box, Button } from '@mui/material'
+import TextField from '@packages/lab-fields/src/components/TextField'
 import { FormProvider, useForm } from 'react-hook-form'
 
-import { SimpleDialog } from './SimpleDialog'
+import { SimpleDialog } from '../SimpleDialog/SimpleDialog'
 
 type Props = {
   isOpen: boolean

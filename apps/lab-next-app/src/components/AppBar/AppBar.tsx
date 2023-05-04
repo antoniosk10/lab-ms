@@ -16,8 +16,8 @@ import Link from 'next/link'
 import * as React from 'react'
 import { useState } from 'react'
 
-import { AuthFormDialog } from '../Dialog/AuthFormDialog'
-import { RegistrationFormDialog } from '../Dialog/RegistrationFormDialog'
+import { AuthFormDialog } from '../Dialog/AuthFormDialog/AuthFormDialog'
+import { RegistrationFormDialog } from '../Dialog/RegistrationFormDialog/RegistrationFormDialog'
 
 import { useUser } from '@/src/context/userContext'
 
