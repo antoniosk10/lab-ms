@@ -6,7 +6,9 @@ module.exports = {
     "react",
     "promise",
     "import",
-    "react-hooks"
+    "react-hooks",
+    "testing-library",
+    "jest-dom",
   ],
   rules: {
     "import/newline-after-import": ["error"],
@@ -61,7 +63,9 @@ module.exports = {
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:@next/next/recommended",
-    "prettier"
+    "prettier",
+    'plugin:testing-library/react',
+    "plugin:jest-dom/recommended"
   ],
   "settings": {
     "import/parsers": {

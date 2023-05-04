@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest",
+    "test:snap": "jest --update-snapshot",
+    "test:coverage": "jest --collectCoverage"
   },
   "dependencies": {
     "@apollo/client": "^3.7.8",
@@ -14,6 +17,7 @@
     "@emotion/react": "^11.10.6",
     "@emotion/server": "^11.10.0",
     "@emotion/styled": "^11.10.6",
+    "@hookform/resolvers": "^3.1.0",
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.11",
     "@next/font": "13.1.6",
@@ -33,6 +37,12 @@
     "reflect-metadata": "^0.1.13",
     "sharp": "^0.31.3",
     "typescript": "4.9.5",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "yup": "^1.1.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3"
   }
 }
