@@ -1,9 +1,11 @@
 import Lesson from '@modules/mentor/lab/components/LabCreate/LessonModules/Lesson'
 import { LessonResDto } from '@modules/mentor/lab/dto'
 import { Button, Stack } from '@mui/material'
+import { useMemo } from 'react'
 import { DropResult } from 'react-beautiful-dnd'
 
 import DraggableList from '@/src/components/DraggableList'
+import { DragHandleProps } from '@/src/components/DraggableList/DraggableListItem'
 
 type Props = {
   lessons: LessonResDto[]
@@ -24,21 +26,31 @@ function Lessons({
   onLessonDuplicate,
   onLessonDragEnd,
 }: Props) {
-  return (
-    <Stack>
-      <DraggableList onDragEnd={onLessonDragEnd} id="droppable-lessons">
-        {lessons.map((lesson, index) => (
+  const draggableData = useMemo(
+    () =>
+      lessons.map((lesson, index) => ({
+        key: lesson.id,
+        renderComponent: (dragHandleProps: DragHandleProps) => (
           <Lesson
-            key={lesson.id}
             lesson={lesson}
-            altTitle={`Lesson ${index + 1}`}
+            altTitle={`Lesson ${lesson.id}`}
             onLessonClick={() => onLessonClick(lesson)}
             selectedLesson={selectedLesson}
             onLessonDelete={onLessonDelete}
             onLessonDuplicate={onLessonDuplicate}
+            dragHandleProps={dragHandleProps}
           />
-        ))}
-      </DraggableList>
+        ),
+      })),
+    [lessons, onLessonClick, onLessonDelete, onLessonDuplicate, selectedLesson]
+  )
+  return (
+    <Stack>
+      <DraggableList
+        onDragEnd={onLessonDragEnd}
+        id="droppable-lessons"
+        data={draggableData}
+      />
       <Button onClick={() => onLessonAdd()}>+ Add new lesson</Button>
     </Stack>
   )

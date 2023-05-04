@@ -2,6 +2,7 @@ import { LessonResDto } from '@modules/mentor/lab/dto'
 import { Container } from '@mui/material'
 import { useMemo } from 'react'
 
+import { DragHandleProps } from '@/src/components/DraggableList/DraggableListItem'
 import { ItemWithMenu } from '@/src/components/ItemWithMenu'
 import { theme } from '@/src/theme'
 
@@ -12,6 +13,7 @@ type Props = {
   selectedLesson: LessonResDto | null
   onLessonDelete: (id: string) => void
   onLessonDuplicate: (duplicate: LessonResDto) => void
+  dragHandleProps: DragHandleProps
 }
 
 function Lesson({
@@ -21,6 +23,7 @@ function Lesson({
   selectedLesson,
   onLessonDelete,
   onLessonDuplicate,
+  dragHandleProps,
 }: Props) {
   const isEdit = selectedLesson?.id === lesson.id
 
@@ -54,12 +57,17 @@ function Lesson({
         },
       },
     ],
-    []
+    [lesson, onLessonDelete, onLessonDuplicate]
   )
 
   return (
     <Container onClick={() => onLessonClick()} sx={style}>
-      <ItemWithMenu title={altTitle} options={options} verticalDots={true} />
+      <ItemWithMenu
+        title={altTitle}
+        options={options}
+        verticalDots={true}
+        dragHandleProps={dragHandleProps}
+      />
     </Container>
   )
 }
