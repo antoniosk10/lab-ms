@@ -31,9 +31,7 @@ describe('Authorization form ui', () => {
       />
     )
 
-    const passwordInput = screen.getByRole('textbox', {
-      name: /password/i,
-    })
+    const passwordInput = screen.getByLabelText(/password/i)
 
     expect(passwordInput).toBeInTheDocument()
   })
@@ -65,9 +63,7 @@ describe('Authorization form ui', () => {
     const emailInput = screen.getByRole('textbox', {
       name: /email/i,
     })
-    const passwordInput = screen.getByRole('textbox', {
-      name: /password/i,
-    })
+    const passwordInput = screen.getByLabelText(/password/i)
     const signInButton = screen.getByRole('button', {
       name: /sign in/i,
     })

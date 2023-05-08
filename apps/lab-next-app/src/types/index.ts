@@ -30,3 +30,8 @@ export type CommentType = {
   avatar: string
   subComments: Omit<CommentType, 'subComments'>[]
 }
+
+export type AuthUserData = {
+  email: string
+  password: string
+}

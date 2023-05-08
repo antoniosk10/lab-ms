@@ -113,7 +113,7 @@ exports[`renders AuthForm unchanged 1`] = `
                 id="password"
                 name="password"
                 required=""
-                type="text"
+                type="password"
                 value=""
               />
               <fieldset
