@@ -11,7 +11,6 @@ const wrongConfirmPassword = 'wrong'
 const mockSubmitData = {
   email: testValue,
   password: testValue,
-  confirmPassword: testValue,
 }
 
 function setupUserEvent(jsx: JSX.Element) {
@@ -51,9 +50,7 @@ describe('Authorization form functionality', () => {
         onSubmit={onSubmitMock}
       />
     )
-    const passwordInput = screen.getByRole('textbox', {
-      name: /^password/i,
-    })
+    const passwordInput = screen.getByLabelText(/^password/i)
 
     await user.type(passwordInput, testValue)
 
@@ -68,9 +65,7 @@ describe('Authorization form functionality', () => {
         onSubmit={onSubmitMock}
       />
     )
-    const confirmPasswordInput = screen.getByRole('textbox', {
-      name: /confirm password/i,
-    })
+    const confirmPasswordInput = screen.getByLabelText(/confirm password/i)
 
     await user.type(confirmPasswordInput, testValue)
 
@@ -88,22 +83,19 @@ describe('Authorization form functionality', () => {
     const signUpButton = screen.getByRole('button', {
       name: /sign up/i,
     })
-    const passwordInput = screen.getByRole('textbox', {
-      name: /^password/i,
-    })
+    const passwordInput = screen.getByLabelText(/^password/i)
+
     const emailInput = screen.getByRole('textbox', {
       name: /email/i,
     })
-    const confirmPasswordInput = screen.getByRole('textbox', {
-      name: /confirm password/i,
-    })
+    const confirmPasswordInput = screen.getByLabelText(/confirm password/i)
 
     await user.type(emailInput, testValue)
     await user.type(passwordInput, testValue)
     await user.type(confirmPasswordInput, testValue)
     await user.click(signUpButton)
 
-    expect(onSubmitMock).toHaveBeenCalledWith(mockSubmitData, expect.anything())
+    expect(onSubmitMock).toHaveBeenCalledWith(mockSubmitData)
   })
 
   it('should not invoke submit if confirmPassword is not equal to password', async () => {
@@ -117,15 +109,11 @@ describe('Authorization form functionality', () => {
     const signUpButton = screen.getByRole('button', {
       name: /sign up/i,
     })
-    const passwordInput = screen.getByRole('textbox', {
-      name: /^password/i,
-    })
+    const passwordInput = screen.getByLabelText(/^password/i)
     const emailInput = screen.getByRole('textbox', {
       name: /email/i,
     })
-    const confirmPasswordInput = screen.getByRole('textbox', {
-      name: /confirm password/i,
-    })
+    const confirmPasswordInput = screen.getByLabelText(/confirm password/i)
 
     await user.type(emailInput, testValue)
     await user.type(passwordInput, testValue)

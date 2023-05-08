@@ -11,6 +11,7 @@ import Tabs from '@src/components/AppBar/Tabs'
 import * as ROUTES from '@src/constants/routes'
 import { TABS } from '@src/constants/tabs'
 import { ValuesOfObject } from '@src/utils/types'
+import { useAtom } from 'jotai'
 import Image from 'next/image'
 import Link from 'next/link'
 import * as React from 'react'
@@ -19,7 +20,8 @@ import { useState } from 'react'
 import { AuthFormDialog } from '../Dialog/AuthFormDialog/AuthFormDialog'
 import { RegistrationFormDialog } from '../Dialog/RegistrationFormDialog/RegistrationFormDialog'
 
-import { useUser } from '@/src/context/userContext'
+import { userAtom } from '@/src/jotai/atoms'
+import { AuthUserData } from '@/src/types'
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
@@ -34,7 +36,7 @@ function AppBar({ activeTab }: AppBarProps) {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   )
-  const user = useUser()
+  const [user, setUser] = useAtom(userAtom)
 
   const handleUserMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget)
@@ -52,7 +54,10 @@ function AppBar({ activeTab }: AppBarProps) {
     setAuthDialogOpen(true)
   }
 
-  const handleAuthFormSubmit = (data: Record<string, string>) => {}
+  const handleAuthFormSubmit = ({ email }: AuthUserData) => {
+    setUser({ email })
+    handleAuthDialogClose()
+  }
 
   const handleRegistrationDialogClose = () => {
     setRegistrationDialogOpen(false)
@@ -62,7 +67,9 @@ function AppBar({ activeTab }: AppBarProps) {
     setRegistrationDialogOpen(true)
   }
 
-  const handleRegistrationFormSubmit = (data: Record<string, string>) => {}
+  const handleRegistrationFormSubmit = (data: AuthUserData) => {
+    handleRegistrationDialogClose()
+  }
 
   return (
     <MuiAppBar position="static" color="default">

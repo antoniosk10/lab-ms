@@ -20,7 +20,8 @@
     "server:remove": "yarn workspace lab-mock-server remove",
     "lint": "yarn run eslint . --ext .js,.jsx,.ts,.tsx --cache",
     "prepare": "husky install",
-    "test": "turbo test"
+    "test": "turbo test -- --silent",
+    "test:snapshot": "turbo test -- --updateSnapshot"
   },
   "workspaces": [
     "apps/*",

@@ -4,10 +4,12 @@ import { FormProvider, useForm } from 'react-hook-form'
 
 import { SimpleDialog } from '../SimpleDialog/SimpleDialog'
 
+import { AuthUserData } from '@/src/types'
+
 type Props = {
   isOpen: boolean
   onClose: () => void
-  onSubmit: (data: Record<string, string>) => void
+  onSubmit: (data: AuthUserData) => void
 }
 
 const defaultValues = {
@@ -41,6 +43,7 @@ export function AuthFormDialog({ isOpen, onClose, onSubmit }: Props) {
             id="password"
             label="Password"
             name="password"
+            type="password"
           />
           <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
             Sign in

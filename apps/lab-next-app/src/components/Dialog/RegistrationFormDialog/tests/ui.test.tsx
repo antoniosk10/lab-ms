@@ -31,9 +31,7 @@ describe('Registration form ui', () => {
       />
     )
 
-    const passwordInput = screen.getByRole('textbox', {
-      name: /^password/i,
-    })
+    const passwordInput = screen.getByLabelText(/^password/i)
 
     expect(passwordInput).toBeInTheDocument()
   })
@@ -47,9 +45,7 @@ describe('Registration form ui', () => {
       />
     )
 
-    const confirmPasswordInput = screen.getByRole('textbox', {
-      name: /confirm password/i,
-    })
+    const confirmPasswordInput = screen.getByLabelText(/confirm password/i)
 
     expect(confirmPasswordInput).toBeInTheDocument()
   })
@@ -81,12 +77,9 @@ describe('Registration form ui', () => {
     const emailInput = screen.getByRole('textbox', {
       name: /email/i,
     })
-    const passwordInput = screen.getByRole('textbox', {
-      name: /^password/i,
-    })
-    const confirmPasswordInput = screen.getByRole('textbox', {
-      name: /confirm password/i,
-    })
+    const passwordInput = screen.getByLabelText(/^password/i)
+    const confirmPasswordInput = screen.getByLabelText(/confirm password/i)
+
     const signUpButton = screen.getByRole('button', {
       name: /sign up/i,
     })

@@ -45,9 +45,7 @@ describe('Authorization form functionality', () => {
         onSubmit={onSubmitMock}
       />
     )
-    const passwordInput = screen.getByRole('textbox', {
-      name: /^password/i,
-    })
+    const passwordInput = screen.getByLabelText(/password/i)
 
     await user.type(passwordInput, testValue)
 
@@ -65,9 +63,7 @@ describe('Authorization form functionality', () => {
     const signInButton = screen.getByRole('button', {
       name: /sign in/i,
     })
-    const passwordInput = screen.getByRole('textbox', {
-      name: /^password/i,
-    })
+    const passwordInput = screen.getByLabelText(/password/i)
     const emailInput = screen.getByRole('textbox', {
       name: /email/i,
     })
