@@ -19,6 +19,7 @@ test:
   image: node:10
   stage: test
   script:
+    - yarn install
     - yarn test
   coverage: '/^All files\s*\|\s*(\d+\.*\d+)/'
 
