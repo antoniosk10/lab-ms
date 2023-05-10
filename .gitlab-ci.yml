@@ -13,6 +13,7 @@ before_script:
 
 stages:
   - build
+  - test
   - deploy
 
 build_image_prod:
@@ -23,6 +24,12 @@ build_image_prod:
   script:
     - make build-image TAG=$CI_PIPELINE_IID PROJECT_NAME=$CI_PROJECT_NAMESPACE
     - make push-image TAG=$CI_PIPELINE_IID PROJECT_NAME=$CI_PROJECT_NAMESPACE
+
+test:
+  stage: test
+  script:
+    - npm run test
+  coverage: '/^All files\s*\|\s*(\d+\.*\d+)/'
 
 deploy_to_prod:
   stage: deploy
