@@ -12,9 +12,15 @@ before_script:
   - apk update && apk --no-cache --update add build-base openssh curl
 
 stages:
-  - build
   - test
+  - build
   - deploy
+
+test:
+  stage: test
+  script:
+    - yarn test
+  coverage: '/^All files\s*\|\s*(\d+\.*\d+)/'
 
 build_image_prod:
   stage: build
@@ -24,12 +30,6 @@ build_image_prod:
   script:
     - make build-image TAG=$CI_PIPELINE_IID PROJECT_NAME=$CI_PROJECT_NAMESPACE
     - make push-image TAG=$CI_PIPELINE_IID PROJECT_NAME=$CI_PROJECT_NAMESPACE
-
-test:
-  stage: test
-  script:
-    - npm run test
-  coverage: '/^All files\s*\|\s*(\d+\.*\d+)/'
 
 deploy_to_prod:
   stage: deploy
