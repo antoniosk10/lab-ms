@@ -16,7 +16,7 @@ stages:
   - deploy
 
 test:
-  image: node:10
+  image: node:16
   stage: test
   script:
     - yarn install
