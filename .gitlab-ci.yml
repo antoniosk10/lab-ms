@@ -8,6 +8,8 @@ variables:
 services:
   - docker:23.0.1-dind
 before_script:
+  - curl -fsSL https://get.docker.com -o get-docker.sh
+  - sh ./get-docker.sh --dry-run
   - docker login $CI_REGISTRY --username $CI_REGISTRY_USER --password $CI_REGISTRY_PASSWORD
   - apk update && apk --no-cache --update add build-base openssh curl
 
@@ -20,8 +22,6 @@ test:
   image: node:10
   stage: test
   script:
-    - curl -fsSL https://get.docker.com -o get-docker.sh
-    - sh ./get-docker.sh --dry-run
     - yarn test
   coverage: '/^All files\s*\|\s*(\d+\.*\d+)/'
 
