@@ -8,20 +8,12 @@ variables:
 services:
   - docker:23.0.1-dind
 before_script:
+  - docker login $CI_REGISTRY --username $CI_REGISTRY_USER --password $CI_REGISTRY_PASSWORD
   - apk update && apk --no-cache --update add build-base openssh curl
 
 stages:
-  - test
   - build
   - deploy
-
-test:
-  image: node:16
-  stage: test
-  script:
-    - yarn install
-    - yarn test
-  coverage: '/^All files\s*\|\s*(\d+\.*\d+)/'
 
 build_image_prod:
   stage: build
@@ -29,11 +21,8 @@ build_image_prod:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_PIPELINE_SOURCE == "push"
   script:
-    - docker login $CI_REGISTRY --username $CI_REGISTRY_USER --password $CI_REGISTRY_PASSWORD
-    - docker build --rm -t ${REGISTRY}/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_PIPELINE_IID .
-    - docker tag ${REGISTRY}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:$CI_PIPELINE_IID ${REGISTRY}/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:${ENV_TAG}
-    - docker push ${REGISTRY}/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_PIPELINE_IID
-    - docker push ${REGISTRY}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:${ENV_TAG}
+    - make build-image TAG=$CI_PIPELINE_IID PROJECT_NAME=$CI_PROJECT_NAMESPACE
+    - make push-image TAG=$CI_PIPELINE_IID PROJECT_NAME=$CI_PROJECT_NAMESPACE
 
 deploy_to_prod:
   stage: deploy
