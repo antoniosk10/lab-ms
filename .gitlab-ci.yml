@@ -18,6 +18,9 @@ stages:
 
 test:
   stage: test
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_PIPELINE_SOURCE == "push"
   script:
     - docker build -t lms-ui -f Dockerfile.test .
     - docker run lms-ui
