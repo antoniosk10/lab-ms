@@ -21,6 +21,7 @@
     "lint": "yarn run eslint . --ext .js,.jsx,.ts,.tsx --cache",
     "prepare": "husky install",
     "test": "turbo test -- --silent",
+    "test:docker": "turbo test -- --testTimeout=30000",
     "test:snapshot": "turbo test -- --updateSnapshot"
   },
   "workspaces": [
