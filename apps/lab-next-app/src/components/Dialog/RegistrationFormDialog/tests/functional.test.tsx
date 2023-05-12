@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { act, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { RegistrationFormDialog } from '../RegistrationFormDialog'
@@ -37,7 +37,7 @@ describe('Authorization form functionality', () => {
       name: /email/i,
     })
 
-    await user.type(emailInput, testValue)
+    await act(async () => await user.type(emailInput, testValue))
 
     expect(emailInput).toHaveValue(testValue)
   })
@@ -52,7 +52,7 @@ describe('Authorization form functionality', () => {
     )
     const passwordInput = screen.getByLabelText(/^password/i)
 
-    await user.type(passwordInput, testValue)
+    await act(async () => await user.type(passwordInput, testValue))
 
     expect(passwordInput).toHaveValue(testValue)
   })
@@ -67,7 +67,7 @@ describe('Authorization form functionality', () => {
     )
     const confirmPasswordInput = screen.getByLabelText(/confirm password/i)
 
-    await user.type(confirmPasswordInput, testValue)
+    await act(async () => await user.type(confirmPasswordInput, testValue))
 
     expect(confirmPasswordInput).toHaveValue(testValue)
   })
@@ -90,10 +90,12 @@ describe('Authorization form functionality', () => {
     })
     const confirmPasswordInput = screen.getByLabelText(/confirm password/i)
 
-    await user.type(emailInput, testValue)
-    await user.type(passwordInput, testValue)
-    await user.type(confirmPasswordInput, testValue)
-    await user.click(signUpButton)
+    await act(async () => {
+      await user.type(emailInput, testValue)
+      await user.type(passwordInput, testValue)
+      await user.type(confirmPasswordInput, testValue)
+      await user.click(signUpButton)
+    })
 
     expect(onSubmitMock).toHaveBeenCalledWith(mockSubmitData)
   })
@@ -115,10 +117,12 @@ describe('Authorization form functionality', () => {
     })
     const confirmPasswordInput = screen.getByLabelText(/confirm password/i)
 
-    await user.type(emailInput, testValue)
-    await user.type(passwordInput, testValue)
-    await user.type(confirmPasswordInput, wrongConfirmPassword)
-    await user.click(signUpButton)
+    await act(async () => {
+      await user.type(emailInput, testValue)
+      await user.type(passwordInput, testValue)
+      await user.type(confirmPasswordInput, wrongConfirmPassword)
+      await user.click(signUpButton)
+    })
 
     expect(onSubmitMock).not.toHaveBeenCalled()
   })

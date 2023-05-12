@@ -76,6 +76,23 @@ export type RootQueriesValidateArgs = {
   token?: InputMaybe<Scalars['String']>;
 };
 
+export type TodoMutations = {
+  __typename?: 'TodoMutations';
+  registerUser?: Maybe<User>;
+};
+
+
+export type TodoMutationsRegisterUserArgs = {
+  avatar_url?: InputMaybe<Scalars['String']>;
+  birthday?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
+  first_name?: InputMaybe<Scalars['String']>;
+  last_name?: InputMaybe<Scalars['String']>;
+  password?: InputMaybe<Scalars['String']>;
+  password_confirmation?: InputMaybe<Scalars['String']>;
+  role?: InputMaybe<Scalars['String']>;
+};
+
 export type User = {
   __typename?: 'User';
   avatar_url?: Maybe<Scalars['String']>;

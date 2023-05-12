@@ -1,13 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
-    ignoreDuringBuilds: ['**/**']
+    ignoreDuringBuilds: true,
   },
   reactStrictMode: true,
   output: 'standalone',
-  transpilePackages: [
-    'lab-api'
-  ],
+  transpilePackages: ['lab-api'],
   webpack: (config) => {
     if (!config.experiments) {
       config.experiments = {}
@@ -15,7 +13,7 @@ const nextConfig = {
 
     config.experiments.topLevelAwait = true
     return config
-  }
+  },
 }
 
 module.exports = nextConfig
