@@ -13,6 +13,7 @@ import { LessonContent } from '@/src/modules/mentor/lab/components/LabCreate/Les
 
 type Props = {
   modules: ModuleResDto[]
+  courseName: string
 }
 
 const emptyLesson: Omit<LessonResDto, 'id'> = {
@@ -26,10 +27,14 @@ const emptyLesson: Omit<LessonResDto, 'id'> = {
   isTemporary: false,
 }
 
-function LabCreate({ modules }: Props) {
+function LabCreate({ modules, courseName }: Props) {
   const [isLessonEdit, setIsLessonEdit] = useState(false)
 
-  const bannerForm = useForm()
+  const bannerForm = useForm({
+    defaultValues: {
+      title: courseName,
+    },
+  })
   const modulesForm = useForm<{ modules: ModuleResDto[] }>({
     defaultValues: { modules },
   })

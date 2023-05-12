@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { act, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { AuthFormDialog } from '../AuthFormDialog'
@@ -32,7 +32,7 @@ describe('Authorization form functionality', () => {
       name: /email/i,
     })
 
-    await user.type(emailInput, testValue)
+    await act(async () => await user.type(emailInput, testValue))
 
     expect(emailInput).toHaveValue(testValue)
   })
@@ -47,7 +47,7 @@ describe('Authorization form functionality', () => {
     )
     const passwordInput = screen.getByLabelText(/password/i)
 
-    await user.type(passwordInput, testValue)
+    await act(async () => await user.type(passwordInput, testValue))
 
     expect(passwordInput).toHaveValue(testValue)
   })
@@ -68,9 +68,11 @@ describe('Authorization form functionality', () => {
       name: /email/i,
     })
 
-    await user.type(emailInput, testValue)
-    await user.type(passwordInput, testValue)
-    await user.click(signInButton)
+    await act(async () => {
+      await user.type(emailInput, testValue)
+      await user.type(passwordInput, testValue)
+      await user.click(signInButton)
+    })
 
     expect(onSubmitMock).toHaveBeenCalledWith(mockSubmitData, expect.anything())
   })
