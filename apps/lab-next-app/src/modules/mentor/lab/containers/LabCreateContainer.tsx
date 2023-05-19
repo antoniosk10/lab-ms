@@ -7,12 +7,14 @@ import React from 'react'
 
 import LabUpdate from '../components/LabCreate/LabUpdate'
 
+import { emptyArray } from '@/src/constants/empty'
+
 function LabCreateContainer() {
   const { pathname } = useRouter()
   const isNewLab = pathname === '/new-lab'
 
   return isNewLab ? (
-    <LabCreate modules={[]} courseName="New Lab" />
+    <LabCreate modules={emptyArray} courseName="New Lab" />
   ) : (
     <LabUpdate />
   )
