@@ -43,14 +43,11 @@ deploy_to_prod:
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
   script:
+    - curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+    - chmod +x ./kubectl && mkdir -p ~/.kube && mv ./kubectl ~/.kube && export PATH=$PATH:$HOME/.kube
+    - cp $LMS_KUBECONFIG ~/.kube/config
     - DEPLOYMENT=$(echo $CI_PROJECT_NAME | sed s/_/-/g | sed s/fast-//g)
     - echo $DEPLOYMENT
-    - touch encoded_serviceaccount.json
-    - cp $GCP_SERVICE_ACCOUNT encoded_serviceaccount.json
-    - gcloud auth activate-service-account --key-file encoded_serviceaccount.json
-    - gcloud config set project $GCP_PROJECT_NAME
-    - gcloud config set compute/region $GCP_REGION
-    - gcloud container clusters get-credentials $GKE_CLUSTER_NAME
-    - echo ~/.kube/config
     - kubectl apply -f .kube/
     - kubectl set image -n $NAMESPACE deployment/$DEPLOYMENT $DEPLOYMENT=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_PIPELINE_IID
+    - rm -rf ~/.kube
