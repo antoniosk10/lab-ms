@@ -1,10 +1,11 @@
 import { Typography } from '@mui/material'
-import { GridColDef, GridRowsProp } from '@mui/x-data-grid'
+import { GridColDef, GridPaginationModel, GridRowsProp } from '@mui/x-data-grid'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 import Table from '@/src/components/Table'
-import { useCoursesQuery } from '@/src/schemas/courses/course.generated'
+import { useCoursesQuery } from '@/src/mock-data/grahpql-hooks'
 
 const columns: GridColDef[] = [
   {
@@ -25,14 +26,27 @@ const columns: GridColDef[] = [
   { field: 'description', headerName: 'Description', flex: 1 },
 ]
 
+const initialPagination = {
+  page: 0,
+  pageSize: 5,
+}
+
 function WelcomeDetail() {
-  const { data, loading } = useCoursesQuery()
+  const [paginationModel, setPaginationModel] = useState(initialPagination)
+
+  const { data, loading, refetch, total } = useCoursesQuery(initialPagination)
+
   const router = useRouter()
 
   const handleAddNewCourse = () => {
     router.push({
       pathname: '/new-lab',
     })
+  }
+
+  const handlePagination = (model: GridPaginationModel) => {
+    refetch(model)
+    setPaginationModel(model)
   }
 
   return (
@@ -45,6 +59,9 @@ function WelcomeDetail() {
         loading={loading}
         rows={data?.courses ? (data.courses as GridRowsProp) : []}
         onClick={handleAddNewCourse}
+        onPagination={handlePagination}
+        rowsCount={total}
+        paginationModel={paginationModel}
       />
     </>
   )
