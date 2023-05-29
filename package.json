@@ -22,7 +22,9 @@
     "prepare": "husky install",
     "test": "turbo test",
     "test:docker": "turbo test -- --testTimeout=30000",
-    "test:snapshot": "turbo test -- --updateSnapshot"
+    "test:snapshot": "turbo test -- --updateSnapshot",
+    "e2e:run": "concurrently --kill-others \"yarn dev\" \"turbo e2e:run\"",
+    "e2e:open": "concurrently --kill-others \"yarn dev\" \"turbo e2e:open\" "
   },
   "workspaces": [
     "apps/*",

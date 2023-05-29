@@ -8,6 +8,8 @@
     "start": {},
     "dev": {},
     "server:dev": {},
-    "test": {}
+    "test": {},
+    "e2e:run": {},
+    "e2e:open": {}
   }
 }

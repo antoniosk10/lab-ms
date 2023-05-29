@@ -120,7 +120,9 @@ function AppBar({ activeTab }: AppBarProps) {
             ) : (
               <Stack direction="row">
                 <Button onClick={handleRegistrationDialogOpen}>Sign Up</Button>
-                <Button onClick={handleAuthDialogOpen}>Sign In</Button>
+                <Button onClick={handleAuthDialogOpen} data-cy="signInButton">
+                  Sign In
+                </Button>
               </Stack>
             )}
           </Toolbar>
