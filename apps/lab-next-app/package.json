@@ -9,7 +9,9 @@
     "lint": "next lint",
     "test": "jest",
     "test:snap": "jest --update-snapshot",
-    "test:coverage": "jest --collectCoverage"
+    "test:coverage": "jest --collectCoverage",
+    "e2e:run": "cypress run",
+    "e2e:open": "cypress open"
   },
   "dependencies": {
     "@apollo/client": "^3.7.8",
@@ -47,6 +49,8 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
-    "@testing-library/user-event": "^14.4.3"
+    "@testing-library/user-event": "^14.4.3",
+    "cypress": "^12.13.0",
+    "eslint-plugin-cypress": "^2.13.3"
   }
 }

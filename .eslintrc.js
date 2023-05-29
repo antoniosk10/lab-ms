@@ -9,6 +9,7 @@ module.exports = {
     "react-hooks",
     "testing-library",
     "jest-dom",
+    "cypress"
   ],
   rules: {
     "import/newline-after-import": ["error"],
@@ -65,7 +66,8 @@ module.exports = {
     "plugin:@next/next/recommended",
     "prettier",
     'plugin:testing-library/react',
-    "plugin:jest-dom/recommended"
+    "plugin:jest-dom/recommended",
+    "plugin:cypress/recommended"
   ],
   "settings": {
     "import/parsers": {
