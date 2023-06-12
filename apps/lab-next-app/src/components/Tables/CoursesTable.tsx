@@ -5,39 +5,66 @@ import {
   GridColDef,
   GridFooter,
   GridPaginationModel,
-  GridRowsProp,
   GridToolbar,
 } from '@mui/x-data-grid'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
 
-type Props = {
-  rows: GridRowsProp
-  loading: boolean
-  columns: GridColDef[]
-  onClick: () => void
-  onPagination: (model: GridPaginationModel) => void
-  rowsCount: number
-  paginationModel: GridPaginationModel
+import { useCoursesQuery } from '@/src/mock-data/grahpql-hooks'
+
+const columns: GridColDef[] = [
+  {
+    field: 'name',
+    headerName: 'Name',
+    flex: 1,
+    renderCell: (params) => (
+      <Link
+        href={{
+          pathname: '/my-labs/[id]',
+          query: { id: params.row.id },
+        }}
+      >
+        {params.value}
+      </Link>
+    ),
+  },
+  { field: 'description', headerName: 'Description', flex: 1 },
+]
+
+const initialPagination = {
+  page: 0,
+  pageSize: 5,
 }
 
-export default function Table({
-  rows,
-  loading = false,
-  columns,
-  onClick,
-  onPagination,
-  rowsCount,
-  paginationModel,
-}: Props) {
+export default function CoursesTable() {
+  const router = useRouter()
+
+  const [paginationModel, setPaginationModel] = useState(initialPagination)
+
+  const { data, loading, refetch, total } = useCoursesQuery(initialPagination)
+
+  const handleAddNewCourse = () => {
+    router.push({
+      pathname: '/new-lab',
+    })
+  }
+
+  const handlePagination = (model: GridPaginationModel) => {
+    refetch(model)
+    setPaginationModel(model)
+  }
+
   return (
     <div>
       <DataGrid
         paginationModel={paginationModel}
-        rowCount={rowsCount}
+        rowCount={total}
         paginationMode="server"
         loading={loading}
-        rows={rows}
+        rows={data.courses}
         columns={columns}
-        onPaginationModelChange={onPagination}
+        onPaginationModelChange={handlePagination}
         pageSizeOptions={[5, 10]}
         checkboxSelection={true}
         disableRowSelectionOnClick={true}
@@ -54,7 +81,7 @@ export default function Table({
               <Button
                 startIcon={<AddIcon />}
                 variant="contained"
-                onClick={onClick}
+                onClick={handleAddNewCourse}
               >
                 New
               </Button>
@@ -69,9 +96,9 @@ export default function Table({
               <GridFooter />
               <Pagination
                 onChange={(_, page) =>
-                  onPagination({ ...paginationModel, page: page - 1 })
+                  handlePagination({ ...paginationModel, page: page - 1 })
                 }
-                count={rowsCount / paginationModel.pageSize}
+                count={total / paginationModel.pageSize}
                 page={paginationModel.page + 1}
               />
             </Stack>
