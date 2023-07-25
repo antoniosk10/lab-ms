@@ -1,6 +1,9 @@
-export const HOME = '/'
-export const WELCOME_TEST = '/test'
-
-export const MY_LABS_PATH = '/my-labs'
-export const PEOPLE_PATH = '/people'
-export const SCHEDULE_PATH = '/schedule'
+export const ROUTES = {
+  HOME:'/',
+  COURSE:'/course/[id]',
+  PEOPLE: 'people',
+  SCHEDULE:'/schedule',
+  SIGNIN:'/signin',
+  SIGNUP:'/signup',
+  NEW_COURSE:'/new-course'
+}

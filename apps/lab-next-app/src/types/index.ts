@@ -31,7 +31,17 @@ export type CommentType = {
   subComments: Omit<CommentType, 'subComments'>[]
 }
 
-export type AuthUserData = {
-  email: string
-  password: string
+export type Notification = {
+  type: 'error' | 'info'
+  message: string
+}
+
+export type ErrorAPI = {
+  fieldErrors: {
+    location: string[]
+    message: string
+    type: string
+  }[]
+  nonFieldErrors: string[]
+  errorCode: number
 }

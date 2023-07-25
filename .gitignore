@@ -48,15 +48,12 @@ next-env.d.ts
 /**/dist/
 
 /apps/lab-next-app/node_modules/
-/apps/lab-api/node_modules/
 /.bin/
 .bin
 .bin/
 /.bin
 /apps/lab-next-app/node_modules/.bin
 /apps/lab-next-app/node_modules/.bin/
-/apps/lab-api/node_modules/.bin
-/apps/lab-api/node_modules/.bin/
 /dist/
 dist/
 dist
