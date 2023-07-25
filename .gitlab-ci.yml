@@ -6,6 +6,7 @@ variables:
   NAMESPACE: "lms-services"
   REGISTRY: "registry.gitlab.com"
   ENV_TAG: "latest"
+  GIT_SUBMODULE_STRATEGY: recursive
 
 services:
   - docker:23.0.1-dind
