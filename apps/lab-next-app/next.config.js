@@ -4,8 +4,8 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   reactStrictMode: true,
+  transpilePackages: [],
   output: 'standalone',
-  transpilePackages: ['lab-api'],
   webpack: (config) => {
     if (!config.experiments) {
       config.experiments = {}

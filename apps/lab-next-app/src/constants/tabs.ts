@@ -1,5 +1,5 @@
 export const TABS = {
-  MY_LABS: 'my-labs-tab',
+  COURSE: 'course-tab',
   PEOPLE: 'people-tab',
   SCHEDULE: 'schedule-tab',
 } as const

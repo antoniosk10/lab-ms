@@ -1,10 +1,11 @@
 import { CssBaseline, ThemeProvider } from '@mui/material'
-import { apolloClient } from '@src/api/apollo-client'
 import { theme } from '@src/theme'
 import { LayoutRolePageType } from '@src/types'
 import { Provider } from 'jotai'
-import { ApolloProvider } from 'lab-api'
 import type { AppProps } from 'next/app'
+import { SnackbarProvider } from 'notistack'
+
+import { ApolloProvider } from '../src/api/ApolloProvider'
 
 type LayoutAppProps = AppProps & {
   Component: LayoutRolePageType
@@ -17,9 +18,11 @@ function App({ Component, pageProps }: LayoutAppProps) {
     <ThemeProvider theme={theme}>
       <Provider>
         <CssBaseline />
-        <ApolloProvider client={apolloClient}>
-          {getLayout(<Component {...pageProps} />)}
-        </ApolloProvider>
+        <SnackbarProvider maxSnack={3}>
+          <ApolloProvider>
+            {getLayout(<Component {...pageProps} />)}
+          </ApolloProvider>
+        </SnackbarProvider>
       </Provider>
     </ThemeProvider>
   )

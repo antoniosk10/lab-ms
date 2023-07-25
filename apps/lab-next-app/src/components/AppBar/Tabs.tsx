@@ -1,6 +1,6 @@
 import Tab from '@mui/material/Tab'
 import MuiTabs from '@mui/material/Tabs'
-import * as ROUTES from '@src/constants/routes'
+import { ROUTES } from '@src/constants/routes'
 import { TABS } from '@src/constants/tabs'
 import { ValuesOfObject } from '@src/utils/types'
 import { useRouter } from 'next/router'
@@ -18,9 +18,9 @@ function Tabs({ activeTab }: Props) {
     value: ValuesOfObject<typeof TABS>
   ) => {
     const routes = {
-      [TABS.MY_LABS]: ROUTES.MY_LABS_PATH,
-      [TABS.PEOPLE]: ROUTES.PEOPLE_PATH,
-      [TABS.SCHEDULE]: ROUTES.SCHEDULE_PATH,
+      [TABS.COURSE]: ROUTES.COURSE,
+      [TABS.PEOPLE]: ROUTES.PEOPLE,
+      [TABS.SCHEDULE]: ROUTES.SCHEDULE,
     }
 
     await router.push(routes[value])
@@ -33,7 +33,7 @@ function Tabs({ activeTab }: Props) {
       indicatorColor="secondary"
       onChange={handleChange}
     >
-      <Tab label="My labs" value={TABS.MY_LABS} />
+      <Tab label="Course" value={TABS.COURSE} />
       <Tab label="People" value={TABS.PEOPLE} />
       <Tab label="Schedule" value={TABS.SCHEDULE} />
     </MuiTabs>

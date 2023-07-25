@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 import {
   Draggable,
-  DraggableProvidedDragHandleProps,
+  DraggableProvidedDragHandleProps
 } from 'react-beautiful-dnd'
 
 export type DraggableListItemProps = {
@@ -15,11 +15,11 @@ export type DragHandleProps =
   | null
   | undefined
 
-const DraggableListItem = ({
-  itemId,
-  index,
-  renderItem,
-}: DraggableListItemProps) => {
+function DraggableListItem({
+                             itemId,
+                             index,
+                             renderItem
+                           }: DraggableListItemProps) {
   return (
     <Draggable draggableId={itemId} index={index}>
       {(provided) => (

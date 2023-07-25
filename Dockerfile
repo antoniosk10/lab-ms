@@ -7,7 +7,7 @@ RUN apk update
 
 WORKDIR /app
 
-COPY package.json turbo.json ./
+COPY package.json turbo.json yarn.lock ./
 COPY apps/lab-next-app/package.json ./apps/lab-next-app/
 COPY packages ./packages
 

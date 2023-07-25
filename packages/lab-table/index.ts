@@ -1,1 +1,1 @@
-export const hello = () => {}
+export { DataGrid } from './src/DataGrid'
