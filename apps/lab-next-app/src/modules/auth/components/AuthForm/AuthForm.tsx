@@ -43,7 +43,7 @@ function AuthForm() {
     
     await router.push('/')
     
-    setUser({ email: 'test@mail.ru' })
+    setUser(null)
   }
   
   return (

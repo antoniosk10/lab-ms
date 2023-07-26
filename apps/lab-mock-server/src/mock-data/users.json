@@ -1,0 +1,18 @@
+[
+  {
+    "id": "1111111",
+    "email": "avan@mail.ru",
+    "first_name": "Ivan",
+    "last_name": "Ivanov",
+    "birthday": "Wed Jul 26 2023 13:31:14 GMT+0500",
+    "role": "student"
+  },
+  {
+    "id": "1111112",
+    "email": "avan1@mail.ru",
+    "first_name": "Ivan",
+    "last_name": "Ivanov",
+    "birthday": "Wed Jul 26 2023 13:31:14 GMT+0500",
+    "role": "student"
+  }
+]
