@@ -8,12 +8,12 @@ export type CourseQueryVariables = Types.Exact<{
 }>;
 
 
-export type CourseQuery = { __typename?: 'RootQueries', course?: { __typename?: 'Course', id?: string | null, name?: string | null, description?: string | null } | null };
+export type CourseQuery = { __typename?: 'Query', course: { __typename?: 'Course', id: string, name: string, description: string } };
 
 export type CoursesQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type CoursesQuery = { __typename?: 'RootQueries', courses?: Array<{ __typename?: 'Course', id?: string | null, name?: string | null, description?: string | null } | null> | null };
+export type CoursesQuery = { __typename?: 'Query', courses: Array<{ __typename?: 'Course', id: string, name: string, description: string }> };
 
 
 export const CourseDocument = gql`

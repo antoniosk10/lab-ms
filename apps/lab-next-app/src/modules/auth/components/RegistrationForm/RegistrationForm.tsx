@@ -72,9 +72,6 @@ function RegistrationForm() {
       }
     })
     
-    if (response.data?.registerUser?.error)
-      throw response.data.registerUser.error
-    
     await router.push('/')
     
     enqueueSnackbar(NOTIFICATION.REGISTERED, {

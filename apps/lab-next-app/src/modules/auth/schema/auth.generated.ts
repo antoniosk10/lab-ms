@@ -4,29 +4,29 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type LoginMutationVariables = Types.Exact<{
-  email?: Types.InputMaybe<Types.Scalars['String']>;
-  password?: Types.InputMaybe<Types.Scalars['String']>;
+  email: Types.Scalars['String'];
+  password: Types.Scalars['String'];
 }>;
 
 
-export type LoginMutation = { __typename?: 'RootMutations', login?: { __typename?: 'Login', token?: string | null } | null };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Token', token: string } };
 
 export type RegisterUserMutationVariables = Types.Exact<{
-  email?: Types.InputMaybe<Types.Scalars['String']>;
-  password?: Types.InputMaybe<Types.Scalars['String']>;
-  password_confirmation?: Types.InputMaybe<Types.Scalars['String']>;
-  first_name?: Types.InputMaybe<Types.Scalars['String']>;
-  last_name?: Types.InputMaybe<Types.Scalars['String']>;
-  birthday?: Types.InputMaybe<Types.Scalars['String']>;
-  role?: Types.InputMaybe<Types.Scalars['String']>;
+  email: Types.Scalars['String'];
+  password: Types.Scalars['String'];
+  password_confirmation: Types.Scalars['String'];
+  first_name: Types.Scalars['String'];
+  last_name: Types.Scalars['String'];
+  birthday: Types.Scalars['String'];
+  role: Types.Scalars['String'];
 }>;
 
 
-export type RegisterUserMutation = { __typename?: 'RootMutations', registerUser?: { __typename?: 'RegisterUser', user_id?: string | null, error?: Array<string | null> | null } | null };
+export type RegisterUserMutation = { __typename?: 'Mutation', registerUser: { __typename?: 'User', email: string } };
 
 
 export const LoginDocument = gql`
-    mutation Login($email: String, $password: String) {
+    mutation Login($email: String!, $password: String!) {
   login(email: $email, password: $password) {
     token
   }
@@ -60,7 +60,7 @@ export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
 export const RegisterUserDocument = gql`
-    mutation RegisterUser($email: String, $password: String, $password_confirmation: String, $first_name: String, $last_name: String, $birthday: String, $role: String) {
+    mutation RegisterUser($email: String!, $password: String!, $password_confirmation: String!, $first_name: String!, $last_name: String!, $birthday: String!, $role: String!) {
   registerUser(
     email: $email
     password: $password
@@ -70,8 +70,7 @@ export const RegisterUserDocument = gql`
     birthday: $birthday
     role: $role
   ) {
-    user_id
-    error
+    email
   }
 }
     `;
