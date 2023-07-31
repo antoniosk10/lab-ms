@@ -23,9 +23,10 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
 export type AppBarProps = {
   activeTab: ValuesOfObject<typeof TABS> | false
+  showContent ?: boolean
 }
 
-function AppBar({ activeTab }: AppBarProps) {
+function AppBar({ activeTab, showContent }: AppBarProps) {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
   const [user] = useAtom(userAtom)
 
@@ -54,9 +55,8 @@ function AppBar({ activeTab }: AppBarProps) {
                   height="40"
                 />
               </Link>
-
-              <Tabs activeTab={activeTab} />
-              {user ? (
+              { showContent !== false && (<Tabs activeTab={activeTab} />)}
+              { user && showContent !== false ? (
                 <Box
                   display="flex"
                   justifyContent="space-between"
@@ -74,7 +74,6 @@ function AppBar({ activeTab }: AppBarProps) {
                       <MenuIcon />
                     </IconButton>
                   </Box>
-
                   <Box sx={{ flexGrow: 0 }}>
                     <ProfilePopup
                       settings={settings}
@@ -84,7 +83,7 @@ function AppBar({ activeTab }: AppBarProps) {
                     />
                   </Box>
                 </Box>
-              ) : (
+              ) : showContent !== false && (
                 <Stack direction="row">
                   <Link href={ROUTES.SIGNUP}>
                     <Button>Sign Up </Button>

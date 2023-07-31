@@ -22,7 +22,6 @@ function TextField(props: TextFieldProps) {
       control={formMethods.control}
       render={({ field }) => (
         <MuiTextField
-          margin="normal"
           fullWidth={true}
           name={field.name}
           onChange={field.onChange}
