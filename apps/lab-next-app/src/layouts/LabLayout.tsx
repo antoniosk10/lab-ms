@@ -4,12 +4,13 @@ import Container from '@mui/material/Container'
 
 type Props = {
   children: React.ReactNode
+  showContent ?: boolean
 } & AppBarProps
 
-function LabLayout ({ activeTab, children }: Props) {
+function LabLayout ({ activeTab, children, showContent }: Props) {
   return (
     <>
-      <AppBar activeTab={activeTab} />
+      <AppBar showContent={showContent} activeTab={activeTab} />
       <Container maxWidth="xl">
         {children}
       </Container>

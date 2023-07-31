@@ -2,11 +2,11 @@ import * as React from 'react'
 
 import TextField, { TextFieldProps } from './TextField'
 
-type Props = { name?: string } & Omit<TextFieldProps, 'name' | 'variant'>
+type Props = { name?: string } & Omit<TextFieldProps, 'name' | 'formMethods'>
 
 function PasswordField (props: Props) {
   return (
-    <TextField
+      <TextField
       name="password"
       label="Пароль"
       type="password"
