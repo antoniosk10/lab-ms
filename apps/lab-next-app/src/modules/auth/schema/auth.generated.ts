@@ -9,7 +9,7 @@ export type LoginMutationVariables = Types.Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Token', token: string } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', result?: { __typename?: 'Token', token: string } | null, errors?: { __typename?: 'ErrorField', nonFieldErrors: Array<string>, errorCode: number, fieldErrors: Array<{ __typename?: 'FieldErrors', location: Array<string>, message: string, type: string }> } | null } };
 
 export type RegisterUserMutationVariables = Types.Exact<{
   email: Types.Scalars['String'];
@@ -22,13 +22,24 @@ export type RegisterUserMutationVariables = Types.Exact<{
 }>;
 
 
-export type RegisterUserMutation = { __typename?: 'Mutation', registerUser: { __typename?: 'User', email: string } };
+export type RegisterUserMutation = { __typename?: 'Mutation', registerUser: { __typename?: 'RegistrationResponse', result?: { __typename?: 'User', email: string } | null, errors?: { __typename?: 'ErrorField', nonFieldErrors: Array<string>, errorCode: number, fieldErrors: Array<{ __typename?: 'FieldErrors', location: Array<string>, message: string, type: string }> } | null } };
 
 
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
   login(email: $email, password: $password) {
-    token
+    result {
+      token
+    }
+    errors {
+      nonFieldErrors
+      fieldErrors {
+        location
+        message
+        type
+      }
+      errorCode
+    }
   }
 }
     `;
@@ -70,7 +81,18 @@ export const RegisterUserDocument = gql`
     birthday: $birthday
     role: $role
   ) {
-    email
+    result {
+      email
+    }
+    errors {
+      nonFieldErrors
+      fieldErrors {
+        location
+        message
+        type
+      }
+      errorCode
+    }
   }
 }
     `;

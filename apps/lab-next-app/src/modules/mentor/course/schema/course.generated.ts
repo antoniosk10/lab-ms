@@ -8,20 +8,31 @@ export type CourseQueryVariables = Types.Exact<{
 }>;
 
 
-export type CourseQuery = { __typename?: 'Query', course: { __typename?: 'Course', id: string, name: string, description: string } };
+export type CourseQuery = { __typename?: 'Query', course: { __typename?: 'CourseResponse', result?: { __typename?: 'Course', id: string, name: string, description: string } | null, errors?: { __typename?: 'ErrorField', nonFieldErrors: Array<string>, errorCode: number, fieldErrors: Array<{ __typename?: 'FieldErrors', type: string, message: string, location: Array<string> }> } | null } };
 
 export type CoursesQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type CoursesQuery = { __typename?: 'Query', courses: Array<{ __typename?: 'Course', id: string, name: string, description: string }> };
+export type CoursesQuery = { __typename?: 'Query', courses: { __typename?: 'CoursesResponse', result?: Array<{ __typename?: 'Course', id: string, name: string, description: string }> | null, errors?: { __typename?: 'ErrorField', nonFieldErrors: Array<string>, errorCode: number, fieldErrors: Array<{ __typename?: 'FieldErrors', type: string, message: string, location: Array<string> }> } | null } };
 
 
 export const CourseDocument = gql`
     query Course($id: String!) {
   course(id: $id) {
-    id
-    name
-    description
+    result {
+      id
+      name
+      description
+    }
+    errors {
+      nonFieldErrors
+      fieldErrors {
+        type
+        message
+        location
+      }
+      errorCode
+    }
   }
 }
     `;
@@ -56,9 +67,20 @@ export type CourseQueryResult = Apollo.QueryResult<CourseQuery, CourseQueryVaria
 export const CoursesDocument = gql`
     query Courses {
   courses {
-    id
-    name
-    description
+    result {
+      id
+      name
+      description
+    }
+    errors {
+      nonFieldErrors
+      fieldErrors {
+        type
+        message
+        location
+      }
+      errorCode
+    }
   }
 }
     `;

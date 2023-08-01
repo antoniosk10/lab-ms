@@ -2,50 +2,33 @@ import {
   ApolloClient,
   ApolloLink,
   ApolloProvider as ApolloProviderOriginal,
-  HttpLink,
-  InMemoryCache,
   from,
+  HttpLink,
+  InMemoryCache
 } from '@apollo/client'
-import { useSnackbar } from 'notistack'
-import { ReactNode, useMemo } from 'react'
+import { ReactNode } from 'react'
+import { checkResponseErrors } from '@src/utils/utils'
+import { GraphQLResponse } from '@src/types'
 
 type Props = {
   children: ReactNode
 }
 
+const httpLink = new HttpLink({ uri: 'http://localhost:8081' })
+
+const catchErrorsLink = new ApolloLink((operation, forward) => {
+  return forward(operation).map((data) => {
+    checkResponseErrors(data as GraphQLResponse)
+    return data
+  })
+})
+
+const client = new ApolloClient({
+  link: from([catchErrorsLink, httpLink]),
+  cache: new InMemoryCache()
+})
+
 export const ApolloProvider = ({ children }: Props) => {
-  const { enqueueSnackbar } = useSnackbar()
-
-  const httpLink = useMemo(
-    () => new HttpLink({ uri: 'https://labms.uz/api/graphql' }),
-    []
-  )
-
-  const catchNonFieldErrorsLink = useMemo(
-    () =>
-      new ApolloLink((operation, forward) => {
-        return forward(operation).map((data) => {
-          if (data.data?.error.nonFieldError.length) {
-            data.data?.error.nonFieldError.forEach((errorMessage: string) => {
-              enqueueSnackbar(errorMessage, { variant: 'error' })
-            })
-          }
-
-          return data
-        })
-      }),
-    [enqueueSnackbar]
-  )
-
-  const client = useMemo(
-    () =>
-      new ApolloClient({
-        link: from([catchNonFieldErrorsLink, httpLink]),
-        cache: new InMemoryCache(),
-      }),
-    [catchNonFieldErrorsLink, httpLink]
-  )
-
   return (
     <ApolloProviderOriginal client={client}>{children}</ApolloProviderOriginal>
   )

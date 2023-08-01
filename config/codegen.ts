@@ -4,7 +4,7 @@ import environment from './environment'
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: 'https://labms.uz/api/graphql',
+  schema: 'http://localhost:8081',
   documents: ['./**/src/**/*.graphql'],
   generates: {
     [`${environment.graphqlGenPath}/`]: {

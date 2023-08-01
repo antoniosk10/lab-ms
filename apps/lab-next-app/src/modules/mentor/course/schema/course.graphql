@@ -1,15 +1,37 @@
 query Course($id: String!) {
   course(id: $id) {
-    id
-    name
-    description
+    result {
+      id
+      name
+      description
+    }
+    errors {
+      nonFieldErrors
+      fieldErrors {
+        type
+        message
+        location
+      }
+      errorCode
+    }
   }
 }
 
 query Courses {
   courses {
-    id
-    name
-    description
+    result {
+      id
+      name
+      description
+    }
+    errors {
+      nonFieldErrors
+      fieldErrors {
+        type
+        message
+        location
+      }
+      errorCode
+    }
   }
 }

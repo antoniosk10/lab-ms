@@ -1,6 +1,17 @@
 mutation Login($email: String!, $password: String!) {
   login(email: $email, password: $password) {
-    token
+    result {
+      token
+    },
+    errors {
+      nonFieldErrors
+      fieldErrors {
+        location
+        message
+        type
+      }
+      errorCode
+    }
   }
 }
 
@@ -22,6 +33,17 @@ mutation RegisterUser(
     birthday: $birthday
     role: $role
   ) {
-    email
+    result {
+      email
+    },
+    errors {
+      nonFieldErrors
+      fieldErrors {
+        location
+        message
+        type
+      }
+      errorCode
+    }
   }
 }
