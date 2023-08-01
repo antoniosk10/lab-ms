@@ -4,8 +4,7 @@ import { LayoutRolePageType } from '@src/types'
 import { Provider } from 'jotai'
 import type { AppProps } from 'next/app'
 import { SnackbarProvider } from 'notistack'
-
-import { ApolloProvider } from '../src/api/ApolloProvider'
+import { ApolloProvider } from '@src/api/ApolloProvider'
 
 type LayoutAppProps = AppProps & {
   Component: LayoutRolePageType

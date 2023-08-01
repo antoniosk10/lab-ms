@@ -2,11 +2,11 @@ import { Box, Typography, Stack, Card, CardContent } from '@mui/material'
 import React from 'react'
 import LabLayout from '@src/layouts/LabLayout'
 import { TABS } from '@src/constants/tabs'
-
-import AuthForm from '../components/AuthForm'
 import { ROUTES } from '@src/constants/routes'
 import Image from 'next/image'
 import Link from 'next/link'
+
+import AuthForm from '../components/AuthForm'
 
 export default function LoginContainer() {
   return (

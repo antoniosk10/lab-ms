@@ -2,6 +2,7 @@ import { ROLES } from '@src/constants/roles'
 import { ValuesOfObject } from '@src/utils/types'
 import { NextPage } from 'next'
 import { ReactElement, ReactNode } from 'react'
+import { GraphQLError } from 'graphql/error'
 
 export type LayoutPageType<P = Record<string, never>, IP = P> = NextPage<
   P,
@@ -31,12 +32,7 @@ export type CommentType = {
   subComments: Omit<CommentType, 'subComments'>[]
 }
 
-export type Notification = {
-  type: 'error' | 'info'
-  message: string
-}
-
-export type ErrorAPI = {
+export type ErrorsField = {
   fieldErrors: {
     location: string[]
     message: string
@@ -45,3 +41,19 @@ export type ErrorAPI = {
   nonFieldErrors: string[]
   errorCode: number
 }
+
+type ServiceResponse = {
+  result:Record<string, any>,
+  errors:ErrorsField
+}
+
+export type GraphQLResponse = {
+  data:{
+    [key: string]: ServiceResponse
+  },
+  errors?: GraphQLError[]
+}
+
+export type GraphQLErrors = GraphQLError[] | ErrorsField
+
+export type GraphQLLinkError = Record<string,unknown> & {networkError:GraphQLErrors}

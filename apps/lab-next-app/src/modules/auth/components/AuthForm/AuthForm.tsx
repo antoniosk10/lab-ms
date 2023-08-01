@@ -42,10 +42,6 @@ function AuthForm() {
       }
     })
     
-    // TODO: waiting backend
-    // if (response.data?.login?.error)
-    // throw response.data.login.error
-    
     await router.push('/')
     
     setUser(null)
